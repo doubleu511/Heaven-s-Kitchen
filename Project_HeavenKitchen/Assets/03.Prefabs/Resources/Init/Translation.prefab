@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1504466116939330751
 Transform:
@@ -60,6 +60,10 @@ MonoBehaviour:
       value: "\uC640\uC0CC\uC988"
     - id: 1005
       value: "\uD788\uD79B"
+    - id: 101
+      value: "\uC62C\uB9AC\uBE0C"
+    - id: 102
+      value: "\uB9C8\uCE74\uB2E4\uBBF8\uC544"
   - lang: en
     langList:
     - id: 1000
@@ -74,6 +78,11 @@ MonoBehaviour:
       value: Wa sans!
     - id: 1005
       value: Hihit
+    - id: 101
+      value: Olive
+    - id: 102
+      value: Macadamia
+  Dialog: {fileID: 0}
 --- !u!1 &5062508780338717369
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +98,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2260912842233970801
 Transform:
@@ -125,22 +134,30 @@ MonoBehaviour:
       leftChracter: 1
       rightChracter: 0
       faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
       eventName: 
     - tranlationId: 1001
       type: 1
       leftChracter: 1
       rightChracter: 0
       faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
       eventName: 
     - tranlationId: 1002
       type: 1
       leftChracter: 1
       rightChracter: 0
       faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
       eventName: 
     - tranlationId: 1003
       type: 1
       leftChracter: 1
       rightChracter: 0
       faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
       eventName: 

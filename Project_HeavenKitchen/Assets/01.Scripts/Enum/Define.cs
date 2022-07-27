@@ -12,58 +12,23 @@ public class Define
         MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
     }
 
-    public enum PlaceTileType
+    public enum WhereIsTalk
     {
-        Place,
-        Road,
+        Left = 1,
+        Right = 2,
     }
 
-    public enum TileType
+    public enum CharacterSpeaker
     {
-        None,
-        Road,
-        Place,
-        Tower,
-        PlaceableTunnel,
-        Water_UseAsTunnel, // 물 타일인데 사실상 터널로 쓰는중
+        NONE = 0,
+        OLIVE = 1,
 
-        Road_Tower,
-        Place_Tower,
     }
 
-    
-    [Flags] public enum MonsterType // 몹 추가될 때마다 추가해줘
+    public enum CharacterTextStyle
     {
-        None        = 0,
-        Normal      = 1 << 0,
-        Hide        = 1 << 1,
-        Armor       = 1 << 2,
-        Shield      = 1 << 3,
-        Fly         = 1 << 4,
+        DEFAULT = 0,
+        OLIVE = 1
     }
 
-    public enum SpeciesType // 종족
-    {
-        None,
-        Goblin,
-    }
-
-    public enum GameMode
-    {
-        DEFENSE,
-        OFFENSE
-    }
-
-    public enum BuffType
-    {
-        BUFF,
-        DEBUFF
-    }
-
-    public enum GameDifficulty
-    {
-        Easy = 1,
-        Normal = 2,
-        Hard = 3
-    }
 }

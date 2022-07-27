@@ -33,7 +33,7 @@ public class TranslationManager : MonoBehaviour
 
     private Dictionary<int, string> langDic = new Dictionary<int, string>();
 
-    private static DialogDic Dialog;
+    public DialogDic Dialog;
 
     public static TranslationManager s_instance;
     public static TranslationManager Instance
@@ -53,8 +53,8 @@ public class TranslationManager : MonoBehaviour
             GameObject translation = Instantiate(resource, null);
 
             s_instance = translation.GetComponent<TranslationManager>();
-            Dialog = translation.transform.Find("Dialog").GetComponent<DialogDic>();
-            Dialog.RefreshDialogDic();
+            s_instance.Dialog = translation.transform.Find("Dialog").GetComponent<DialogDic>();
+            s_instance.Dialog.RefreshDialogDic();
 
             DontDestroyOnLoad(translation);
             s_instance.StartCoroutine(s_instance.InitLang());
