@@ -4,22 +4,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+[System.Serializable]
+public class Dialog
+{
+    public int dialogid;
+    public List<DialogInfo> dialogInfos = new List<DialogInfo>();
+}
+
+[System.Serializable]
+public class DialogInfo
+{
+    public int tranlationId;
+    public int type;
+    public int leftChracter;
+    public int rightChracter;
+    public int faceIndex;
+    public int leftClothes;
+    public int rightClothes;
+    public string eventName;
+    // ...더 추가
+}
+
 public class DialogDic : MonoBehaviour
 {
-    [System.Serializable]
-    public class Dialog
-    {
-        public int dialogid;
-        public DialogInfo[] dialogInfos;
-    }
-
-    [System.Serializable]
-    public class DialogInfo
-    {
-        public int tranlationId;
-        // ...더 추가
-    }
-
     const string dialogURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSnhHa74L_5xlGg0tsKu1IRmU1P4-lt6twf7n0jiVbZUaaGGD84Ml6n_vNvItvoUT5lqRtjsm5kMCAM/pub?gid=1863484244&single=true&output=tsv";
 
     public List<Dialog> Dialogs;
@@ -75,20 +82,66 @@ public class DialogDic : MonoBehaviour
 
         // 클래스 리스트
         Dialogs = new List<Dialog>();
-        for (int i = 1; i < columnSize; i++)
+        Dialog curDialog = null;
+        int savedDialogId = -1;
+        int savedLeftClothes = -1;
+        int savedRightClothes = -1;
+
+        for (int j = 1; j < rowSize; j++)
         {
-            Dialog diaog = new Dialog();
+            //TO DO : 다이얼로그 옵션 추가될 때마다 이곳에 정보를 추가할것
 
-            for (int j = 1; j < rowSize; j++)
+            int _dialogId = TryParse(Sentence[j, 0], ref savedDialogId, false);
+
+            int _translationId = int.Parse(Sentence[j, 1]);
+            int _type = int.Parse(Sentence[j, 2]);
+            int _leftChara = int.Parse(Sentence[j, 3]);
+            int _rightChara = int.Parse(Sentence[j, 4]);
+            int _faceIndex = int.Parse(Sentence[j, 5]);
+
+            int _leftClothes = TryParse(Sentence[j, 6], ref savedLeftClothes, true);
+            int _rightClothes = TryParse(Sentence[j, 7], ref savedRightClothes, true);
+            string _eventName = Sentence[j, 8];
+
+            DialogInfo info = new DialogInfo();
+            info.tranlationId = _translationId;
+            info.type = _type;
+            info.leftChracter = _leftChara;
+            info.rightChracter = _rightChara;
+            info.faceIndex = _faceIndex;
+            info.leftClothes = _leftClothes;
+            info.rightClothes = _rightClothes;
+            info.eventName = _eventName;
+
+            if (savedDialogId != _dialogId)
             {
-                /* TO DO : 다이얼로그 옵션 추가될 때마다 이곳에 정보를 추가할것
-                int id = int.Parse(Sentence[j, 0]);
+                if (curDialog != null)
+                {
+                    Dialogs.Add(curDialog);
+                }
 
-                LangInfo info = new LangInfo(id, Sentence[j, i]);
-                lang.langList.Add(info);
-                */
+                curDialog = new Dialog();
+                savedDialogId = _dialogId;
+
+                curDialog.dialogid = savedDialogId;
             }
-            Dialogs.Add(diaog);
+
+            curDialog.dialogInfos.Add(info);
+        }
+        Dialogs.Add(curDialog);
+
+
+        int TryParse(string value, ref int defaultValue, bool IsDefaultValueTranslation)
+        {
+            if (false == string.IsNullOrEmpty(value))
+            {
+                if(IsDefaultValueTranslation) defaultValue = int.Parse(value);
+                return int.Parse(value);
+            }
+            else
+            {
+                return defaultValue;
+            }
         }
     }
 }

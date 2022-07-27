@@ -117,4 +117,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b348cef1ed76f134a80dde53a3067abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dialogs: []
+  Dialogs:
+  - dialogid: 0
+    dialogInfos:
+    - tranlationId: 1000
+      type: 1
+      leftChracter: 1
+      rightChracter: 0
+      faceIndex: 0
+      eventName: 
+    - tranlationId: 1001
+      type: 1
+      leftChracter: 1
+      rightChracter: 0
+      faceIndex: 0
+      eventName: 
+    - tranlationId: 1002
+      type: 1
+      leftChracter: 1
+      rightChracter: 0
+      faceIndex: 0
+      eventName: 
+    - tranlationId: 1003
+      type: 1
+      leftChracter: 1
+      rightChracter: 0
+      faceIndex: 0
+      eventName: 
