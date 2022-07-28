@@ -15,6 +15,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     [SerializeField] TextMeshProUGUI dialogText = null;
     [SerializeField] Text phoneDialogText = null;
     [SerializeField] GameObject textEndArrow;
+    [SerializeField] GameObject speechBubbleArrow;
 
     [Space(10)]
     [SerializeField] CanvasGroup topUICanvasGroup;
@@ -161,17 +162,27 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         {
             if (chara)
             {
-                chara.transform.localScale = currentWhereTalk == Define.DialogType.TalkLeft ?
-                    new Vector2(-1, 1) :
-                    new Vector2(1, 1);
-                chara.transform.position = currentWhereTalk == Define.DialogType.TalkLeft ?
-                    leftChara.transform.position :
-                    rightChara.transform.position;
+                if (currentWhereTalk == Define.DialogType.TalkLeft)
+                {
+                    chara.transform.localScale = new Vector2(-1, 1);
+                    chara.transform.position = leftTrm.transform.position;
+                }
+                else if (currentWhereTalk == Define.DialogType.TalkRight)
+                {
+                    chara.transform.localScale = new Vector2(1, 1);
+                    chara.transform.position = rightTrm.transform.position;
+                }
+
+                Vector3 arrowPos = dialog.dialogInfos[index].type == (int)Define.DialogType.TalkLeft ?
+                    leftTrm.transform.position :
+                    rightTrm.transform.position;
+                speechBubbleArrow.transform.position = new Vector3(arrowPos.x, speechBubbleArrow.transform.position.y);
+
                 chara.gameObject.SetActive(true);
 
                 if (dialog.dialogInfos[index].type == (int)currentWhereTalk)
                 {
-                    chara.color = Color.white;
+                    SetCharacterColor(chara, Color.white);
                     SetTextStyle(currentCharaData.textStyle);
                     SetCharacterFace(chara, currentCharaData, dialog.dialogInfos[index].faceIndex);
 
@@ -183,7 +194,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
                 }
                 else
                 {
-                    chara.color = Color.gray;
+                    SetCharacterColor(chara, Color.gray);
                 }
             }
         }
@@ -198,6 +209,16 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
         charaTextStyleDic[textStyle].gameObject.SetActive(true);
         currentNameTextStyles = charaTextStyleDic[textStyle];
+    }
+
+    public void SetCharacterColor(Image chara, Color color)
+    {
+        Image[] charaImgs = chara.GetComponentsInChildren<Image>();
+
+        for (int i = 0; i < charaImgs.Length; i++)
+        {
+            charaImgs[i].color = color;
+        }
     }
 
     public void SetCharacterFace(Image chara, CharacterSO charaData, int faceIndex)

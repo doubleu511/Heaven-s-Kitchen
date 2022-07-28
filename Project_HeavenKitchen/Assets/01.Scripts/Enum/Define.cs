@@ -23,7 +23,7 @@ public class Define
     {
         NONE = 0,
         OLIVE = 1,
-
+        MACADAMIA = 2
     }
 
     public enum CharacterTextStyle

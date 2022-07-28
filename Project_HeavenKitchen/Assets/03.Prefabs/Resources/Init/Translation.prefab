@@ -133,16 +133,16 @@ MonoBehaviour:
       background: 0
       type: 1
       leftChracter: 1
-      rightChracter: 0
+      rightChracter: 2
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
       eventName: 
     - tranlationId: 1001
       background: 1
-      type: 1
+      type: 2
       leftChracter: 1
-      rightChracter: 0
+      rightChracter: 2
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
@@ -151,16 +151,16 @@ MonoBehaviour:
       background: 2
       type: 1
       leftChracter: 1
-      rightChracter: 0
+      rightChracter: 2
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
       eventName: 
     - tranlationId: 1004
       background: 0
-      type: 1
+      type: 2
       leftChracter: 1
-      rightChracter: 0
+      rightChracter: 2
       faceIndex: 1
       leftClothes: 0
       rightClothes: 0
