@@ -15,6 +15,7 @@ public class Dialog
 public class DialogInfo
 {
     public int tranlationId;
+    public int background;
     public int type;
     public int leftChracter;
     public int rightChracter;
@@ -33,13 +34,14 @@ public class DialogDic : MonoBehaviour
 
     private Dictionary<int, Dialog> dialogDic = new Dictionary<int, Dialog>();
 
-    [ContextMenu("RefreshDialogDic")]
-    public void RefreshDialogDic()
+    [ContextMenu("TransformDialogDic")]
+    public void TransformDialogDic()
     {
         for (int i = 0; i< Dialogs.Count;i++)
         {
             dialogDic[Dialogs[i].dialogid] = Dialogs[i];
         }
+        Dialogs.Clear();
     }
 
     public bool HasKey(int id)
@@ -84,6 +86,7 @@ public class DialogDic : MonoBehaviour
         Dialogs = new List<Dialog>();
         Dialog curDialog = null;
         int savedDialogId = -1;
+        int savedBackground = -1;
         int savedLeftClothes = -1;
         int savedRightClothes = -1;
 
@@ -94,17 +97,19 @@ public class DialogDic : MonoBehaviour
             int _dialogId = TryParse(Sentence[j, 0], ref savedDialogId, false);
 
             int _translationId = int.Parse(Sentence[j, 1]);
-            int _type = int.Parse(Sentence[j, 2]);
-            int _leftChara = int.Parse(Sentence[j, 3]);
-            int _rightChara = int.Parse(Sentence[j, 4]);
-            int _faceIndex = int.Parse(Sentence[j, 5]);
+            int _background = TryParse(Sentence[j, 2], ref savedBackground, true);
+            int _type = int.Parse(Sentence[j, 3]);
+            int _leftChara = int.Parse(Sentence[j, 4]);
+            int _rightChara = int.Parse(Sentence[j, 5]);
+            int _faceIndex = int.Parse(Sentence[j, 6]);
 
-            int _leftClothes = TryParse(Sentence[j, 6], ref savedLeftClothes, true);
-            int _rightClothes = TryParse(Sentence[j, 7], ref savedRightClothes, true);
-            string _eventName = Sentence[j, 8];
+            int _leftClothes = TryParse(Sentence[j, 7], ref savedLeftClothes, true);
+            int _rightClothes = TryParse(Sentence[j, 8], ref savedRightClothes, true);
+            string _eventName = Sentence[j, 9];
 
             DialogInfo info = new DialogInfo();
             info.tranlationId = _translationId;
+            info.background = _background;
             info.type = _type;
             info.leftChracter = _leftChara;
             info.rightChracter = _rightChara;

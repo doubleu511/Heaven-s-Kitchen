@@ -8,21 +8,6 @@ using TMPro;
 
 public class UIManager
 {
-    private GameObject textPrefab = null;
-    private Transform txtTrans = null;
-
-    public void Init()
-    {
-        GameObject uiManager = Resources.Load<GameObject>("UI/@UI");
-        uiManager = Object.Instantiate(uiManager, null);
-        MonoBehaviour.DontDestroyOnLoad(uiManager);
-
-        textPrefab = Resources.Load<GameObject>("UI/PopupText");
-
-        Transform canvas = uiManager.transform.Find("Canvas/TipTextBox");
-        txtTrans = canvas;
-    }
-
     public void UIFade(CanvasGroup group, bool fade, float duration, bool setUpdate, UnityAction callback = null)
     {
         if (fade)
@@ -54,48 +39,5 @@ public class UIManager
         group.alpha = fade ? 1 : 0;
         group.blocksRaycasts = fade;
         group.interactable = fade;
-    }
-
-    public void SummonRectText(Vector2 pos, PopupText info, UnityAction callback = null)
-    {
-        TextMeshProUGUI textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<TextMeshProUGUI>();
-        textObj.rectTransform.anchoredPosition = pos;
-        textObj.text = info.text;
-        textObj.fontSize = info.maxSize;
-        textObj.color = info.textColor;
-
-        textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative().SetUpdate(true);
-        textObj.DOFade(0, info.duration).SetEase(Ease.InQuart).SetUpdate(true).OnComplete(() =>
-        {
-            if (callback != null)
-                callback.Invoke();
-            Object.Destroy(textObj);
-        });
-    }
-
-    public void SummonPosText(Vector2 pos, PopupText info, bool worldToScreen, UnityAction callback = null)
-    {
-        TextMeshProUGUI textObj = Object.Instantiate(textPrefab, txtTrans).GetComponent<TextMeshProUGUI>();
-
-        if (worldToScreen)
-        {
-            textObj.rectTransform.anchoredPosition = Camera.main.WorldToScreenPoint(pos);
-        }
-        else
-        {
-            textObj.transform.position = pos;
-        }
-
-        textObj.text = info.text;
-        textObj.fontSize = info.maxSize;
-        textObj.color = info.textColor;
-
-        textObj.rectTransform.DOAnchorPos(info.dir, info.moveTime).SetRelative().SetUpdate(true);
-        textObj.DOFade(0, info.duration).SetEase(Ease.InQuart).SetUpdate(true).OnComplete(() =>
-        {
-            if (callback != null)
-                callback.Invoke();
-            Object.Destroy(textObj);
-        });
     }
 }

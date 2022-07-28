@@ -49,11 +49,11 @@ MonoBehaviour:
   - lang: kr
     langList:
     - id: 1000
-      value: "\uC548\uB155!!"
+      value: "\uC6B0\uC640 \uC774\uACF3\uC740!!!"
     - id: 1001
-      value: "\uC5B4 \uC548\uB155!!"
+      value: "\uC640 \uBA85\uC77C\uBC29\uC8FC \uC544\uC2DC\uB294\uAD6C\uB098!!"
     - id: 1002
-      value: "\uD14C\uC2A4\uD2B8 \uB2E4\uC774\uC5BC\uB85C\uADF8"
+      value: '!!!!!!!!!'
     - id: 1003
       value: "\uD5E4\uD5E4"
     - id: 1004
@@ -130,6 +130,7 @@ MonoBehaviour:
   - dialogid: 0
     dialogInfos:
     - tranlationId: 1000
+      background: 0
       type: 1
       leftChracter: 1
       rightChracter: 0
@@ -138,6 +139,7 @@ MonoBehaviour:
       rightClothes: 0
       eventName: 
     - tranlationId: 1001
+      background: 1
       type: 1
       leftChracter: 1
       rightChracter: 0
@@ -146,6 +148,7 @@ MonoBehaviour:
       rightClothes: 0
       eventName: 
     - tranlationId: 1002
+      background: 2
       type: 1
       leftChracter: 1
       rightChracter: 0
@@ -153,11 +156,23 @@ MonoBehaviour:
       leftClothes: 0
       rightClothes: 0
       eventName: 
-    - tranlationId: 1003
+    - tranlationId: 1004
+      background: 0
+      type: 1
+      leftChracter: 1
+      rightChracter: 0
+      faceIndex: 1
+      leftClothes: 0
+      rightClothes: 0
+      eventName: 
+  - dialogid: 1
+    dialogInfos:
+    - tranlationId: 1004
+      background: 0
       type: 1
       leftChracter: 1
       rightChracter: 0
       faceIndex: 0
-      leftClothes: 0
+      leftClothes: 1
       rightClothes: 0
       eventName: 

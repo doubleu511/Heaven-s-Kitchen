@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterNameTranslationId: 101
   textStyle: 1
-  faceBox: []
+  characterPortrait: {fileID: 21300000, guid: 460d02a21fffecc41876e177df50d9ca, type: 3}
+  faceBox:
+  - {fileID: 21300000, guid: c83b8c850fb5495478be8b0ffd02e956, type: 3}
+  - {fileID: 21300000, guid: aa37bf509af404840ae99632c0fe7964, type: 3}
   clothesBox:
-  - {fileID: 21300000, guid: 460d02a21fffecc41876e177df50d9ca, type: 3}
+  - {fileID: 21300000, guid: 3579887186796e4458e08ccce7366cbc, type: 3}

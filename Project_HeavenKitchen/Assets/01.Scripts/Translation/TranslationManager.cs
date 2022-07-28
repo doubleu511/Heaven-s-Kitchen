@@ -54,7 +54,7 @@ public class TranslationManager : MonoBehaviour
 
             s_instance = translation.GetComponent<TranslationManager>();
             s_instance.Dialog = translation.transform.Find("Dialog").GetComponent<DialogDic>();
-            s_instance.Dialog.RefreshDialogDic();
+            s_instance.Dialog.TransformDialogDic();
 
             DontDestroyOnLoad(translation);
             s_instance.StartCoroutine(s_instance.InitLang());

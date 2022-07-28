@@ -60,7 +60,6 @@ public class Global : MonoBehaviour
             DontDestroyOnLoad(managementObj);
 
             //초기화들
-            s_instance._ui.Init();
             s_instance._sound.Init();
             s_instance._loadScene.Init();
             Transform poolObjectBox = managementObj.transform.Find("@Pool");

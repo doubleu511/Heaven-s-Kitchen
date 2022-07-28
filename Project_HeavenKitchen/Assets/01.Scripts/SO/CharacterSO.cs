@@ -7,6 +7,7 @@ public class CharacterSO : ScriptableObject
 {
     public int characterNameTranslationId;
     public Define.CharacterTextStyle textStyle;
+    public Sprite characterPortrait;
 
     public Sprite[] faceBox;
     public Sprite[] clothesBox;
