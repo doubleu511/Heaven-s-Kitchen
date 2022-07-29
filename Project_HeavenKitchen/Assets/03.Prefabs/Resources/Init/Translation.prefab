@@ -48,6 +48,10 @@ MonoBehaviour:
   Langs:
   - lang: kr
     langList:
+    - id: 101
+      value: "\uC62C\uB9AC\uBE0C"
+    - id: 102
+      value: "\uB9C8\uCE74\uB2E4\uBBF8\uC544"
     - id: 1000
       value: "\uC6B0\uC640 \uC774\uACF3\uC740!!!"
     - id: 1001
@@ -60,12 +64,20 @@ MonoBehaviour:
       value: "\uC640\uC0CC\uC988"
     - id: 1005
       value: "\uD788\uD79B"
-    - id: 101
-      value: "\uC62C\uB9AC\uBE0C"
-    - id: 102
-      value: "\uB9C8\uCE74\uB2E4\uBBF8\uC544"
+    - id: 1006
+      value: "\uC544\uBB34 \uB9D0\uC774\uB098 \uD574\uBD10"
+    - id: 1007
+      value: "\uAC00\uC9C0\uBCF6\uC74C"
+    - id: 1008
+      value: "\uAE40\uCE58\uBCF6\uC74C"
+    - id: 1009
+      value: "\uAD6C\uB514\uAC04"
   - lang: en
     langList:
+    - id: 101
+      value: Olive
+    - id: 102
+      value: Macadamia
     - id: 1000
       value: Hello!!
     - id: 1001
@@ -78,10 +90,14 @@ MonoBehaviour:
       value: Wa sans!
     - id: 1005
       value: Hihit
-    - id: 101
-      value: Olive
-    - id: 102
-      value: Macadamia
+    - id: 1006
+      value: Say anything
+    - id: 1007
+      value: fried eggplant
+    - id: 1008
+      value: fried kimchi
+    - id: 1009
+      value: GUDIGAN
   Dialog: {fileID: 0}
 --- !u!1 &5062508780338717369
 GameObject:
@@ -139,8 +155,8 @@ MonoBehaviour:
       rightClothes: 0
       eventName: 
     - tranlationId: 1001
-      background: 1
-      type: 2
+      background: 0
+      type: 1
       leftChracter: 1
       rightChracter: 2
       faceIndex: 0
@@ -148,8 +164,17 @@ MonoBehaviour:
       rightClothes: 0
       eventName: 
     - tranlationId: 1002
-      background: 2
+      background: 0
       type: 1
+      leftChracter: 1
+      rightChracter: 2
+      faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
+      eventName: 
+    - tranlationId: 1003
+      background: 0
+      type: 2
       leftChracter: 1
       rightChracter: 2
       faceIndex: 0
@@ -165,14 +190,48 @@ MonoBehaviour:
       leftClothes: 0
       rightClothes: 0
       eventName: 
-  - dialogid: 1
-    dialogInfos:
-    - tranlationId: 1004
+    - tranlationId: 1005
       background: 0
-      type: 1
+      type: 2
       leftChracter: 1
+      rightChracter: 2
+      faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
+      eventName: 
+    - tranlationId: 0
+      background: 0
+      type: 3
+      leftChracter: 0
       rightChracter: 0
       faceIndex: 0
-      leftClothes: 1
+      leftClothes: 0
+      rightClothes: 0
+      eventName: FADE_WHITE
+    - tranlationId: 1007
+      background: 1
+      type: 1
+      leftChracter: 1
+      rightChracter: 2
+      faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
+      eventName: 
+    - tranlationId: 1008
+      background: 1
+      type: 2
+      leftChracter: 1
+      rightChracter: 2
+      faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
+      eventName: 
+    - tranlationId: 1009
+      background: 1
+      type: 1
+      leftChracter: 1
+      rightChracter: 2
+      faceIndex: 0
+      leftClothes: 0
       rightClothes: 0
       eventName: 
