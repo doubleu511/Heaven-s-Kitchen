@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public readonly float playerDefaultSpeed = 4;
 
     public float playerSpeed;
-    public Vector2 playerDir;
+    public Vector3 playerDir;
     public bool isMove = false;
 
     private void Awake()
@@ -26,5 +26,11 @@ public class PlayerController : MonoBehaviour
         isMove = playerDir.sqrMagnitude > 0.01f;
 
         playerRigid.velocity = playerDir * playerSpeed;
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 YToZ = new Vector3(transform.position.x, transform.position.y, transform.position.y);
+        transform.position = YToZ;
     }
 }
