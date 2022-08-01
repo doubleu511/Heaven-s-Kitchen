@@ -14,9 +14,9 @@ public class Define
 
     public enum DialogType
     {
-        TalkLeft = 1,
-        TalkRight = 2,
-        ActionEvent = 3,
+        TALKLEFT = 1,
+        TALKRIGHT = 2,
+        ACTIONEVENT = 3,
     }
 
     public enum CharacterSpeaker
@@ -32,4 +32,20 @@ public class Define
         OLIVE = 1
     }
 
+    [Flags]
+    public enum UIFadeType
+    {
+        FADE =          1,
+        FLOAT =         2,
+        //==================================
+        OUT =           0,
+        IN =            FADE,
+        FLOATOUT =      FLOAT,
+        FLOATIN =       FADE | FLOAT
+    }
+
+    public enum UIEffectType
+    {
+        SHAKE = 1,
+    }
 }

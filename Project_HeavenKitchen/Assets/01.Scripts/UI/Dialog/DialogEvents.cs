@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using static Define;
 
 public class DialogEvents : MonoBehaviour
 {
@@ -16,19 +16,19 @@ public class DialogEvents : MonoBehaviour
 
     private void FADE_BLACK()
     {
-        Global.UI.UIFade(blackScreen, true, 1, true, () =>
+        Global.UI.UIFade(blackScreen, UIFadeType.IN, 1, true, () =>
         {
             DialogPanel.eventWaitFlag = false;
-            Global.UI.UIFade(blackScreen, false, 1, true);
+            Global.UI.UIFade(blackScreen, UIFadeType.OUT, 1, true);
         });
     }
 
     private void FADE_WHITE()
     {
-        Global.UI.UIFade(whiteScreen, true, 1, true, () =>
+        Global.UI.UIFade(whiteScreen, UIFadeType.IN, 1, true, () =>
         {
             DialogPanel.eventWaitFlag = false;
-            Global.UI.UIFade(whiteScreen, false, 1, true);
+            Global.UI.UIFade(whiteScreen, UIFadeType.OUT, 1, true);
         });
     }
 }

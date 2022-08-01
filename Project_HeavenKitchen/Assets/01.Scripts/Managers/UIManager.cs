@@ -4,14 +4,27 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using DG.Tweening;
-using TMPro;
+
+using static Define;
 
 public class UIManager
 {
-    public void UIFade(CanvasGroup group, bool fade, float duration, bool setUpdate, UnityAction callback = null)
+    public void UIFade(CanvasGroup group, UIFadeType fadeType, float duration, bool setUpdate, UnityAction callback = null)
     {
-        if (fade)
+        RectTransform rect = group.GetComponent<RectTransform>();
+
+        bool _fade = UtilClass.IsIncludeFlag(fadeType, UIFadeType.FADE);
+        bool _float = UtilClass.IsIncludeFlag(fadeType, UIFadeType.FLOAT);
+        Vector2 floatPos = new Vector2(rect.anchoredPosition.x, rect.anchoredPosition.y - 100);
+
+        if (_fade)
         {
+            if (_float)
+            {
+                rect.anchoredPosition = floatPos;
+                rect.DOAnchorPosY(100, duration).SetUpdate(setUpdate).SetEase(Ease.Linear);
+            }
+
             group.DOFade(1, duration).SetUpdate(setUpdate).OnComplete(() =>
             {
                 group.interactable = true;
@@ -23,6 +36,11 @@ public class UIManager
         }
         else
         {
+            if (_float)
+            {
+                rect.DOAnchorPos(floatPos, duration).SetUpdate(setUpdate).SetEase(Ease.Linear);
+            }
+
             group.interactable = false;
             group.blocksRaycasts = false;
 
@@ -31,6 +49,20 @@ public class UIManager
                 if (callback != null)
                     callback.Invoke();
             });
+        }
+    }
+
+    public void UIEffect(CanvasGroup group, UIEffectType effectType)
+    {
+        switch(effectType)
+        {
+            case UIEffectType.SHAKE:
+                {
+                    Vector3 originPos = group.transform.position;
+
+                    group.transform.DOShakePosition()
+                }
+                break;
         }
     }
 

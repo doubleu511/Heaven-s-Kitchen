@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
 
+using static Define;
+
 public class DialogPanel : MonoBehaviour, IPointerClickHandler
 {
     private CanvasGroup dialogPanel;
@@ -39,9 +41,9 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     [SerializeField] Button logCancelBtn;
     [SerializeField] Transform scrollRectContentTrm;
 
-    private Dictionary<Define.CharacterSpeaker, CharacterSO> charaDataDic = new Dictionary<Define.CharacterSpeaker, CharacterSO>();
-    private Dictionary<Define.CharacterSpeaker, Image> charaImageDic = new Dictionary<Define.CharacterSpeaker, Image>();
-    private Dictionary<Define.CharacterTextStyle, TextMeshProUGUI> charaTextStyleDic = new Dictionary<Define.CharacterTextStyle, TextMeshProUGUI>();
+    private Dictionary<CharacterSpeaker, CharacterSO> charaDataDic = new Dictionary<CharacterSpeaker, CharacterSO>();
+    private Dictionary<CharacterSpeaker, Image> charaImageDic = new Dictionary<CharacterSpeaker, Image>();
+    private Dictionary<CharacterTextStyle, TextMeshProUGUI> charaTextStyleDic = new Dictionary<CharacterTextStyle, TextMeshProUGUI>();
 
     Image leftChara;
     Image rightChara;
@@ -73,13 +75,13 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
         for (int i = 0; i < characterImages.Length; i++)
         {
-            charaDataDic[(Define.CharacterSpeaker)i] = characterDatas[i];
-            charaImageDic[(Define.CharacterSpeaker)i] = characterImages[i];
+            charaDataDic[(CharacterSpeaker)i] = characterDatas[i];
+            charaImageDic[(CharacterSpeaker)i] = characterImages[i];
         }
 
         for (int i = 0; i < characterTextStyles.Length; i++)
         {
-            charaTextStyleDic[(Define.CharacterTextStyle)i] = characterTextStyles[i];
+            charaTextStyleDic[(CharacterTextStyle)i] = characterTextStyles[i];
         }
 
         GameObject speechBubblePrefab = Global.Resource.Load<GameObject>("UI/DialogSpeechBubble");
@@ -98,8 +100,8 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             isPlayingDialog = true;
             Time.timeScale = 0;
 
-            Global.UI.UIFade(dialogPanel, true, 0.15f, true);
-            Global.UI.UIFade(topUICanvasGroup, true, 0.5f, true);
+            Global.UI.UIFade(dialogPanel, UIFadeType.IN, 0.15f, true);
+            Global.UI.UIFade(topUICanvasGroup, UIFadeType.IN, 0.5f, true);
 
             textCoroutine = StartCoroutine(TextCoroutine(dialog));
         }
@@ -121,14 +123,14 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             yield return new WaitUntil(() => isFinished);
         }
 
-        Global.UI.UIFade(dialogPanel, false, 0.5f, true);
+        Global.UI.UIFade(dialogPanel, UIFadeType.OUT, 0.5f, true);
         isPlayingDialog = false;
         Time.timeScale = 1;
     }
 
     private void EventTest(DialogInfo info)
     {
-        if(info.type == (int)Define.DialogType.ActionEvent)
+        if(info.type == (int)DialogType.ACTIONEVENT)
         {
             eventWaitFlag = true;
             dialogEvents.ThrowEvent(info.eventName);
@@ -153,39 +155,39 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             rightChara.gameObject.SetActive(false);
         }
 
-        leftChara = charaImageDic[(Define.CharacterSpeaker)dialog.dialogInfos[index].leftChracter];
-        rightChara = charaImageDic[(Define.CharacterSpeaker)dialog.dialogInfos[index].rightChracter];
+        leftChara = charaImageDic[(CharacterSpeaker)dialog.dialogInfos[index].leftChracter];
+        rightChara = charaImageDic[(CharacterSpeaker)dialog.dialogInfos[index].rightChracter];
 
         CharacterSO currentCharaData =
-            dialog.dialogInfos[index].type == (int)Define.DialogType.TalkLeft ?
-            charaDataDic[(Define.CharacterSpeaker)dialog.dialogInfos[index].leftChracter] :
-            charaDataDic[(Define.CharacterSpeaker)dialog.dialogInfos[index].rightChracter];
+            dialog.dialogInfos[index].type == (int)DialogType.TALKLEFT ?
+            charaDataDic[(CharacterSpeaker)dialog.dialogInfos[index].leftChracter] :
+            charaDataDic[(CharacterSpeaker)dialog.dialogInfos[index].rightChracter];
 
         dialogText.font = currentCharaData.characterFont;
 
         UI_DialogSpeechBubble speechBubble = Global.Pool.GetItem<UI_DialogSpeechBubble>();
-        speechBubble.InitBubble(currentCharaData, (Define.DialogType)dialog.dialogInfos[index].type,
+        speechBubble.InitBubble(currentCharaData, (DialogType)dialog.dialogInfos[index].type,
     TranslationManager.Instance.GetLangDialog(dialog.dialogInfos[index].tranlationId));
 
-        CharacterInit(leftChara, Define.DialogType.TalkLeft);
-        CharacterInit(rightChara, Define.DialogType.TalkRight);
+        CharacterInit(leftChara, DialogType.TALKLEFT);
+        CharacterInit(rightChara, DialogType.TALKRIGHT);
 
-        void CharacterInit(Image chara, Define.DialogType currentWhereTalk)
+        void CharacterInit(Image chara, DialogType currentWhereTalk)
         {
             if (chara)
             {
-                if (currentWhereTalk == Define.DialogType.TalkLeft)
+                if (currentWhereTalk == DialogType.TALKLEFT)
                 {
                     chara.transform.localScale = new Vector2(-1, 1);
                     chara.transform.position = leftTrm.transform.position;
                 }
-                else if (currentWhereTalk == Define.DialogType.TalkRight)
+                else if (currentWhereTalk == DialogType.TALKRIGHT)
                 {
                     chara.transform.localScale = new Vector2(1, 1);
                     chara.transform.position = rightTrm.transform.position;
                 }
 
-                Vector3 arrowPos = dialog.dialogInfos[index].type == (int)Define.DialogType.TalkLeft ?
+                Vector3 arrowPos = dialog.dialogInfos[index].type == (int)DialogType.TALKLEFT ?
                     leftTrm.transform.position :
                     rightTrm.transform.position;
                 speechBubbleArrow.transform.position = new Vector3(arrowPos.x, speechBubbleArrow.transform.position.y);
@@ -198,7 +200,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
                     SetTextStyle(currentCharaData.textStyle);
                     SetCharacterFace(chara, currentCharaData, dialog.dialogInfos[index].faceIndex);
 
-                    int clothesIndex = currentWhereTalk == Define.DialogType.TalkLeft ?
+                    int clothesIndex = currentWhereTalk == DialogType.TALKLEFT ?
                                         dialog.dialogInfos[index].leftClothes :
                                         dialog.dialogInfos[index].rightClothes;
                     SetCharacterClothes(chara, currentCharaData, clothesIndex);
@@ -212,7 +214,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetTextStyle(Define.CharacterTextStyle textStyle)
+    public void SetTextStyle(CharacterTextStyle textStyle)
     {
         for (int i = 0; i < characterTextStyles.Length; i++)
         {
@@ -274,7 +276,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
                         if(parsed_textString != parsed_dialogText)
                         {
-                            Global.Sound.Play("SFX/talk", Define.Sound.Effect);
+                            Global.Sound.Play("SFX/talk", Sound.Effect);
                         }
 
                         textString = dialogText.text;
@@ -317,7 +319,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
             isPlayingDialog = false;
 
-            Global.UI.UIFade(dialogPanel, false, 0.5f, true);
+            Global.UI.UIFade(dialogPanel, UIFadeType.OUT, 0.5f, true);
             Time.timeScale = 1;
         }
     }

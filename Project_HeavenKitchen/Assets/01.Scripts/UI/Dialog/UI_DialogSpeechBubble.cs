@@ -20,10 +20,10 @@ public class UI_DialogSpeechBubble : MonoBehaviour
         tmpCharacterName.text = TranslationManager.Instance.GetLangDialog(character.characterNameTranslationId);
         tmpDialogText.text = text;
 
-        leftBubbleArrow.SetActive(speakPlace == Define.DialogType.TalkLeft);
-        rightBubbleArrow.SetActive(speakPlace == Define.DialogType.TalkRight);
+        leftBubbleArrow.SetActive(speakPlace == Define.DialogType.TALKLEFT);
+        rightBubbleArrow.SetActive(speakPlace == Define.DialogType.TALKRIGHT);
 
-        if(speakPlace == Define.DialogType.TalkRight)
+        if(speakPlace == Define.DialogType.TALKRIGHT)
         {
             speechBubble.transform.SetAsFirstSibling();
         }
