@@ -60,7 +60,10 @@ public class UIManager
                 {
                     Vector3 originPos = group.transform.position;
 
-                    group.transform.DOShakePosition()
+                    group.transform.DOShakePosition(0.5f, 10).OnComplete(() =>
+                    {
+                        group.transform.position = originPos;
+                    });
                 }
                 break;
         }

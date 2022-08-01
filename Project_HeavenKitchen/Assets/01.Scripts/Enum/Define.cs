@@ -12,6 +12,7 @@ public class Define
         MaxCount,  // 아무것도 아님. 그냥 Sound enum의 개수 세기 위해 추가. (0, 1, '2' 이렇게 2개) 
     }
 
+    #region 다이얼로그
     public enum DialogType
     {
         TALKLEFT = 1,
@@ -31,7 +32,9 @@ public class Define
         DEFAULT = 0,
         OLIVE = 1
     }
+    #endregion
 
+    #region UI Type
     [Flags]
     public enum UIFadeType
     {
@@ -48,4 +51,13 @@ public class Define
     {
         SHAKE = 1,
     }
+    #endregion
+
+    #region 요리
+    public enum CookingTool
+    {
+        BOWL,
+
+    }
+    #endregion
 }
