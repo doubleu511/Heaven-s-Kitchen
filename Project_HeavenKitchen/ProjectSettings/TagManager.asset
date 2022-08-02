@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Interactive
   - 
   - 
   - 
@@ -40,6 +40,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Cooking_Top
+    uniqueID: 2912633003
+    locked: 0
+  - name: Cooking_UI
+    uniqueID: 2954623387
     locked: 0
   - name: Counter
     uniqueID: 850300177

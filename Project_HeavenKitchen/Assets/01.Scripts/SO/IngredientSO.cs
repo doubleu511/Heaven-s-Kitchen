@@ -7,7 +7,15 @@ public class IngredientSO : ScriptableObject
 {
     public int ingredientTranslationId;
     public Sprite ingredientDefaulrSpr;
+    public Sprite ingredientMiniSpr;
 
     [Header("미니게임 스프라이트들")]
-    public Sprite[] ClumpedSpr;
+    public List<IngredientMinigameSprite> ingredientMinigameSprite = new List<IngredientMinigameSprite>();
+}
+
+[System.Serializable]
+public class IngredientMinigameSprite
+{
+    public string spritesName;
+    public Sprite[] sprites;
 }
