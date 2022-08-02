@@ -59,5 +59,11 @@ public class Define
         BOWL,
 
     }
+
+    public enum MinigameType
+    {
+        MINIGAME_CLUMPING,
+        MINIGAME_SPRINKLING
+    }
     #endregion
 }
