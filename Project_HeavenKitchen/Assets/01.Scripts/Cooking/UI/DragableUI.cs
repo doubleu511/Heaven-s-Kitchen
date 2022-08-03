@@ -101,6 +101,12 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         if (CookingManager.Global.DragAndDropContainer.savedIngredient != null)
         {
             // set data from drag object on Container
+            if (bNeedItem)
+            {
+                if (CookingManager.Global.DragAndDropContainer.savedIngredient != myIngredient)
+                    return;
+            }
+
             beginDragLock = false;
             if (onPrepareItem != null)
             {

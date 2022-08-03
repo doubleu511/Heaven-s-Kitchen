@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MinigameHandler : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
+    private bool isDuringMinigame = false;
 
     [Header("인벤토리")]
     [SerializeField] Image[] inventoryTabs;
@@ -14,9 +15,13 @@ public class MinigameHandler : MonoBehaviour
     [SerializeField] Transform minigameListContentTrm;
     [SerializeField] Transform ingredientInventoryTrm;
     [SerializeField] GameObject minigameNotExistTab;
+    List<UI_IngredientTab> currentIngredientTabs = new List<UI_IngredientTab>();
 
     [Header("버튼")]
     [SerializeField] Button minigameExitButton;
+
+    [Header("미니게임들")]
+    [SerializeField] Transform minigamesTrm;
 
     private void Awake()
     {
@@ -50,6 +55,79 @@ public class MinigameHandler : MonoBehaviour
 
 
         // 인벤토리 불러오기
+        LoadInventory();
+
+        // 미니게임 재료 불러오기
+        currentIngredientTabs.Clear();
+        for (int i = 0; i < info.Length; i++)
+        {
+            UI_IngredientTab tab = Global.Pool.GetItem<UI_IngredientTab>();
+            tab.InventoryClear(ingredientInventoryTrm);
+            tab.InitName(TranslationManager.Instance.GetLangDialog(info[i].minigameNameTranslationId));
+
+            int index = i;
+            tab.SetStartAction(() => CallMinigameStartBtnOnClicked(info[index], index));
+            currentIngredientTabs.Add(tab);
+
+            for (int j = 0; j < info[i].ingredients.Length; j++)
+            {
+                UI_IngredientInventory inventory = Global.Pool.GetItem<UI_IngredientInventory>();
+                inventory.transform.SetParent(tab.ingredientInventoryTrm);
+                inventory.InitIngredient(info[i].ingredients[j], i, j);
+
+                inventory.SetFade(CookingManager.Global.CurrentUtensils.utensilsInventories[i].ingredients[j] != null);
+
+                if (info[i].ingredients[j] == CookingManager.Global.CurrentUtensils.utensilsInventories[i].ingredients[j])
+                {
+                    inventory.SetFade(true); // 만약 인벤토리에 저장된 아이템이라면 열 때부터 잠금 해제.
+                }
+            }
+        }
+    }
+
+    private void CallMinigameStartBtnOnClicked(MinigameInfo minigame, int minigameIndex)
+    {
+        if (isDuringMinigame) return;
+        if (minigame.ingredients.Length != CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients.Length)
+            return;
+
+        bool isStartable = true;
+
+        for (int i = 0; i < minigame.ingredients.Length; i++)
+        {
+            if(minigame.ingredients[i] != CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients[i])
+            {
+                isStartable = false;
+            }
+        }
+
+        if (isStartable)
+        {
+            isDuringMinigame = true;
+            InventorySync();
+            currentIngredientTabs[minigameIndex].InventoryClean();
+
+            Transform minigameTrm = minigamesTrm.Find(minigame.minigameType.ToString());
+            if(minigameTrm != null)
+            {
+                Minigame game = minigameTrm.GetComponent<Minigame>();
+                game.StartMinigame(minigame);
+            }
+            else
+            {
+                Debug.Log($"미니게임이 존재하지 않음 : {minigame.minigameType}");
+            }
+        }
+    }
+
+    public void MinigameEnd()
+    {
+        LoadInventory();
+        isDuringMinigame = false;
+    }
+
+    public void LoadInventory()
+    {
         PlayerInventoryTab[] playerInventoryTabs = CookingManager.Player.Inventory.GetInventory();
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
@@ -63,29 +141,6 @@ public class MinigameHandler : MonoBehaviour
             else
             {
                 inventoryTabs[i].gameObject.SetActive(false);
-            }
-        }
-
-        // 미니게임 재료 불러오기
-        for (int i = 0; i < info.Length; i++)
-        {
-            UI_IngredientTab tab = Global.Pool.GetItem<UI_IngredientTab>();
-            tab.InventoryClear(ingredientInventoryTrm);
-            tab.InitName(TranslationManager.Instance.GetLangDialog(info[i].minigameNameTranslationId));
-
-            for (int j = 0; j < info[i].ingredients.Length; j++)
-            {
-                UI_IngredientInventory inventory = Global.Pool.GetItem<UI_IngredientInventory>();
-                inventory.transform.SetParent(tab.ingredientInventoryTrm);
-                inventory.InitIngredient(info[i].ingredients[j], i, j);
-
-
-                inventory.SetFade(CookingManager.Global.CurrentUtensils.utensilsInventories[i].ingredients[j] != null);
-
-                if (info[i].ingredients[j] == CookingManager.Global.CurrentUtensils.utensilsInventories[i].ingredients[j])
-                {
-                    inventory.SetFade(true); // 만약 인벤토리에 저장된 아이템이라면 열 때부터 잠금 해제.
-                }
             }
         }
     }

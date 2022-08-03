@@ -41,6 +41,11 @@ public class UI_IngredientInventory : MonoBehaviour
         ingredientIndex = ingredientIdx;
     }
 
+    public void CleanInventory()
+    {
+        ingredientImg.onPrepareItem(false);
+    }
+
     public void SetFade(bool value)
     {
         ingredientImg.beginDragLock = !value;

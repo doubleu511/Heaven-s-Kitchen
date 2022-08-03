@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Minigame : MonoBehaviour
+public abstract class Minigame : MonoBehaviour
 {
-    public virtual void StartMinigame()
-    {
+    protected MinigameHandler handler;
 
+    private void Awake()
+    {
+        handler = FindObjectOfType<MinigameHandler>();
     }
 
-    public virtual void UpdateMinigame()
-    {
+    public abstract void StartMinigame(MinigameInfo minigameInfo);
 
+    public virtual void EndMinigame()
+    {
+        handler.MinigameEnd();
     }
 }
