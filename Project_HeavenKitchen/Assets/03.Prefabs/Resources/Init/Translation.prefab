@@ -52,6 +52,10 @@ MonoBehaviour:
       value: "\uC62C\uB9AC\uBE0C"
     - id: 102
       value: "\uB9C8\uCE74\uB2E4\uBBF8\uC544"
+    - id: 201
+      value: "\uBC25"
+    - id: 301
+      value: "\uC8FC\uBA39\uBC25"
     - id: 1000
       value: "\uC6B0\uC640 \uC774\uACF3\uC740!!!"
     - id: 1001
@@ -72,12 +76,22 @@ MonoBehaviour:
       value: "\uAE40\uCE58\uBCF6\uC74C"
     - id: 1009
       value: "\uAD6C\uB514\uAC04"
+    - id: 202
+      value: "\uBB49\uCE5C \uBC25"
+    - id: 203
+      value: "\uD6C4\uB9AC\uCE74\uCF00"
+    - id: 401
+      value: "\uBC25 \uBB49\uCE58\uAE30"
   - lang: en
     langList:
     - id: 101
       value: Olive
     - id: 102
       value: Macadamia
+    - id: 201
+      value: Cooked rice
+    - id: 301
+      value: Rice ball
     - id: 1000
       value: Hello!!
     - id: 1001
@@ -98,6 +112,12 @@ MonoBehaviour:
       value: fried kimchi
     - id: 1009
       value: GUDIGAN
+    - id: 202
+      value: Clumped cooked rice
+    - id: 203
+      value: Hurikake
+    - id: 401
+      value: Clumping cooked rice
   Dialog: {fileID: 0}
 --- !u!1 &5062508780338717369
 GameObject:

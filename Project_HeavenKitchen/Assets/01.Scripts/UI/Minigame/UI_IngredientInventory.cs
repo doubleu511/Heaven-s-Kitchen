@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class UI_IngredientInventory : MonoBehaviour
 {
-    [SerializeField] Image ingredientImg;
+    [SerializeField] DragableUI ingredientImg;
     [SerializeField] Image fadeImg;
 
     public void InitIngredient(IngredientSO ingredient)
     {
-        ingredientImg.sprite = ingredient.ingredientMiniSpr;
+        ingredientImg.SetIngredient(ingredient);
     }
 
     public void SetFade(bool value)

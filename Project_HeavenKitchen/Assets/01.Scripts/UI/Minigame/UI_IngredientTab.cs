@@ -15,8 +15,9 @@ public class UI_IngredientTab : MonoBehaviour
 
     public void InventoryClear(Transform moveTo)
     {
-        for(int i = 0; i < ingredientInventoryTrm.childCount; i++)
+        for(int i = ingredientInventoryTrm.childCount - 1; i >= 0; i--)
         {
+            ingredientInventoryTrm.GetChild(i).gameObject.SetActive(false);
             ingredientInventoryTrm.GetChild(i).SetParent(moveTo, true);
         }
     }

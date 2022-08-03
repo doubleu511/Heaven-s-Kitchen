@@ -3,36 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerInventory : MonoBehaviour
+[System.Serializable]
+public class PlayerInventoryTab
 {
-    [System.Serializable]
-    public class PlayerInventoryTab
+    public SpriteRenderer basketItem;
+    public Image ingredientImgTab;
+    public Image ingredientImgSpr;
+
+    public IngredientSO ingredient;
+
+    public void SetIngredient(IngredientSO so)
     {
-        public SpriteRenderer basketItem;
-        public Image ingredientImgTab;
-        public Image ingredientImgSpr;
+        ingredient = so;
 
-        public IngredientSO ingredient;
-
-        public void SetIngredient(IngredientSO so)
+        if (ingredient != null)
         {
-            ingredient = so;
-
-            if (ingredient != null)
-            {
-                basketItem.sprite = ingredient.ingredientMiniSpr;
-                ingredientImgSpr.sprite = ingredient.ingredientMiniSpr;
-                ingredientImgSpr.gameObject.SetActive(true);
-            }
-            else
-            {
-                basketItem.sprite = null;
-                ingredientImgSpr.sprite = null;
-                ingredientImgSpr.gameObject.SetActive(false);
-            }
+            basketItem.sprite = ingredient.ingredientMiniSpr;
+            ingredientImgSpr.sprite = ingredient.ingredientMiniSpr;
+            ingredientImgSpr.gameObject.SetActive(true);
+        }
+        else
+        {
+            basketItem.sprite = null;
+            ingredientImgSpr.sprite = null;
+            ingredientImgSpr.gameObject.SetActive(false);
         }
     }
+}
 
+public class PlayerInventory : MonoBehaviour
+{
     public PlayerInventoryTab[] inventoryTabs;
 
     [SerializeField]
@@ -92,5 +92,17 @@ public class PlayerInventory : MonoBehaviour
     public IngredientSO GetIngredient(int index)
     {
         return inventoryTabs[index].ingredient;
+    }
+
+    public PlayerInventoryTab[] GetInventory()
+    {
+        List<PlayerInventoryTab> playerInventoryTabs = new List<PlayerInventoryTab>();
+
+        for (int i = 0; i < inventoryCount; i++)
+        {
+            playerInventoryTabs.Add(inventoryTabs[i]);
+        }
+
+        return playerInventoryTabs.ToArray();
     }
 }

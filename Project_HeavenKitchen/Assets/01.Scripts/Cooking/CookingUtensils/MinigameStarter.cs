@@ -5,7 +5,7 @@ using UnityEngine;
 public class MinigameStarter : InteractiveObject
 {
     public Define.MinigameType[] canPlayMinigameTypes;
-    public UtensilsInventory[] utensilsInventories;
+    public List<UtensilsInventory> utensilsInventories = new List<UtensilsInventory>();
 
     public override void OnInteract()
     {
@@ -26,8 +26,27 @@ public class MinigameStarter : InteractiveObject
             }
         }
 
+        InitInventories(minigameInfos.ToArray());
+
+        CookingManager.Global.CurrentUtensils = this;
         MinigameHandler handler = FindObjectOfType<MinigameHandler>();
         handler.ReceiveInfo(minigameInfos.ToArray());
+    }
+
+    public void InitInventories(MinigameInfo[] minigameInfos)
+    {
+        if (utensilsInventories.Count == 0)
+        {
+            for (int i = 0; i < minigameInfos.Length; i++)
+            {
+                UtensilsInventory inventory = new UtensilsInventory();
+
+                inventory.minigameIndex = i;
+                inventory.ingredients = new IngredientSO[minigameInfos[i].ingredients.Length];
+
+                utensilsInventories.Add(inventory);
+            }
+        }
     }
 }
 

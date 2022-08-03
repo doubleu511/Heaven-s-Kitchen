@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 501f488cb24cd6849b4395db717054c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ingredientInventoryTrm: {fileID: 3130286598923785386}
   minigameName: {fileID: 3130286600005978560}
 --- !u!1 &3130286600005978562
 GameObject:

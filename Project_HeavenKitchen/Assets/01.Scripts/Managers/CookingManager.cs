@@ -7,6 +7,8 @@ public class CookingManager : MonoBehaviour
     public static CookingManager Global;
     public static PlayerController Player;
 
+    public MinigameStarter CurrentUtensils;
+    public DragAndDropContainer DragAndDropContainer;
     private RecipeSO[] CurrentRecipes = new RecipeSO[1];
     [SerializeField] RecipeSO testRecipes; // Å×½ºÆ®
 

@@ -12,6 +12,7 @@ public class RecipeSO : ScriptableObject
 [System.Serializable]
 public class MinigameInfo
 {
+    public int minigameNameTranslationId;
     public Define.MinigameType minigameType;
     public IngredientSO[] ingredients;
     public IngredientSO reward;
