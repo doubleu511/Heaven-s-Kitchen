@@ -30,6 +30,7 @@ public class MinigameHandler : MonoBehaviour
             {
                 minigameListContentTrm.GetChild(i).gameObject.SetActive(false);
             }
+            InventorySync();
         });
     }
 
@@ -55,17 +56,9 @@ public class MinigameHandler : MonoBehaviour
             if (i < playerInventoryTabs.Length)
             {
                 inventoryTabs[i].gameObject.SetActive(true);
-                Image ingredientImg = inventoryTabs[i].transform.GetChild(0).GetComponent<Image>();
+                DragableUI ingredientImg = inventoryTabs[i].transform.GetChild(0).GetComponent<DragableUI>();
 
-                if (playerInventoryTabs[i].ingredient != null)
-                {
-                    ingredientImg.gameObject.SetActive(true);
-                    ingredientImg.sprite = playerInventoryTabs[i].ingredient.ingredientMiniSpr;
-                }
-                else
-                {
-                    ingredientImg.gameObject.SetActive(false);
-                }
+                ingredientImg.SetIngredient(playerInventoryTabs[i].ingredient);
             }
             else
             {
@@ -84,13 +77,40 @@ public class MinigameHandler : MonoBehaviour
             {
                 UI_IngredientInventory inventory = Global.Pool.GetItem<UI_IngredientInventory>();
                 inventory.transform.SetParent(tab.ingredientInventoryTrm);
-                inventory.InitIngredient(info[i].ingredients[j]);
-                inventory.SetFade(false);
+                inventory.InitIngredient(info[i].ingredients[j], i, j);
+
+
+                inventory.SetFade(CookingManager.Global.CurrentUtensils.utensilsInventories[i].ingredients[j] != null);
 
                 if (info[i].ingredients[j] == CookingManager.Global.CurrentUtensils.utensilsInventories[i].ingredients[j])
                 {
                     inventory.SetFade(true); // 만약 인벤토리에 저장된 아이템이라면 열 때부터 잠금 해제.
                 }
+            }
+        }
+    }
+
+    private void InventorySync()
+    {
+        // 요리 UI 인벤토리 재료를 게임 인벤토리로
+        List<IngredientSO> tempInventory = new List<IngredientSO>();
+        for (int i = 0; i < inventoryTabs.Length; i++)
+        {
+            DragableUI ingredientImg = inventoryTabs[i].transform.GetChild(0).GetComponent<DragableUI>();
+
+            if (ingredientImg.myIngredient != null)
+            {
+                tempInventory.Add(ingredientImg.myIngredient);
+            }
+        }
+
+        for (int i = 0; i < CookingManager.Player.Inventory.inventoryTabs.Length; i++)
+        {
+            CookingManager.Player.Inventory.inventoryTabs[i].SetIngredient(null);
+
+            if (i < tempInventory.Count)
+            {
+                CookingManager.Player.Inventory.inventoryTabs[i].SetIngredient(tempInventory[i]);
             }
         }
     }

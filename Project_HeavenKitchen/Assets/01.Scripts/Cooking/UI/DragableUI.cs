@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,10 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
     public IngredientSO myIngredient;
     protected bool isDragging = false;
 
+    [HideInInspector] public bool bNeedItem = false;
+    [HideInInspector] public bool beginDragLock = false;
+    public Action<bool> onPrepareItem;
+
     private void Awake()
     {
         myImg = GetComponent<Image>();
@@ -24,18 +29,19 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
 
         if (ingredient != null)
         {
-            myImg.enabled = true;
+            myImg.color = Color.white;
             myImg.sprite = ingredient.ingredientMiniSpr;
         }
         else
         {
-            myImg.enabled = false;
+            myImg.color = new Color(1, 1, 1, 0);
+            myImg.sprite = null;
         }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!myImg.enabled)
+        if (!myImg.enabled || myImg.sprite == null || beginDragLock)
         {
             return;
         }
@@ -44,6 +50,9 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         CookingManager.Global.DragAndDropContainer.gameObject.SetActive(true);
         // Set Data
         CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient);
+        myImg.color = new Color(1, 1, 1, 0);
+        myImg.sprite = null;
+        myImg.enabled = false;
         isDragging = true;
     }
 
@@ -51,7 +60,9 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
     {
         if (isDragging)
         {
-            CookingManager.Global.DragAndDropContainer.transform.position = eventData.position;
+            Vector3 world = Camera.main.ScreenToWorldPoint(eventData.position);
+            world.z = 0;
+            CookingManager.Global.DragAndDropContainer.transform.position = world;
         }
     }
 
@@ -59,28 +70,46 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
     {
         if (isDragging)
         {
-            if (CookingManager.Global.DragAndDropContainer.savedIngredient != null)
+            if (CookingManager.Global.DragAndDropContainer.savedIngredient == null)
             {
-                // set data from dropped object
-                myIngredient = CookingManager.Global.DragAndDropContainer.savedIngredient;
-                SetIngredient(myIngredient);
+                if (bNeedItem)
+                {
+                    beginDragLock = true;
+                    if (onPrepareItem != null)
+                    {
+                        onPrepareItem.Invoke(false);
+                    }
+                }
+                else
+                {
+                    myIngredient = null;
+                }
             }
-            else
-            {
-                myIngredient = null;
-                // Clear Data
-                SetIngredient(myIngredient);
-            }
+
+            SetIngredient(myIngredient);
         }
 
+        myImg.enabled = true;
         isDragging = false;
         // Reset Contatiner
         CookingManager.Global.DragAndDropContainer.SetIngredient(null);
         CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
     }
 
-    public void OnDrop(PointerEventData eventData)
+    public void OnDrop(PointerEventData eventData) // OnDrop이 OnEndDrag보다 먼저 실행된다.
     {
-        throw new System.NotImplementedException();
+        if (CookingManager.Global.DragAndDropContainer.savedIngredient != null)
+        {
+            // set data from drag object on Container
+            beginDragLock = false;
+            if (onPrepareItem != null)
+            {
+                onPrepareItem.Invoke(true);
+            }
+
+            SetIngredient(CookingManager.Global.DragAndDropContainer.savedIngredient);
+            CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+            CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+        }
     }
 }

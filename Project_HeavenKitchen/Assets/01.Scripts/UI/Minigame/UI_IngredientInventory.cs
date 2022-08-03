@@ -8,13 +8,42 @@ public class UI_IngredientInventory : MonoBehaviour
     [SerializeField] DragableUI ingredientImg;
     [SerializeField] Image fadeImg;
 
-    public void InitIngredient(IngredientSO ingredient)
+    private int minigameIndex;
+    private int ingredientIndex;
+
+    private void Start()
+    {
+        ingredientImg.bNeedItem = true;
+        ingredientImg.onPrepareItem += (x) =>
+        {
+            PutUtensilsInventory(x);
+            SetFade(x);
+        };
+    }
+
+    private void PutUtensilsInventory(bool value)
+    {
+        if(value)
+        {
+            CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients[ingredientIndex] = ingredientImg.myIngredient;
+        }
+        else
+        {
+            CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients[ingredientIndex] = null;
+        }
+    }
+
+    public void InitIngredient(IngredientSO ingredient, int minigameIdx, int ingredientIdx)
     {
         ingredientImg.SetIngredient(ingredient);
+
+        minigameIndex = minigameIdx;
+        ingredientIndex = ingredientIdx;
     }
 
     public void SetFade(bool value)
     {
+        ingredientImg.beginDragLock = !value;
         fadeImg.gameObject.SetActive(!value);
     }
 }

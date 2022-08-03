@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0.49803922}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21dccb2811dbe464388da89d109ab52c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ingredientImg: {fileID: 4961898733933001640}
+  ingredientImg: {fileID: 1105114760770522854}
   fadeImg: {fileID: 4961898731963055449}
 --- !u!1 &4961898733933001638
 GameObject:
@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 4961898733933001639}
   - component: {fileID: 4961898733933001641}
   - component: {fileID: 4961898733933001640}
+  - component: {fileID: 1105114760770522854}
   m_Layer: 5
   m_Name: IngredientImg
   m_TagString: Untagged
@@ -242,3 +243,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1105114760770522854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4961898733933001638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bda6de0b835a94ca6793d1640eb242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myIngredient: {fileID: 0}
+  beginDragLock: 0
