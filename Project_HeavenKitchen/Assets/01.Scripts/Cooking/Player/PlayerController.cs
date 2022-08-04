@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     {
         playerRigid = GetComponent<Rigidbody2D>();
     }
-
     void Update()
     {
         PlayerMove();
+
         SelectObject(out InteractiveObject interactive);
 
         if (interactive != currentSelectedObject)

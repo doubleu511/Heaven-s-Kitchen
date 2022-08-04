@@ -82,6 +82,8 @@ MonoBehaviour:
       value: "\uD6C4\uB9AC\uCE74\uCF00"
     - id: 401
       value: "\uBC25 \uBB49\uCE58\uAE30"
+    - id: 402
+      value: "\uD6C4\uB9AC\uCE74\uCF00 \uBFCC\uB9AC\uAE30"
   - lang: en
     langList:
     - id: 101
@@ -118,6 +120,8 @@ MonoBehaviour:
       value: Hurikake
     - id: 401
       value: Clumping cooked rice
+    - id: 402
+      value: Sprinkling Hurikake
   Dialog: {fileID: 0}
 --- !u!1 &5062508780338717369
 GameObject:

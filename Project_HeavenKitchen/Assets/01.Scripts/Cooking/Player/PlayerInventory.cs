@@ -86,7 +86,6 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
         }
-
     }
 
     public IngredientSO GetIngredient(int index)
