@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 public class MinigameHandler : MonoBehaviour
 {
@@ -17,11 +20,24 @@ public class MinigameHandler : MonoBehaviour
     [SerializeField] GameObject minigameNotExistTab;
     List<UI_IngredientTab> currentIngredientTabs = new List<UI_IngredientTab>();
 
+    [Header("미니게임 텍스트")]
+    [SerializeField] TextMeshProUGUI minigameStartText;
+    [SerializeField] TextMeshProUGUI cookingToolText;
+
+    [Header("프로세스 바")]
+    [SerializeField] CanvasGroup progressBar;
+    [SerializeField] Transform progressValue;
+    [SerializeField] TextMeshProUGUI progressText;
+    
     [Header("버튼")]
     [SerializeField] Button minigameExitButton;
 
-    [Header("미니게임들")]
-    [SerializeField] Transform minigamesTrm;
+    [Header("주방기구들")]
+    [SerializeField] Transform utensilsTrm;
+
+    private float processValue = 0f;
+    private float targetProcessValue = 0f;
+    private List<Minigame> curPlayingMinigames = new List<Minigame>();
 
     private void Awake()
     {
@@ -30,6 +46,11 @@ public class MinigameHandler : MonoBehaviour
         minigameExitButton.onClick.AddListener(() =>
         {
             Global.UI.UIFade(canvasGroup, false);
+
+            for (int i = 0; i < curPlayingMinigames.Count; i++)
+            {
+                curPlayingMinigames[i].OnWindowClose();
+            }
             CookingManager.Global.CurrentUtensils = null;
             for (int i = 0; i < minigameListContentTrm.childCount; i++)
             {
@@ -48,11 +69,23 @@ public class MinigameHandler : MonoBehaviour
         Global.Pool.CreatePool<UI_IngredientInventory>(ingredientInventoryPrefab, ingredientInventoryTrm, 10);
     }
 
-    public void ReceiveInfo(MinigameInfo[] info)
+    private void Update()
+    {
+        processValue = Mathf.Lerp(progressValue.transform.localScale.x, targetProcessValue, Time.deltaTime * 5);
+        progressValue.transform.localScale = new Vector2(processValue, 1);
+    }
+
+    public void ReceiveInfo(CookingUtensilsSO utensilsInfo, MinigameInfo[] info)
     {
         Global.UI.UIFade(canvasGroup, true);
         minigameNotExistTab.SetActive(info.Length == 0);
+        for (int i = 0; i < curPlayingMinigames.Count; i++)
+        {
+            curPlayingMinigames[i].OnWindowOpen();
+        }
 
+        // 조리기구 이름 설정
+        cookingToolText.text = TranslationManager.Instance.GetLangDialog(utensilsInfo.cookingUtensilsTranslationId);
 
         // 인벤토리 불러오기
         LoadInventory();
@@ -66,7 +99,7 @@ public class MinigameHandler : MonoBehaviour
             tab.InitName(TranslationManager.Instance.GetLangDialog(info[i].minigameNameTranslationId));
 
             int index = i;
-            tab.SetStartAction(() => CallMinigameStartBtnOnClicked(info[index], index));
+            tab.SetStartAction(() => CallMinigameStartBtnOnClicked(utensilsInfo, info[index], index));
             currentIngredientTabs.Add(tab);
 
             for (int j = 0; j < info[i].ingredients.Length; j++)
@@ -85,7 +118,7 @@ public class MinigameHandler : MonoBehaviour
         }
     }
 
-    private void CallMinigameStartBtnOnClicked(MinigameInfo minigame, int minigameIndex)
+    private void CallMinigameStartBtnOnClicked(CookingUtensilsSO utensilsInfo, MinigameInfo minigame, int minigameIndex)
     {
         if (isDuringMinigame) return;
         if (minigame.ingredients.Length != CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients.Length)
@@ -107,21 +140,37 @@ public class MinigameHandler : MonoBehaviour
             InventorySync();
             currentIngredientTabs[minigameIndex].InventoryClean();
 
-            Transform minigameTrm = minigamesTrm.Find(minigame.minigameType.ToString());
-            if(minigameTrm != null)
+            // 밑에처럼 하지말고 미니게임 프리팹을 생성한뒤 그걸 조리도구 자식으로 붙힌다.
+            // 그리고 미니게임 객체에 현재 MinigameStarter 객체(부모)가 누구인지 대입한다.
+
+            GameObject minigamePrefab = Global.Resource.Load<GameObject>($"Minigames/{minigame.minigameType}");
+            Transform utensils = utensilsTrm.Find($"{utensilsInfo.cookingUtensilsType}");
+
+            if(utensils != null)
             {
-                Minigame game = minigameTrm.GetComponent<Minigame>();
-                game.StartMinigame(minigame);
+                if (minigamePrefab != null)
+                {
+                    Minigame game = Instantiate(minigamePrefab, utensils).GetComponent<Minigame>();
+                    game.minigameParent = CookingManager.Global.CurrentUtensils;
+                    game.StartMinigame(minigame);
+
+                    curPlayingMinigames.Add(game);
+                }
+                else
+                {
+                    Debug.Log($"미니게임이 존재하지 않음 : {minigame.minigameType}");
+                }
             }
             else
             {
-                Debug.Log($"미니게임이 존재하지 않음 : {minigame.minigameType}");
+                Debug.Log($"주방도구가 존재하지 않음 : {utensilsInfo.cookingUtensilsType}");
             }
         }
     }
 
-    public void MinigameEnd()
+    public void MinigameEnd(Minigame game)
     {
+        curPlayingMinigames.Remove(game);
         LoadInventory();
         isDuringMinigame = false;
     }
@@ -168,5 +217,43 @@ public class MinigameHandler : MonoBehaviour
                 CookingManager.Player.Inventory.inventoryTabs[i].SetIngredient(tempInventory[i]);
             }
         }
+    }
+
+    public void ShowStartText(string text)
+    {
+        minigameStartText.text = text;
+        minigameStartText.transform.DOKill();
+        minigameStartText.transform.localScale = Vector2.zero;
+
+        minigameStartText.transform.DOScale(Vector2.one, 0.5f).SetLoops(2, LoopType.Yoyo);
+    }
+
+    public void ShowProgress(bool init)
+    {
+        Global.UI.UIFade(progressBar, true);
+
+        if(init)
+        {
+            processValue = 0f;
+            targetProcessValue = 0f;
+            progressValue.transform.localScale = new Vector2(0, 1);
+            progressText.text = "0%";
+        }
+    }
+
+    public void ShowProgress(int value, bool animation = true)
+    {
+        Global.UI.UIFade(progressBar, true);
+
+        float valuePercentage = value / 100f;
+        targetProcessValue = valuePercentage;
+        if (animation) processValue = valuePercentage;
+
+        progressText.text = $"{value}%";
+    }
+
+    public void HideProgress()
+    {
+        Global.UI.UIFade(progressBar, Define.UIFadeType.OUT, 0.5f, false);
     }
 }

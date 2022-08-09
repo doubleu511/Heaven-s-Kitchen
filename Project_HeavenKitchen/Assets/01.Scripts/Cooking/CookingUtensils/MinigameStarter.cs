@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class MinigameStarter : InteractiveObject
 {
-    public Define.MinigameType[] canPlayMinigameTypes;
+    public CookingUtensilsSO cookingUtensilsSO;
     public List<UtensilsInventory> utensilsInventories = new List<UtensilsInventory>();
 
     public override void OnInteract()
     {
+        if (CookingManager.Global.CurrentUtensils != null) return;
+
         RecipeSO[] recipes = CookingManager.GetRecipes();
         List<MinigameInfo> minigameInfos = new List<MinigameInfo>();
 
@@ -16,9 +18,9 @@ public class MinigameStarter : InteractiveObject
         {
             for (int j = 0; j < recipes[i].recipe.Length; j++)
             {
-                for (int k = 0; k < canPlayMinigameTypes.Length; k++)
+                for (int k = 0; k < cookingUtensilsSO.canPlayMinigameTypes.Length; k++)
                 {
-                    if (recipes[i].recipe[j].minigameType == canPlayMinigameTypes[k])
+                    if (recipes[i].recipe[j].minigameType == cookingUtensilsSO.canPlayMinigameTypes[k])
                     {
                         minigameInfos.Add(recipes[i].recipe[j]);
                     }
@@ -30,7 +32,7 @@ public class MinigameStarter : InteractiveObject
 
         CookingManager.Global.CurrentUtensils = this;
         MinigameHandler handler = FindObjectOfType<MinigameHandler>();
-        handler.ReceiveInfo(minigameInfos.ToArray());
+        handler.ReceiveInfo(cookingUtensilsSO, minigameInfos.ToArray());
     }
 
     public void InitInventories(MinigameInfo[] minigameInfos)

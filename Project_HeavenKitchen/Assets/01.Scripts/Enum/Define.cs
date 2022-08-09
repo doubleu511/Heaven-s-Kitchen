@@ -56,8 +56,8 @@ public class Define
     #region 요리
     public enum CookingTool
     {
-        BOWL,
-
+        COOKING_BOWL,
+        COOKING_CUPBOARD
     }
 
     public enum MinigameType

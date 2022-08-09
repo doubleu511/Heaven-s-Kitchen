@@ -84,6 +84,12 @@ MonoBehaviour:
       value: "\uBC25 \uBB49\uCE58\uAE30"
     - id: 402
       value: "\uD6C4\uB9AC\uCE74\uCF00 \uBFCC\uB9AC\uAE30"
+    - id: 501
+      value: "\uBC25\uC1A5"
+    - id: 502
+      value: "\uCC2C\uC7A5"
+    - id: 503
+      value: "\uBCF4\uC6B8"
   - lang: en
     langList:
     - id: 101
@@ -122,6 +128,12 @@ MonoBehaviour:
       value: Clumping cooked rice
     - id: 402
       value: Sprinkling Hurikake
+    - id: 501
+      value: Rice cooker
+    - id: 502
+      value: Cupboard
+    - id: 503
+      value: Bowl
   Dialog: {fileID: 0}
 --- !u!1 &5062508780338717369
 GameObject:
