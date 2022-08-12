@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_IngredientInventory : MonoBehaviour
 {
-    [SerializeField] DragableUI ingredientImg;
+    [SerializeField] NeedyDragableUI ingredientImg;
     [SerializeField] Image fadeImg;
 
     private int minigameIndex;
@@ -13,7 +13,6 @@ public class UI_IngredientInventory : MonoBehaviour
 
     private void Start()
     {
-        ingredientImg.bNeedItem = true;
         ingredientImg.onPrepareItem += (x) =>
         {
             PutUtensilsInventory(x);

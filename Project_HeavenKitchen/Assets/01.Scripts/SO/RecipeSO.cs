@@ -14,6 +14,7 @@ public class MinigameInfo
 {
     public int minigameNameTranslationId;
     public Define.MinigameType minigameType;
+    public int repeatCount;
     public IngredientSO[] ingredients;
     public IngredientSO reward;
 }

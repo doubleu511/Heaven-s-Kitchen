@@ -21,9 +21,12 @@ public abstract class Minigame : MonoBehaviour
     protected MinigameHandler handler;
     protected MinigameInfo minigameInfo;
 
+    protected GameObject repeatCountUI;
+
     private void Awake()
     {
         handler = FindObjectOfType<MinigameHandler>();
+        repeatCountUI = Global.Resource.Load<GameObject>("Minigames/UI/Minigame_RepeatCountUI");
     }
 
     public virtual void StartMinigame(MinigameInfo info)

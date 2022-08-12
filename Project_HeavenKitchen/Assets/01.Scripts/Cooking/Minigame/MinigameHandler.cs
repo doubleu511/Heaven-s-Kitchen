@@ -28,12 +28,16 @@ public class MinigameHandler : MonoBehaviour
     [SerializeField] CanvasGroup progressBar;
     [SerializeField] Transform progressValue;
     [SerializeField] TextMeshProUGUI progressText;
+
+    [Header("추가 디테일")]
+    [SerializeField] Image ingredientAddAnimationDetail;
     
     [Header("버튼")]
     [SerializeField] Button minigameExitButton;
 
     [Header("주방기구들")]
     [SerializeField] Transform utensilsTrm;
+    private Transform curUtensilsCanvasTrm;
 
     private float processValue = 0f;
     private float targetProcessValue = 0f;
@@ -52,6 +56,7 @@ public class MinigameHandler : MonoBehaviour
                 curPlayingMinigames[i].OnWindowClose();
             }
             CookingManager.Global.CurrentUtensils = null;
+            curUtensilsCanvasTrm = null;
             for (int i = 0; i < minigameListContentTrm.childCount; i++)
             {
                 minigameListContentTrm.GetChild(i).gameObject.SetActive(false);
@@ -89,6 +94,23 @@ public class MinigameHandler : MonoBehaviour
 
         // 인벤토리 불러오기
         LoadInventory();
+
+        // 조리기구를 일단 모두 끄고
+        for (int i = 0; i < utensilsTrm.childCount; i++)
+        {
+            CanvasGroup utensilsCanvas = utensilsTrm.GetChild(i).GetComponent<CanvasGroup>();
+            Global.UI.UIFade(utensilsCanvas, false);
+        }
+
+        // 현재 조리기구 캔버스 찾은 후 켜주기
+        curUtensilsCanvasTrm = utensilsTrm.Find($"{utensilsInfo.cookingUtensilsType}");
+        if(curUtensilsCanvasTrm == null)
+        {
+            Debug.Log($"주방도구가 존재하지 않음 : {utensilsInfo.cookingUtensilsType}");
+            return;
+        }
+        CanvasGroup curUtensilsCanvas = curUtensilsCanvasTrm.GetComponent<CanvasGroup>();
+        Global.UI.UIFade(curUtensilsCanvas, true);
 
         // 미니게임 재료 불러오기
         currentIngredientTabs.Clear();
@@ -140,30 +162,22 @@ public class MinigameHandler : MonoBehaviour
             InventorySync();
             currentIngredientTabs[minigameIndex].InventoryClean();
 
-            // 밑에처럼 하지말고 미니게임 프리팹을 생성한뒤 그걸 조리도구 자식으로 붙힌다.
+            // 미니게임 프리팹을 생성한뒤 그걸 조리도구 자식으로 붙힌다.
             // 그리고 미니게임 객체에 현재 MinigameStarter 객체(부모)가 누구인지 대입한다.
 
             GameObject minigamePrefab = Global.Resource.Load<GameObject>($"Minigames/{minigame.minigameType}");
-            Transform utensils = utensilsTrm.Find($"{utensilsInfo.cookingUtensilsType}");
 
-            if(utensils != null)
+            if (minigamePrefab != null)
             {
-                if (minigamePrefab != null)
-                {
-                    Minigame game = Instantiate(minigamePrefab, utensils).GetComponent<Minigame>();
-                    game.minigameParent = CookingManager.Global.CurrentUtensils;
-                    game.StartMinigame(minigame);
+                Minigame game = Instantiate(minigamePrefab, curUtensilsCanvasTrm).GetComponent<Minigame>();
+                game.minigameParent = CookingManager.Global.CurrentUtensils;
+                game.StartMinigame(minigame);
 
-                    curPlayingMinigames.Add(game);
-                }
-                else
-                {
-                    Debug.Log($"미니게임이 존재하지 않음 : {minigame.minigameType}");
-                }
+                curPlayingMinigames.Add(game);
             }
             else
             {
-                Debug.Log($"주방도구가 존재하지 않음 : {utensilsInfo.cookingUtensilsType}");
+                Debug.Log($"미니게임이 존재하지 않음 : {minigame.minigameType}");
             }
         }
     }
@@ -255,5 +269,22 @@ public class MinigameHandler : MonoBehaviour
     public void HideProgress()
     {
         Global.UI.UIFade(progressBar, Define.UIFadeType.OUT, 0.5f, false);
+    }
+
+    public void IngredientAddAnimation(IngredientSO ingredient, Vector2 startPos, Vector2 startSize, int inventoryIndex)
+    {
+        // TO DO : 이거 프리팹으로 해서 여러개 적용 가능하게!
+        ingredientAddAnimationDetail.sprite = ingredient.ingredientMiniSpr;
+
+        ingredientAddAnimationDetail.transform.DOKill();
+        ingredientAddAnimationDetail.DOKill();
+        ingredientAddAnimationDetail.transform.position = startPos;
+        ingredientAddAnimationDetail.rectTransform.sizeDelta = startSize;
+        ingredientAddAnimationDetail.color = Color.white;
+
+        Vector2 endPos = inventoryTabs[inventoryIndex].transform.position;
+        ingredientAddAnimationDetail.transform.DOMove(endPos, 0.75f).SetEase(Ease.InCubic);
+        ingredientAddAnimationDetail.rectTransform.DOSizeDelta(Vector2.one * 100, 0.75f).SetEase(Ease.InCubic);
+        ingredientAddAnimationDetail.DOFade(0, 0.75f).SetEase(Ease.InCubic);
     }
 }

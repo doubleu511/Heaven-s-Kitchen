@@ -69,6 +69,22 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
+    public bool InventoryAdd(IngredientSO ingredient, out int addIndex)
+    {
+        for (int i = 0; i < inventoryCount; i++)
+        {
+            if (inventoryTabs[i].ingredient == null)
+            {
+                inventoryTabs[i].SetIngredient(ingredient);
+                addIndex = i;
+                return true;
+            }
+        }
+
+        addIndex = -1;
+        return false;
+    }
+
     public void InventoryRemoveAt(int index)
     {
         inventoryTabs[index].SetIngredient(null);

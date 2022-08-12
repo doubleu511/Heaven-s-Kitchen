@@ -16,11 +16,13 @@ MonoBehaviour:
   recipe:
   - minigameNameTranslationId: 401
     minigameType: 0
+    repeatCount: 3
     ingredients:
     - {fileID: 11400000, guid: 826c6d6d03e38db48b0ddf13a5958866, type: 2}
     reward: {fileID: 11400000, guid: 24e254a29f63f4e4b880a78b59c8ea79, type: 2}
   - minigameNameTranslationId: 402
     minigameType: 1
+    repeatCount: 1
     ingredients:
     - {fileID: 11400000, guid: 24e254a29f63f4e4b880a78b59c8ea79, type: 2}
     - {fileID: 11400000, guid: 3591a657a8862e249be13b1177a303d5, type: 2}

@@ -10,13 +10,9 @@ using UnityEngine.UI;
 /// </summary>
 public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropHandler, IEndDragHandler
 {
-    private Image myImg;
+    protected Image myImg;
     public IngredientSO myIngredient;
     protected bool isDragging = false;
-
-    [HideInInspector] public bool bNeedItem = false;
-    [HideInInspector] public bool beginDragLock = false;
-    public Action<bool> onPrepareItem;
 
     private void Awake()
     {
@@ -39,9 +35,9 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         }
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        if (!myImg.enabled || myImg.sprite == null || beginDragLock)
+        if (!myImg.enabled || myImg.sprite == null)
         {
             return;
         }
@@ -66,24 +62,13 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         }
     }
 
-    public void OnEndDrag(PointerEventData eventData)
+    public virtual void OnEndDrag(PointerEventData eventData)
     {
         if (isDragging)
         {
             if (CookingManager.Global.DragAndDropContainer.savedIngredient == null)
             {
-                if (bNeedItem)
-                {
-                    beginDragLock = true;
-                    if (onPrepareItem != null)
-                    {
-                        onPrepareItem.Invoke(false);
-                    }
-                }
-                else
-                {
-                    myIngredient = null;
-                }
+                myIngredient = null;
             }
 
             SetIngredient(myIngredient);
@@ -96,23 +81,11 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
     }
 
-    public void OnDrop(PointerEventData eventData) // OnDrop이 OnEndDrag보다 먼저 실행된다.
+    public virtual void OnDrop(PointerEventData eventData) // OnDrop이 OnEndDrag보다 먼저 실행된다.
     {
         if (CookingManager.Global.DragAndDropContainer.savedIngredient != null)
         {
             // set data from drag object on Container
-            if (bNeedItem)
-            {
-                if (CookingManager.Global.DragAndDropContainer.savedIngredient != myIngredient)
-                    return;
-            }
-
-            beginDragLock = false;
-            if (onPrepareItem != null)
-            {
-                onPrepareItem.Invoke(true);
-            }
-
             SetIngredient(CookingManager.Global.DragAndDropContainer.savedIngredient);
             CookingManager.Global.DragAndDropContainer.SetIngredient(null);
             CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
