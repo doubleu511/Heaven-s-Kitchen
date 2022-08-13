@@ -26,16 +26,6 @@ public class CopyDragableUI : DragableUI
 
     public override void OnEndDrag(PointerEventData eventData)
     {
-        if (isDragging)
-        {
-            if (CookingManager.Global.DragAndDropContainer.savedIngredient == null)
-            {
-                myIngredient = null;
-            }
-
-            SetIngredient(myIngredient);
-        }
-
         myImg.enabled = true;
         isDragging = false;
         // Reset Contatiner
