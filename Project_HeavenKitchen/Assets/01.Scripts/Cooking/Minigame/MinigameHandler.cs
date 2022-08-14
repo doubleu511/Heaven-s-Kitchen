@@ -170,6 +170,7 @@ public class MinigameHandler : MonoBehaviour
             if (minigamePrefab != null)
             {
                 Minigame game = Instantiate(minigamePrefab, curUtensilsCanvasTrm).GetComponent<Minigame>();
+                UtensilsSort();
                 game.minigameParent = CookingManager.Global.CurrentUtensils;
                 game.StartMinigame(minigame);
 
@@ -187,6 +188,15 @@ public class MinigameHandler : MonoBehaviour
         curPlayingMinigames.Remove(game);
         LoadInventory();
         isDuringMinigame = false;
+    }
+
+    private void UtensilsSort()
+    {
+        Transform front = curUtensilsCanvasTrm.Find("FRONT");
+        if(front)
+        {
+            front.SetAsLastSibling();
+        }
     }
 
     public void LoadInventory()
