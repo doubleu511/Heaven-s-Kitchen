@@ -7,6 +7,6 @@ public class CookingUtensilsSO : ScriptableObject
 {
     public int cookingUtensilsTranslationId;
     public Define.CookingTool cookingUtensilsType;
-    public Sprite minigameUtensilsSpr;
+    public SpriteSkinSO minigameBGSpr;
     public Define.MinigameType[] canPlayMinigameTypes;
 }

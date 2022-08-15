@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientTranslationId: 203
   ingredientDefaulrSpr: {fileID: 21300000, guid: 4f1c9a7cc003f934d8753bde1d642879, type: 3}
-  ingredientMiniSpr: {fileID: 21300000, guid: 4f1c9a7cc003f934d8753bde1d642879, type: 3}
+  ingredientMiniSpr: {fileID: 21300000, guid: 48bb03ac36c2c234fb03bc6751f8d58d, type: 3}
   ingredientMinigameSprite:
   - spritesName: Sprinkling
     sprites:
