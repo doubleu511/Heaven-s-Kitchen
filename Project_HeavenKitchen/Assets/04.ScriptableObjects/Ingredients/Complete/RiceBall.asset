@@ -15,4 +15,9 @@ MonoBehaviour:
   ingredientTranslationId: 301
   ingredientDefaulrSpr: {fileID: 21300000, guid: 99eb8f6a48b3ac54da36e38d2ce50003, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: 99eb8f6a48b3ac54da36e38d2ce50003, type: 3}
-  ingredientMinigameSprite: []
+  ingredientMinigameSprite:
+  - spritesName: Sprinkling_Progress
+    sprites:
+    - {fileID: 21300000, guid: 49da0e33d7f7923429651732ab094721, type: 3}
+    - {fileID: 21300000, guid: 41abbc42b759a1248b5f38037539f10e, type: 3}
+    - {fileID: 21300000, guid: 99eb8f6a48b3ac54da36e38d2ce50003, type: 3}

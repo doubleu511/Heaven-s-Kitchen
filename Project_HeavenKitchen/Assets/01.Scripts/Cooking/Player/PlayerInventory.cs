@@ -49,9 +49,10 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
             inventoryTabs[i].SetIngredient(null);
-
             inventoryTabs[i].basketItem.gameObject.SetActive        (i < count);
-            inventoryTabs[i].ingredientImgTab.gameObject.SetActive  (i < count);
+
+            Transform lockTrm = inventoryTabs[i].ingredientImgTab.transform.Find("Lock");
+            lockTrm.gameObject.SetActive(i >= count);
         }
     }
 

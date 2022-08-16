@@ -203,16 +203,18 @@ public class MinigameHandler : MonoBehaviour
         PlayerInventoryTab[] playerInventoryTabs = CookingManager.Player.Inventory.GetInventory();
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
+            Transform lockTrm = inventoryTabs[i].transform.Find("Lock");
+            DragableUI ingredientImg = inventoryTabs[i].transform.GetChild(0).GetComponent<DragableUI>();
+
             if (i < playerInventoryTabs.Length)
             {
-                inventoryTabs[i].gameObject.SetActive(true);
-                DragableUI ingredientImg = inventoryTabs[i].transform.GetChild(0).GetComponent<DragableUI>();
-
+                lockTrm.gameObject.SetActive(false);
                 ingredientImg.SetIngredient(playerInventoryTabs[i].ingredient);
             }
             else
             {
-                inventoryTabs[i].gameObject.SetActive(false);
+                lockTrm.gameObject.SetActive(true);
+                ingredientImg.SetIngredient(null);
             }
         }
     }

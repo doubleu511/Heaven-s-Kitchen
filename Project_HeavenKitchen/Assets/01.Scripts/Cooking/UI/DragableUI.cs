@@ -52,7 +52,7 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         isDragging = true;
     }
 
-    public void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         if (isDragging)
         {

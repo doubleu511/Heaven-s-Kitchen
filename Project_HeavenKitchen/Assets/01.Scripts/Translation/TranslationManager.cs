@@ -99,7 +99,15 @@ public class TranslationManager : MonoBehaviour
 
     public string GetLangDialog(int dialogId)
     {
-        return langDic[dialogId];
+        if (langDic.ContainsKey(dialogId))
+        {
+            return langDic[dialogId];
+        }
+        else
+        {
+            return "Missing";
+        }
+
     }
 
 #if UNITY_EDITOR

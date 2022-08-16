@@ -90,6 +90,14 @@ MonoBehaviour:
       value: "\uCC2C\uC7A5"
     - id: 503
       value: "\uBCF4\uC6B8"
+    - id: 204
+      value: "\uC18C\uAE08"
+    - id: 205
+      value: "\uC124\uD0D5"
+    - id: 504
+      value: "\uC7C1\uBC18"
+    - id: 505
+      value: "\uC4F0\uB808\uAE30\uD1B5"
   - lang: en
     langList:
     - id: 101
@@ -134,6 +142,14 @@ MonoBehaviour:
       value: Cupboard
     - id: 503
       value: Bowl
+    - id: 204
+      value: Salt
+    - id: 205
+      value: Sugar
+    - id: 504
+      value: Tray
+    - id: 505
+      value: Trash can
   Dialog: {fileID: 0}
 --- !u!1 &5062508780338717369
 GameObject:

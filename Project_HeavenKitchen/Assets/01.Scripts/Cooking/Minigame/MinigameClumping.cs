@@ -11,38 +11,33 @@ public class MinigameClumping : Minigame
     public List<int> posCloserIndex = new List<int>();
 
     public Image rotateTipImg;
-    public Transform repeatCountTrm;
 
     private int curRepeatCount = 0;
     private int repeatCount = 0;
-    private List<Image> repeatCountUIs = new List<Image>();
 
     private int currentIndex = -1;
     private int targetIndex;
     private int nextTargetIndex;
 
     Sprite[] savedSprs;
+    Sprite[] progressSprs;
 
     public override void StartMinigame(MinigameInfo Info)
     {
         print("미니게임 시작");
         base.StartMinigame(Info);
 
-        savedSprs = minigameInfo.ingredients[0].ingredientMinigameSprite.Find(x => x.spritesName.Equals("Clumped")).sprites;
+        minigameInfo.ingredients[0].FindSprites("Clumped", out savedSprs);
         clumpingImg.sprite = savedSprs[0];
 
         repeatCount = Info.repeatCount;
-        for(int i =0; i < repeatCount;i++)
-        {
-            Image ui = Instantiate(repeatCountUI, repeatCountTrm).GetComponent<Image>();
-            ui.sprite = savedSprs[savedSprs.Length - 1];
-            ui.color = new Color(103 / 255f, 103 / 255f, 103 / 255f, 177 / 255f);
-            repeatCountUIs.Add(ui);
-        }
+
+        minigameInfo.reward.FindSprites("Clumped_Progress", out progressSprs);
+        progressIcon.sprite = progressSprs[0];
 
         rotateTipImg.gameObject.SetActive(true);
         handler.ShowProgress(true);
-        handler.ShowStartText("뭉쳐라!");
+        handler.ShowStartText("뭉쳐라!"); // TO DO : 번역
     }
 
     private void Update()
@@ -102,7 +97,7 @@ public class MinigameClumping : Minigame
         if (progressValue >= 100)
         {
             curRepeatCount++;
-            repeatCountUIs[curRepeatCount - 1].color = Color.white;
+            progressIcon.sprite = progressSprs[curRepeatCount];
 
             if (curRepeatCount == repeatCount)
             {

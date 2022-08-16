@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Minigame : MonoBehaviour
 {
@@ -20,13 +21,11 @@ public abstract class Minigame : MonoBehaviour
 
     protected MinigameHandler handler;
     protected MinigameInfo minigameInfo;
-
-    protected GameObject repeatCountUI;
+    [SerializeField] protected Image progressIcon;
 
     private void Awake()
     {
         handler = FindObjectOfType<MinigameHandler>();
-        repeatCountUI = Global.Resource.Load<GameObject>("Minigames/UI/Minigame_RepeatCountUI");
     }
 
     public virtual void StartMinigame(MinigameInfo info)

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float playerDetectRadius = 3;
     public float playerSpeed;
     public Vector3 playerDir;
+    private Vector3 lookDir;
     public bool isMove = false;
 
     private void Awake()
@@ -25,6 +26,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         PlayerMove();
+
+        if (isMove)
+        {
+            lookDir = playerDir;
+        }
 
         SelectObject(out InteractiveObject interactive);
 
@@ -61,14 +67,15 @@ public class PlayerController : MonoBehaviour
 
     private void SelectObject(out InteractiveObject _object)
     {
-        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, playerDetectRadius, Vector2.zero, 0, interactiveLayer);
+        Vector3 lookPos = transform.position + lookDir;
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(lookPos, playerDetectRadius, Vector2.zero, 0, interactiveLayer);
 
         float savedDistance = Mathf.Infinity;
         GameObject selectedObject = null;
 
         for (int i = 0; i < hit.Length; i++)
         {
-            float distance = (transform.position - hit[i].transform.position).sqrMagnitude;
+            float distance = (lookPos - hit[i].transform.position).sqrMagnitude;
 
             if (savedDistance > distance)
             {
@@ -83,6 +90,6 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position, playerDetectRadius);
+        Gizmos.DrawWireSphere(transform.position + lookDir, playerDetectRadius);
     }
 }

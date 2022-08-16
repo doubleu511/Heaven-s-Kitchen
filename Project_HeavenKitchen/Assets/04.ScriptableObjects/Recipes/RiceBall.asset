@@ -25,5 +25,5 @@ MonoBehaviour:
     repeatCount: 1
     ingredients:
     - {fileID: 11400000, guid: 24e254a29f63f4e4b880a78b59c8ea79, type: 2}
-    - {fileID: 11400000, guid: 3591a657a8862e249be13b1177a303d5, type: 2}
+    - {fileID: 11400000, guid: 6006d438c24d6504294b9c30b6c6bfd1, type: 2}
     reward: {fileID: 11400000, guid: 2b3f0715a4c97c143bcb6c32e569e1dd, type: 2}

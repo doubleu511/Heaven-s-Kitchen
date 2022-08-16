@@ -57,7 +57,10 @@ public class Define
     public enum CookingTool
     {
         COOKING_BOWL,
-        COOKING_CUPBOARD
+        COOKING_CUPBOARD,
+        COOKING_TRAY,
+
+        COOKING_TRASHCAN = 99
     }
 
     public enum MinigameType
