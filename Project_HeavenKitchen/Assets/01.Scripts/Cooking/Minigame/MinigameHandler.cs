@@ -8,7 +8,6 @@ using DG.Tweening;
 public class MinigameHandler : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
-    private bool isDuringMinigame = false;
 
     [Header("인벤토리")]
     [SerializeField] Image[] inventoryTabs;
@@ -141,7 +140,6 @@ public class MinigameHandler : MonoBehaviour
 
     private void CallMinigameStartBtnOnClicked(CookingUtensilsSO utensilsInfo, MinigameInfo minigame, int minigameIndex)
     {
-        if (isDuringMinigame) return;
         if (minigame.ingredients.Length != CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients.Length)
             return;
 
@@ -157,7 +155,6 @@ public class MinigameHandler : MonoBehaviour
 
         if (isStartable)
         {
-            isDuringMinigame = true;
             InventorySync();
             currentIngredientTabs[minigameIndex].InventoryClean();
 
@@ -186,7 +183,6 @@ public class MinigameHandler : MonoBehaviour
     {
         curPlayingMinigames.Remove(game);
         LoadInventory();
-        isDuringMinigame = false;
     }
 
     private void UtensilsSort()
@@ -269,10 +265,15 @@ public class MinigameHandler : MonoBehaviour
     public void ShowProgress(int value, bool animation = true)
     {
         Global.UI.UIFade(progressBar, true);
+        value = Mathf.Clamp(value, 0, 100);
 
         float valuePercentage = value / 100f;
         targetProcessValue = valuePercentage;
-        if (animation) processValue = valuePercentage;
+        if (!animation)
+        {
+            processValue = valuePercentage;
+            progressValue.transform.localScale = new Vector2(processValue, 1);
+        }
 
         progressText.text = $"{value}%";
     }

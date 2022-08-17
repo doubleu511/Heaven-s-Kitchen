@@ -42,6 +42,7 @@ public class MinigameClumping : Minigame
 
     private void Update()
     {
+        if (!IsMinigameOpen) return; // 안열려있을땐 감지할 필요가 없다.(뭉치기는)
         if (isCleared)
         {
             if (Input.GetMouseButtonDown(0))
@@ -51,7 +52,6 @@ public class MinigameClumping : Minigame
 
             return;
         } // 클리어되면 업데이트를 돌릴 필요가 없다.
-        if (!IsMinigameOpen) return; // 안열려있을땐 감지할 필요가 없다.(뭉치기는)
 
         if (Input.GetMouseButton(0))
         {

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ba3c671351eb6b4cbcb178184e7ae6a, type: 3}
+  m_Script: {fileID: 11500000, guid: ac07c7882b4041b4fa11fb7d51aaead8, type: 3}
   m_Name: Hurikake
   m_EditorClassIdentifier: 
   ingredientTranslationId: 203
@@ -22,7 +22,3 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0835c0cd1c12bab4bb26f33eb6e67990, type: 3}
     - {fileID: 21300000, guid: 5848dbc86ad9dc54db9be2a620da0666, type: 3}
   particlePrefab: {fileID: 0}
-  tagAnchorPos: {x: -32.8, y: -90.3}
-  translationTagSpr:
-  - {fileID: 860892640016576597, guid: 3f7e9d1cbffda6641bb3ef182bda1262, type: 3}
-  - {fileID: 7211945326444409707, guid: 3f7e9d1cbffda6641bb3ef182bda1262, type: 3}
