@@ -7088,7 +7088,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "- \uBB49\uCE58\uAE30(\uBC25)\n- \uBFCC\uB9AC\uAE30(\uD6C4\uB9AC\uCE74\uCF00)"
+  m_text: "- \uBB49\uCE58\uAE30\n(\uBC25)\n- \uBFCC\uB9AC\uAE30\n(\uD6C4\uB9AC\uCE74\uCF00)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4721a2ff4ed47284f9c328bd6982e21f, type: 2}
   m_sharedMaterial: {fileID: -886022863519056124, guid: 4721a2ff4ed47284f9c328bd6982e21f, type: 2}
@@ -7115,8 +7115,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.1
-  m_fontSizeBase: 23.1
+  m_fontSize: 22.78
+  m_fontSizeBase: 22.78
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7131,9 +7131,9 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 6
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
