@@ -63,6 +63,8 @@ public class MinigameSprinkling : Minigame
 
         if (Input.GetMouseButton(0))
         {
+            upAndDownTipImg.color = new Color(upAndDownTipImg.color.r, upAndDownTipImg.color.g, upAndDownTipImg.color.b, 0.2f);
+
             float mousePosY = Input.mousePosition.y;
             float deltaPos = mousePosY - beforeMousePosY;
 
@@ -91,6 +93,7 @@ public class MinigameSprinkling : Minigame
         }
         else
         {
+            upAndDownTipImg.color = new Color(upAndDownTipImg.color.r, upAndDownTipImg.color.g, upAndDownTipImg.color.b, Mathf.Sin(Time.time * 5) * 0.5f + 0.7f);
             beforeMousePosY = Input.mousePosition.y;
         }
 
@@ -108,6 +111,7 @@ public class MinigameSprinkling : Minigame
             else
             {
                 progressValue = 0;
+                handler.ShowProgress(progressValue);
             }
         }
         else if (progressValue >= 80)

@@ -109,6 +109,7 @@ public class MinigameClumping : Minigame
             {
                 clumpingImg.sprite = savedSprs[0];
                 progressValue = 0;
+                handler.ShowProgress(progressValue);
             }
         }
         else if(progressValue >= 66)

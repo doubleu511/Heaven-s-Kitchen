@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class TrashCan : MinigameStarter
 {
+    public DeleteDragableUI trashCanUI;
 
+    private void Start()
+    {
+        trashCanUI.onDelete += () =>
+        {
+
+        };
+    }
 }
