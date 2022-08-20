@@ -115,6 +115,7 @@ public class MinigameHandler : MonoBehaviour
         for (int i = 0; i < info.Length; i++)
         {
             UI_IngredientTab tab = Global.Pool.GetItem<UI_IngredientTab>();
+            tab.transform.SetSiblingIndex(i);
             tab.InventoryClear(ingredientInventoryTrm);
             tab.InitName(TranslationManager.Instance.GetLangDialog(info[i].minigameNameTranslationId));
 
