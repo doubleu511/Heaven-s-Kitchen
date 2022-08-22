@@ -17,6 +17,7 @@ public class MinigameInfo
     public int repeatCount;
     public IngredientSO[] ingredients;
     public IngredientSO reward;
+    public int minigameDepth;
 
     public IngredientSO FindIngredientsSprites(string name, out Sprite[] sprites)
     {

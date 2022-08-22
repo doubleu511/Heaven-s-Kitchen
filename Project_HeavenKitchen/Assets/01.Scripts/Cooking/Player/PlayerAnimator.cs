@@ -8,6 +8,8 @@ public class PlayerAnimator : MonoBehaviour
     private Animator playerAnimator;
     private SpriteRenderer playerSpriteRenderer;
 
+    public Animator basketAnimator;
+
     private void Awake()
     {
         playerController = transform.parent.GetComponent<PlayerController>();
@@ -26,5 +28,8 @@ public class PlayerAnimator : MonoBehaviour
         playerAnimator.SetFloat("dirY", playerController.playerDir.y);
         playerAnimator.SetFloat("SpeedMultiplier", playerController.playerSpeed / playerController.playerDefaultSpeed); // TO DO : Don't Need Update
         playerAnimator.SetBool("isMove", playerController.isMove);
+
+        basketAnimator.SetFloat("dirX", playerController.playerDir.x);
+        basketAnimator.SetBool("isMove", playerController.isMove);
     }
 }

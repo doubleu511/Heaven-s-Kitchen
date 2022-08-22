@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class DeleteDragableUI : DragableUI
 {
-    public Action onDelete;
+    public Action<IngredientSO> onDelete;
 
     public override void OnBeginDrag(PointerEventData eventData)
     { 
@@ -29,7 +29,7 @@ public class DeleteDragableUI : DragableUI
         // TO DO : 삭제 애니메이션
         if (onDelete != null)
         {
-            onDelete.Invoke();
+            onDelete.Invoke(CookingManager.Global.DragAndDropContainer.savedIngredient);
         }
 
         // Reset Contatiner
