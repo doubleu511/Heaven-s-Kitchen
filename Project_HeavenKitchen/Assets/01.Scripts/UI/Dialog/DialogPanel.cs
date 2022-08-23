@@ -11,7 +11,7 @@ using static Define;
 public class DialogPanel : MonoBehaviour, IPointerClickHandler
 {
     private CanvasGroup dialogPanel;
-    private DialogEvents dialogEvents;
+    private FostDialogEvents dialogEvents;
     public static bool eventWaitFlag = false;
 
     [Header("Dialog")]
@@ -62,7 +62,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
     private void Awake()
     {
         dialogPanel = GetComponent<CanvasGroup>();
-        dialogEvents = GetComponent<DialogEvents>();
+        dialogEvents = GetComponent<FostDialogEvents>();
 
         skipButton.onClick.AddListener(() =>
         {
@@ -90,10 +90,10 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        StartDialog(TranslationManager.Instance.Dialog.GetDialog(0));
+        StartDialog(TranslationManager.Instance.FostDialog.GetDialog(0));
     }
 
-    public void StartDialog(Dialog dialog)
+    public void StartDialog(FostDialog dialog)
     {
         if (!isPlayingDialog)
         {
@@ -107,7 +107,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private IEnumerator TextCoroutine(Dialog dialog)
+    private IEnumerator TextCoroutine(FostDialog dialog)
     {
         for (int i = 0; i < dialog.dialogInfos.Count; i++)
         {
@@ -128,7 +128,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         Time.timeScale = 1;
     }
 
-    private void EventTest(DialogInfo info)
+    private void EventTest(FostDialogInfo info)
     {
         if(info.type == (int)DialogType.ACTIONEVENT)
         {
@@ -143,7 +143,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         backgroundImg.sprite = background;
     }
 
-    private void SettingCharacterTalk(Dialog dialog, int index)
+    private void SettingCharacterTalk(FostDialog dialog, int index)
     {
         if (leftChara)
         {
