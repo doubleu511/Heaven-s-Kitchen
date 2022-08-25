@@ -9,6 +9,8 @@ public class CookingManager : MonoBehaviour
 
     public MinigameStarter CurrentUtensils;
     public DragAndDropContainer DragAndDropContainer;
+    public Material SelectedObejctMat;
+
     private RecipeSO[] CurrentRecipes = new RecipeSO[1];
     [SerializeField] RecipeSO testRecipes; // Å×½ºÆ®
 
