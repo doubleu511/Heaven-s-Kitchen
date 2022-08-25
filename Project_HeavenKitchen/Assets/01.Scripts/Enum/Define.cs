@@ -59,6 +59,7 @@ public class Define
         COOKING_BOWL,
         COOKING_CUPBOARD,
         COOKING_TRAY,
+        COOKING_FRYINGPAN,
 
         COOKING_TRASHCAN = 99
     }
@@ -66,7 +67,8 @@ public class Define
     public enum MinigameType
     {
         MINIGAME_CLUMPING,
-        MINIGAME_SPRINKLING
+        MINIGAME_SPRINKLING,
+        MINIGAME_GRILLING
     }
     #endregion
 }

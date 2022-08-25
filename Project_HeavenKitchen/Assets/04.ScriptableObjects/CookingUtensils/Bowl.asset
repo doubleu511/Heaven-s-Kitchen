@@ -15,4 +15,4 @@ MonoBehaviour:
   cookingUtensilsTranslationId: 503
   cookingUtensilsType: 0
   minigameBGSpr: {fileID: 11400000, guid: 06b9c538534d02846b65b5d704e68848, type: 2}
-  canPlayMinigameTypes: 0000000001000000
+  canPlayMinigameTypes: 00000000

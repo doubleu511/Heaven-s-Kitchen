@@ -9,6 +9,9 @@ public class MinigameHandler : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
 
+    [Header("배경")]
+    [SerializeField] Image minigameBackground;
+
     [Header("인벤토리")]
     [SerializeField] Image[] inventoryTabs;
 
@@ -89,6 +92,9 @@ public class MinigameHandler : MonoBehaviour
 
         // 조리기구 이름 설정
         cookingToolText.text = TranslationManager.Instance.GetLangDialog(utensilsInfo.cookingUtensilsTranslationId);
+
+        // 조리기구 배경 설정
+        minigameBackground.sprite = utensilsInfo.minigameBGSpr.skinIndex[0]; // TO DO : 스킨 시스템
 
         // 인벤토리 불러오기
         LoadInventory();
@@ -201,7 +207,7 @@ public class MinigameHandler : MonoBehaviour
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
             Transform lockTrm = inventoryTabs[i].transform.Find("Lock");
-            DragableUI ingredientImg = inventoryTabs[i].transform.GetChild(0).GetComponent<DragableUI>();
+            DragableUI ingredientImg = inventoryTabs[i].GetComponentInChildren<DragableUI>();
 
             if (i < playerInventoryTabs.Length)
             {

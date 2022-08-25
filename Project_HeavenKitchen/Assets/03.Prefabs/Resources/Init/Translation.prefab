@@ -99,6 +99,20 @@ MonoBehaviour:
       value: "\uC7C1\uBC18"
     - id: 505
       value: "\uC4F0\uB808\uAE30\uD1B5"
+    - id: 9001
+      value: "\uC548\uB155\uD558\uC138\uC694.."
+    - id: 9002
+      value: "\uC774\uACF3\uC774 \uC694\uB9AC\uCC9C\uAD6D\uC774 \uB9DE\uB098\uC694?"
+    - id: 9003
+      value: "\uC5EC\uAE34 \uBB50\uAC00 \uAC00\uC7A5 \uB9DB\uC788\uC8E0?!"
+    - id: 9004
+      value: "\uB2E4 \uB9DB\uC788\uC2B5\uB2C8\uB2E4."
+    - id: 9005
+      value: "\uADF8\uB7FC \uC774\uAC78\uB85C \uC8FC\uC138\uC694."
+    - id: 9006
+      value: "\uADF8\uB7FC \uADF8\uAC78\uB85C \uC8FC\uC138\uC694."
+    - id: 506
+      value: "\uD504\uB77C\uC774\uD32C"
   - lang: en
     langList:
     - id: 101
@@ -151,6 +165,20 @@ MonoBehaviour:
       value: Tray
     - id: 505
       value: Trash can
+    - id: 9001
+      value: 
+    - id: 9002
+      value: 
+    - id: 9003
+      value: 
+    - id: 9004
+      value: 
+    - id: 9005
+      value: 
+    - id: 9006
+      value: 
+    - id: 506
+      value: Frying pan
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
 --- !u!1 &5062508780338717369
