@@ -11,6 +11,8 @@ public class CookingManager : MonoBehaviour
     public DragAndDropContainer DragAndDropContainer;
     public Material SelectedObejctMat;
 
+    public Dictionary<IngredientSO, int> MemoSuccessCountDic;
+
     private RecipeSO[] CurrentRecipes = new RecipeSO[1];
     [SerializeField] RecipeSO testRecipes; // Å×½ºÆ®
 
