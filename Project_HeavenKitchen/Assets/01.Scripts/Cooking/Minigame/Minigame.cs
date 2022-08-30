@@ -41,7 +41,17 @@ public abstract class Minigame : MonoBehaviour
         handler.MinigameEnd(this);
 
         // 미니게임에 성공했다면 딕셔너리에 해당 리워드 키의 값을 1 추가한다.
-        CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward]++;
+        if(CookingManager.Global.MemoSuccessCountDic.ContainsKey(minigameInfo.reward))
+        {
+            CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward]++;
+        }
+        else
+        {
+            CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward] = 1;
+        }
+
+        MemoHandler memoHandler = FindObjectOfType<MemoHandler>();
+        memoHandler.RefreshMinigameRecipes();
 
         Destroy(this.gameObject);
     }

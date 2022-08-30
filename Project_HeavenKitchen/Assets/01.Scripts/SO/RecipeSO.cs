@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class RecipeSO : ScriptableObject
 }
 
 [System.Serializable]
-public class MinigameInfo
+public class MinigameInfo : IEquatable<MinigameInfo>
 {
     public int minigameNameTranslationId;
     public Define.MinigameType minigameType;
@@ -41,5 +42,15 @@ public class MinigameInfo
         }
 
         return ingredient;
+    }
+
+    public bool Equals(MinigameInfo other)
+    {
+        return minigameNameTranslationId.Equals(other.minigameNameTranslationId);
+    }
+
+    public override int GetHashCode()
+    {
+        return minigameNameTranslationId.GetHashCode();
     }
 }

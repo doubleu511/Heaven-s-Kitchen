@@ -8,9 +8,14 @@ public class MemoRecipeProcessUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI minigameName;
     [SerializeField] TextMeshProUGUI recipeIngredients;
 
+    MinigameInfo myInfo;
+
     public void Init(MinigameInfo info)
     {
-        minigameName.text = TranslationManager.Instance.GetLangDialog(info.minigameNameTranslationId);
+        minigameName.fontStyle = FontStyles.Normal;
+        recipeIngredients.fontStyle = FontStyles.Normal;
+
+        minigameName.text = $"- {TranslationManager.Instance.GetLangDialog(info.minigameNameTranslationId)}";
 
         string ingredientsStr = "";
 
@@ -26,10 +31,21 @@ public class MemoRecipeProcessUI : MonoBehaviour
         string finalValue = $"({ingredientsStr})";
 
         recipeIngredients.text = finalValue;
+        myInfo = info;
     }
 
-    public void SetStrikethrough(bool value)
+    public void RefreshStrikethrough()
     {
+        bool value = false;
+        
+        if(CookingManager.Global.MemoSuccessCountDic.ContainsKey(myInfo.reward))
+        {
+            if(CookingManager.Global.MemoSuccessCountDic[myInfo.reward] > 0)
+            {
+                value = true;
+            }
+        }
+
         minigameName.fontStyle = value ? FontStyles.Strikethrough : FontStyles.Normal;
         recipeIngredients.fontStyle = value ? FontStyles.Strikethrough : FontStyles.Normal;
     }

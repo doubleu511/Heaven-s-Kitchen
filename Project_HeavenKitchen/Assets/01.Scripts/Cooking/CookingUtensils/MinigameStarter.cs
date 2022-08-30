@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MinigameStarter : InteractiveObject
@@ -11,19 +12,16 @@ public class MinigameStarter : InteractiveObject
     {
         if (CookingManager.Global.CurrentUtensils != null) return;
 
-        RecipeSO[] recipes = CookingManager.GetRecipes();
+        List<MinigameInfo> allMinigameInfos = CookingManager.GetMinigames();
         List<MinigameInfo> minigameInfos = new List<MinigameInfo>();
 
-        for (int i = 0; i < recipes.Length; i++)
+        for (int i = 0; i < allMinigameInfos.Count; i++)
         {
-            for (int j = 0; j < recipes[i].recipe.Length; j++)
+            for (int j = 0; j < cookingUtensilsSO.canPlayMinigameTypes.Length; j++)
             {
-                for (int k = 0; k < cookingUtensilsSO.canPlayMinigameTypes.Length; k++)
+                if (allMinigameInfos[i].minigameType == cookingUtensilsSO.canPlayMinigameTypes[j])
                 {
-                    if (recipes[i].recipe[j].minigameType == cookingUtensilsSO.canPlayMinigameTypes[k])
-                    {
-                        minigameInfos.Add(recipes[i].recipe[j]);
-                    }
+                    minigameInfos.Add(allMinigameInfos[i]);
                 }
             }
         }

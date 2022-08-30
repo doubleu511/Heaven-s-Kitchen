@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CookingManager : MonoBehaviour
@@ -11,10 +12,11 @@ public class CookingManager : MonoBehaviour
     public DragAndDropContainer DragAndDropContainer;
     public Material SelectedObejctMat;
 
-    public Dictionary<IngredientSO, int> MemoSuccessCountDic;
+    public Dictionary<IngredientSO, int> MemoSuccessCountDic = new Dictionary<IngredientSO, int>();
 
     private RecipeSO[] CurrentRecipes = new RecipeSO[1];
-    [SerializeField] RecipeSO testRecipes; // 테스트
+    private List<MinigameInfo> CurrentMinigames = new List<MinigameInfo>();
+    [SerializeField] RecipeSO[] testRecipes; // 테스트
 
     private void Awake()
     {
@@ -24,21 +26,44 @@ public class CookingManager : MonoBehaviour
         }
 
         Player = FindObjectOfType<PlayerController>(true);
-        AddRecipes(testRecipes);
+        SetRecipes(testRecipes);
     }
 
-    public static void AddRecipes(RecipeSO recipe)
+    public static void SetRecipes(RecipeSO recipe)
     {
+        Global.CurrentRecipes = new RecipeSO[1];
         Global.CurrentRecipes[0] = recipe;
+
+        Global.CurrentMinigames.Clear();
+        for (int i = 0; i < recipe.recipe.Length; i++)
+        {
+            Global.CurrentMinigames.Add(recipe.recipe[i]);
+        }
+        Global.CurrentMinigames = Global.CurrentMinigames.Distinct().ToList();
     }
 
-    public static void AddRecipes(RecipeSO[] recipe)
+    public static void SetRecipes(RecipeSO[] recipe)
     {
         Global.CurrentRecipes = recipe;
+
+        Global.CurrentMinigames.Clear();
+        for (int i = 0; i < recipe.Length; i++)
+        {
+            for (int j = 0; j < recipe[i].recipe.Length; j++)
+            {
+                Global.CurrentMinigames.Add(recipe[i].recipe[j]);
+            }
+        }
+        Global.CurrentMinigames = Global.CurrentMinigames.Distinct().ToList();
     }
 
     public static RecipeSO[] GetRecipes()
     {
         return Global.CurrentRecipes;
+    }
+
+    public static List<MinigameInfo> GetMinigames()
+    {
+        return Global.CurrentMinigames;
     }
 }
