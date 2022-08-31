@@ -33,11 +33,17 @@ public class PlayerInventoryTab
 
 public class PlayerInventory : MonoBehaviour
 {
+    private MemoHandler memoHandler;
     public PlayerInventoryTab[] inventoryTabs;
 
     [SerializeField]
     [Range(3, 5)]
     int inventoryCount = 3;
+
+    private void Awake()
+    {
+        memoHandler = FindObjectOfType<MemoHandler>();
+    }
 
     private void Start()
     {
@@ -63,6 +69,7 @@ public class PlayerInventory : MonoBehaviour
             if(inventoryTabs[i].ingredient == null)
             {
                 inventoryTabs[i].SetIngredient(ingredient);
+                memoHandler.SearchNavIngredient();
                 return true;
             }
         }
@@ -78,6 +85,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 inventoryTabs[i].SetIngredient(ingredient);
                 addIndex = i;
+                memoHandler.SearchNavIngredient();
                 return true;
             }
         }
@@ -103,6 +111,19 @@ public class PlayerInventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool IsItemExist(IngredientSO ingredient)
+    {
+        for (int i = 0; i < inventoryCount; i++)
+        {
+            if (inventoryTabs[i].ingredient == ingredient)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public IngredientSO GetIngredient(int index)

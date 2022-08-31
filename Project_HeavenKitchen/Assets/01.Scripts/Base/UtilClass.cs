@@ -16,4 +16,12 @@ public static class UtilClass
 
         return false;
     }
+
+    public static float GetAngleFromVector(Vector3 dir)
+    {
+        float radians = Mathf.Atan2(dir.y, dir.x);
+        float degrees = radians * Mathf.Rad2Deg;
+
+        return degrees;
+    }
 }

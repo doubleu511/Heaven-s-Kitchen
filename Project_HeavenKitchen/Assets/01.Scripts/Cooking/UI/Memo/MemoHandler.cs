@@ -8,8 +8,11 @@ using UnityEngine.EventSystems;
 public class MemoHandler : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] MemoRecipeProcessUI recipeProcessPrefab;
+    [SerializeField] MemoIngredientsPanelUI ingredientsPanelPrefab;
+
     [SerializeField] Transform frontRecipePrefabBoxTrm;
     [SerializeField] Transform backRecipePrefabBoxTrm;
+    [SerializeField] Transform ingredientPanelPrefabBoxTrm;
 
     [SerializeField] RectTransform memoFront;
     [SerializeField] RectTransform memoBack;
@@ -23,9 +26,13 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     RecipeSO[] recipes;
     int currentRecipeIndex = 0;
 
+    public MinigameInfo currentTargetMinigame;
+    public IngredientSO currentTargetIngredient;
+
     private void Awake()
     {
         Global.Pool.CreatePool<MemoRecipeProcessUI>(recipeProcessPrefab.gameObject, frontRecipePrefabBoxTrm, 5);
+        Global.Pool.CreatePool<MemoIngredientsPanelUI>(ingredientsPanelPrefab.gameObject, ingredientPanelPrefabBoxTrm, 10);
     }
 
     private void Start()
@@ -126,9 +133,68 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     {
         MemoRecipeProcessUI[] processUIs = frontRecipePrefabBoxTrm.GetComponentsInChildren<MemoRecipeProcessUI>();
 
+        bool bFind = false;
+
         for (int i = 0; i < processUIs.Length; i++)
         {
-            processUIs[i].RefreshStrikethrough();
+            processUIs[i].RefreshState(out bool isCompleted);
+
+            if(!isCompleted && !bFind)
+            {
+                bFind = true;
+                currentTargetMinigame = processUIs[i].GetMyInfo();
+                SearchNavIngredient();
+            }
         }
+
+        if(!bFind)
+        {
+            currentTargetMinigame = null;
+            currentTargetIngredient = null;
+        }
+    }
+
+    public void SearchNavIngredient()
+    {
+        if (currentTargetMinigame == null) return;
+
+        MinigameStarter selectedUtensils = CookingManager.Global.TargetNavDic[currentTargetMinigame.minigameNameTranslationId];
+
+        if (selectedUtensils.utensilsInventories.Count == 0)
+        {
+            selectedUtensils.RefreshInventory();
+        }
+
+        for (int i = 0; i < selectedUtensils.utensilsInventories.Count; i++)
+        {
+            if (selectedUtensils.utensilsInventories[i].minigameId == currentTargetMinigame.minigameNameTranslationId) // 내 미니게임의 주방기구 인벤토리의 맞는 인덱스를 찾는다.
+            {
+                for (int j = 0; j < selectedUtensils.utensilsInventories[i].ingredients.Length; j++)
+                {
+                    if(selectedUtensils.utensilsInventories[i].ingredients[j] == null)
+                    {
+                        IngredientSO ingredient = currentTargetMinigame.ingredients[j];
+
+                        if (CookingManager.Player.Inventory.IsItemExist(ingredient))
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            currentTargetIngredient = ingredient;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+        currentTargetIngredient = null;
+    }
+
+    public void GetNavInfo(out MinigameInfo targetInfo, out IngredientSO targetIngredient)
+    {
+        targetInfo = currentTargetMinigame;
+        targetIngredient = currentTargetIngredient;
     }
 }

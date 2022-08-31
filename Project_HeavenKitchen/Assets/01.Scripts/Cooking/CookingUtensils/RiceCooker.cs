@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RiceCooker : IngredientSender
 {
+    private OutlineController outline;
+
     private SpriteRenderer riceCookerBaseSR;
     public SpriteRenderer riceCookerTopSR;
 
@@ -13,6 +15,7 @@ public class RiceCooker : IngredientSender
     private void Awake()
     {
         riceCookerBaseSR = GetComponent<SpriteRenderer>();
+        outline = GetComponent<OutlineController>();
     }
 
     public override void OnInteract()
@@ -20,6 +23,7 @@ public class RiceCooker : IngredientSender
         CookingManager.Player.Inventory.InventoryAdd(ingredientBox);
 
         riceCookerBaseSR.sprite = spr_riceCookerBase_Opened;
+        outline.RefreshOutline();
         riceCookerTopSR.gameObject.SetActive(true);
     }
 
@@ -28,6 +32,7 @@ public class RiceCooker : IngredientSender
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             riceCookerBaseSR.sprite = spr_riceCookerBase_Closed;
+            outline.RefreshOutline();
             riceCookerTopSR.gameObject.SetActive(false);
         }
     }

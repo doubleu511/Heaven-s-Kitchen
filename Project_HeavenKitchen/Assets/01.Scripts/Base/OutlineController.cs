@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class OutlineController : MonoBehaviour
 {
-    public float outlineSize = 1f;
+    public float outlineSize = 3f;
     public int sortingOrder = 0;
 
     private List<SpriteRenderer> attachedSpriteRenderers = new List<SpriteRenderer>();
@@ -32,7 +32,6 @@ public class OutlineController : MonoBehaviour
         SpriteRenderer outlineSprite = outline.AddComponent<SpriteRenderer>();
         outlineSprite.sprite = sprite.sprite;
         outlineSprite.material = CookingManager.Global.SelectedObejctMat;
-        outlineSprite.material.SetColor("_Color", Color.yellow);
         outlineSprite.material.SetFloat("_Thickness", outlineSize);
         outlineSprite.sortingOrder = sortingOrder;
 

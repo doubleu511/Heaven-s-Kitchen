@@ -7,13 +7,23 @@ public class MinigameStarter : InteractiveObject
 {
     public CookingUtensilsSO cookingUtensilsSO;
     public List<UtensilsInventory> utensilsInventories = new List<UtensilsInventory>();
+    private List<MinigameInfo> minigameInfos = new List<MinigameInfo>();
 
     public override void OnInteract()
     {
         if (CookingManager.Global.CurrentUtensils != null) return;
 
+        RefreshInventory();
+        CookingManager.Global.CurrentUtensils = this;
+        MinigameHandler handler = FindObjectOfType<MinigameHandler>();
+        handler.ReceiveInfo(cookingUtensilsSO, minigameInfos.ToArray());
+    }
+
+    public void RefreshInventory()
+    {
+        minigameInfos.Clear();
+
         List<MinigameInfo> allMinigameInfos = CookingManager.GetMinigames();
-        List<MinigameInfo> minigameInfos = new List<MinigameInfo>();
 
         for (int i = 0; i < allMinigameInfos.Count; i++)
         {
@@ -27,13 +37,9 @@ public class MinigameStarter : InteractiveObject
         }
 
         InitInventories(minigameInfos.ToArray());
-
-        CookingManager.Global.CurrentUtensils = this;
-        MinigameHandler handler = FindObjectOfType<MinigameHandler>();
-        handler.ReceiveInfo(cookingUtensilsSO, minigameInfos.ToArray());
     }
 
-    public void InitInventories(MinigameInfo[] minigameInfos)
+    private void InitInventories(MinigameInfo[] minigameInfos)
     {
         if (utensilsInventories.Count == 0)
         {
@@ -41,7 +47,7 @@ public class MinigameStarter : InteractiveObject
             {
                 UtensilsInventory inventory = new UtensilsInventory();
 
-                inventory.minigameIndex = i;
+                inventory.minigameId = minigameInfos[i].minigameNameTranslationId;
                 inventory.ingredients = new IngredientSO[minigameInfos[i].ingredients.Length];
 
                 utensilsInventories.Add(inventory);
@@ -53,6 +59,6 @@ public class MinigameStarter : InteractiveObject
 [System.Serializable]
 public class UtensilsInventory
 {
-    public int minigameIndex;
+    public int minigameId;
     public IngredientSO[] ingredients;
 }

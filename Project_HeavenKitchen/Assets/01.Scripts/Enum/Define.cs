@@ -60,6 +60,8 @@ public class Define
         COOKING_CUPBOARD,
         COOKING_TRAY,
         COOKING_FRYINGPAN,
+        COOKING_REFRIGERATOR,
+
 
         COOKING_TRASHCAN = 99
     }

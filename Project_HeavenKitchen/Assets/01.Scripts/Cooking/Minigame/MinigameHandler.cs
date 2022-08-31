@@ -43,10 +43,12 @@ public class MinigameHandler : MonoBehaviour
     private float processValue = 0f;
     private float targetProcessValue = 0f;
     private List<Minigame> curPlayingMinigames = new List<Minigame>();
+    private MemoHandler memoHandler;
 
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
+        memoHandler = FindObjectOfType<MemoHandler>();
 
         minigameExitButton.onClick.AddListener(() =>
         {
@@ -245,6 +247,8 @@ public class MinigameHandler : MonoBehaviour
                 CookingManager.Player.Inventory.inventoryTabs[i].SetIngredient(tempInventory[i]);
             }
         }
+
+        memoHandler.SearchNavIngredient();
     }
 
     public void ShowStartText(string text)

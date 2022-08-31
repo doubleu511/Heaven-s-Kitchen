@@ -113,6 +113,8 @@ MonoBehaviour:
       value: "\uADF8\uB7FC \uADF8\uAC78\uB85C \uC8FC\uC138\uC694."
     - id: 506
       value: "\uD504\uB77C\uC774\uD32C"
+    - id: 507
+      value: "\uB0C9\uC7A5\uACE0"
   - lang: en
     langList:
     - id: 101
@@ -179,6 +181,8 @@ MonoBehaviour:
       value: 
     - id: 506
       value: Frying pan
+    - id: 507
+      value: Refrigerator
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
 --- !u!1 &5062508780338717369

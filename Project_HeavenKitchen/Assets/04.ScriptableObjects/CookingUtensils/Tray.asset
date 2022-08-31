@@ -16,3 +16,4 @@ MonoBehaviour:
   cookingUtensilsType: 2
   minigameBGSpr: {fileID: 11400000, guid: 06b9c538534d02846b65b5d704e68848, type: 2}
   canPlayMinigameTypes: 01000000
+  defaultMapSprite: {fileID: 21300000, guid: a8999f3d5a11be140b26b19f6a06ec2a, type: 3}

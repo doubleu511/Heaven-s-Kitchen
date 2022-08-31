@@ -36,6 +36,13 @@ public class PlayerController : MonoBehaviour
 
         if (interactive != currentSelectedObject)
         {
+            //Init
+            OutlineController beforeOutline = currentSelectedObject?.GetComponent<OutlineController>();
+            beforeOutline?.SetOutline(false);
+
+            OutlineController nowOutline = interactive?.GetComponent<OutlineController>();
+            nowOutline?.SetOutline(true);
+
             currentSelectedObject = interactive;
         }
 

@@ -9,4 +9,5 @@ public class CookingUtensilsSO : ScriptableObject
     public Define.CookingTool cookingUtensilsType;
     public SpriteSkinSO minigameBGSpr;
     public Define.MinigameType[] canPlayMinigameTypes;
+    public Sprite defaultMapSprite;
 }
