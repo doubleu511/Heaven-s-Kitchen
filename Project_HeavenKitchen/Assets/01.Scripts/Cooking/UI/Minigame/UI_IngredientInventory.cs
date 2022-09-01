@@ -33,6 +33,8 @@ public class UI_IngredientInventory : MonoBehaviour
         {
             CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients[ingredientIndex] = null;
         }
+
+        CookingManager.Global.CurrentUtensils.RefreshInventoryGUI();
     }
 
     public void InitIngredient(IngredientSO ingredient, int minigameIdx, int ingredientIdx)

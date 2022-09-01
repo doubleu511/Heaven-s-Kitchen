@@ -26,14 +26,17 @@ public class DeleteDragableUI : DragableUI
 
     public override void OnDrop(PointerEventData eventData) // OnDrop이 OnEndDrag보다 먼저 실행된다.
     {
-        // TO DO : 삭제 애니메이션
-        if (onDelete != null)
+        if (CookingManager.Global.DragAndDropContainer.savedIngredient != null)
         {
-            onDelete.Invoke(CookingManager.Global.DragAndDropContainer.savedIngredient);
-        }
+            // TO DO : 삭제 애니메이션
+            if (onDelete != null)
+            {
+                onDelete.Invoke(CookingManager.Global.DragAndDropContainer.savedIngredient);
+            }
 
-        // Reset Contatiner
-        CookingManager.Global.DragAndDropContainer.SetIngredient(null);
-        CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+            // Reset Contatiner
+            CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+            CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+        }
     }
 }

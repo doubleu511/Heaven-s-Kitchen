@@ -19,6 +19,7 @@ public class MinigameHandler : MonoBehaviour
     [SerializeField] Transform minigameListContentTrm;
     [SerializeField] Transform ingredientInventoryTrm;
     [SerializeField] GameObject minigameNotExistTab;
+    [SerializeField] GameObject minigameAlreadyPlayingTab;
     List<UI_IngredientTab> currentIngredientTabs = new List<UI_IngredientTab>();
 
     [Header("미니게임 텍스트")]
@@ -81,15 +82,26 @@ public class MinigameHandler : MonoBehaviour
     {
         processValue = Mathf.Lerp(progressValue.transform.localScale.x, targetProcessValue, Time.deltaTime * 5);
         progressValue.transform.localScale = new Vector2(processValue, 1);
+
+        for(int i =0; i<curPlayingMinigames.Count;i++)
+        {
+            curPlayingMinigames[i].minigameParent.SetProcessBar(curPlayingMinigames[i].GetProcressValue());
+        }
     }
 
     public void ReceiveInfo(CookingUtensilsSO utensilsInfo, MinigameInfo[] info)
     {
         Global.UI.UIFade(canvasGroup, true);
         minigameNotExistTab.SetActive(info.Length == 0);
+        minigameAlreadyPlayingTab.SetActive(false);
         for (int i = 0; i < curPlayingMinigames.Count; i++)
         {
             curPlayingMinigames[i].OnWindowOpen();
+
+            if(curPlayingMinigames[i].minigameParent == CookingManager.Global.CurrentUtensils) // 이미 미니게임이 진행중인 조리기구인가?
+            {
+                minigameAlreadyPlayingTab.SetActive(true);
+            }
         }
 
         // 조리기구 이름 설정
@@ -165,7 +177,7 @@ public class MinigameHandler : MonoBehaviour
         if (isStartable)
         {
             InventorySync();
-            currentIngredientTabs[minigameIndex].InventoryClean();
+            minigameAlreadyPlayingTab.SetActive(true);
 
             // 미니게임 프리팹을 생성한뒤 그걸 조리도구 자식으로 붙힌다.
             // 그리고 미니게임 객체에 현재 MinigameStarter 객체(부모)가 누구인지 대입한다.
@@ -176,6 +188,7 @@ public class MinigameHandler : MonoBehaviour
             {
                 Minigame game = Instantiate(minigamePrefab, curUtensilsCanvasTrm).GetComponent<Minigame>();
                 UtensilsSort();
+                game.curMinigameIndex = minigameIndex;
                 game.minigameParent = CookingManager.Global.CurrentUtensils;
                 game.StartMinigame(minigame);
 
@@ -190,6 +203,9 @@ public class MinigameHandler : MonoBehaviour
 
     public void MinigameEnd(Minigame game)
     {
+        minigameAlreadyPlayingTab.SetActive(false);
+        currentIngredientTabs[game.curMinigameIndex].InventoryClean();
+        game.minigameParent.HideProcessBar();
         curPlayingMinigames.Remove(game);
         LoadInventory();
     }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public abstract class Minigame : MonoBehaviour
 {
     public MinigameStarter minigameParent { get; set; }
+    public int curMinigameIndex { get; set; }
     protected bool IsMinigameOpen
     {
         get
@@ -71,4 +72,10 @@ public abstract class Minigame : MonoBehaviour
             handler.HideProgress();
         }
     }
+
+    public float GetProcressValue()
+    {
+        return progressValue / 100f;
+    }
+
 }

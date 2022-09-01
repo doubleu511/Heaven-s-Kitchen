@@ -5,9 +5,22 @@ using UnityEngine;
 
 public class MinigameStarter : InteractiveObject
 {
+    [SerializeField] Transform inventoryAppearTrm;
+    private UtensilsUIHandler utensilsInventoryHandler;
+
     public CookingUtensilsSO cookingUtensilsSO;
     public List<UtensilsInventory> utensilsInventories = new List<UtensilsInventory>();
     private List<MinigameInfo> minigameInfos = new List<MinigameInfo>();
+
+    private void Awake()
+    {
+        utensilsInventoryHandler = FindObjectOfType<UtensilsUIHandler>();
+    }
+
+    private void Start()
+    {
+        InitUtensilsGUI();
+    }
 
     public override void OnInteract()
     {
@@ -53,6 +66,26 @@ public class MinigameStarter : InteractiveObject
                 utensilsInventories.Add(inventory);
             }
         }
+    }
+
+    public void InitUtensilsGUI()
+    {
+        utensilsInventoryHandler.InitUI(this, inventoryAppearTrm.position);
+    }
+
+    public void RefreshInventoryGUI()
+    {
+        utensilsInventoryHandler.RefreshUtensilsInventory();
+    }
+
+    public void HideProcessBar()
+    {
+        utensilsInventoryHandler.HideProcessBar(this);
+    }
+
+    public void SetProcessBar(float value)
+    {
+        utensilsInventoryHandler.SetProcessBar(this, value);
     }
 }
 
