@@ -105,6 +105,7 @@ public class MinigameSprinkling : Minigame
             if (curRepeatCount == repeatCount)
             {
                 isCleared = true;
+                minigameParent.OnFinished();
                 upAndDownTipImg.gameObject.SetActive(false);
                 handler.HideProgress();
             }

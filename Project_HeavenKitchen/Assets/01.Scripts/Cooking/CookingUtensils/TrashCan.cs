@@ -6,16 +6,36 @@ using DG.Tweening;
 
 public class TrashCan : MinigameStarter
 {
+    private OutlineController outline;
+
+    [SerializeField] Transform trashCap;
     [SerializeField] Transform trashPanel;
 
     public DeleteDragableUI trashCanUI;
 
-    private void Start()
+    protected override void Awake()
+    {
+        base.Awake();
+        outline = GetComponent<OutlineController>();
+    }
+
+    protected override void Start()
     {
         trashCanUI.onDelete += (ingredient) =>
         {
             ThrowTrash(ingredient);
         };
+    }
+
+    public override void OnInteract()
+    {
+        base.OnInteract();
+
+        trashCap.DOKill();
+        trashCap.DORotate(new Vector3(0, 0, -70), 0.5f).OnUpdate(() =>
+          {
+              outline.RefreshOutline();
+          });
     }
 
     private void ThrowTrash(IngredientSO ingredient)
@@ -82,6 +102,18 @@ public class TrashCan : MinigameStarter
         else
         {
             CookingManager.Global.MemoSuccessCountDic[ingredient] = 0;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            trashCap.DOKill();
+            trashCap.DORotate(Vector3.zero, 0.5f).OnUpdate(() =>
+            {
+                outline.RefreshOutline();
+            });
         }
     }
 }

@@ -102,6 +102,7 @@ public class MinigameClumping : Minigame
             if (curRepeatCount == repeatCount)
             {
                 isCleared = true;
+                minigameParent.OnFinished();
                 rotateTipImg.gameObject.SetActive(false);
                 handler.HideProgress();
             }

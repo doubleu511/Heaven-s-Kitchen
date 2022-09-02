@@ -34,15 +34,17 @@ public abstract class Minigame : MonoBehaviour
         isPlaying = true;
         minigameInfo = info;
         handler.ShowProgress(true);
+        minigameParent.OnMinigameStart();
     }
 
     public virtual void EndMinigame()
     {
         isPlaying = false;
         handler.MinigameEnd(this);
+        minigameParent.OnMinigameEnd();
 
         // 미니게임에 성공했다면 딕셔너리에 해당 리워드 키의 값을 1 추가한다.
-        if(CookingManager.Global.MemoSuccessCountDic.ContainsKey(minigameInfo.reward))
+        if (CookingManager.Global.MemoSuccessCountDic.ContainsKey(minigameInfo.reward))
         {
             CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward]++;
         }

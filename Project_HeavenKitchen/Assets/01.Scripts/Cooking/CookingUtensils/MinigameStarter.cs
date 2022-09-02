@@ -68,6 +68,30 @@ public class MinigameStarter : InteractiveObject
         }
     }
 
+    /// <summary>
+    /// 미니게임이 시작됐을 때 한번 호출됩니다.
+    /// </summary>
+    public virtual void OnMinigameStart() 
+    {
+
+    }
+
+    /// <summary>
+    /// 모든 미니게임이 끝났지만 리워드를 수령받지 않은 상태일 때 한번 호출됩니다.
+    /// </summary>
+    public virtual void OnFinished()
+    {
+
+    }
+
+    /// <summary>
+    /// 리워드를 수령했을 때 한번 호출됩니다.
+    /// </summary>
+    public virtual void OnMinigameEnd()
+    {
+
+    }
+
     public void InitUtensilsGUI()
     {
         utensilsInventoryHandler.InitUI(this, inventoryAppearTrm.position);

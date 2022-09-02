@@ -7,15 +7,30 @@ public class OutlineController : MonoBehaviour
 {
     public float outlineSize = 3f;
     public int sortingOrder = 0;
+    [SerializeField] SpriteRenderer[] ignoreRenderers;
 
     private List<SpriteRenderer> attachedSpriteRenderers = new List<SpriteRenderer>();
     private Dictionary<SpriteRenderer, SpriteRenderer> spriteRendererPairs = new Dictionary<SpriteRenderer, SpriteRenderer>();
 
     void Start()
     {
-        foreach (SpriteRenderer item in GetComponentsInChildren<SpriteRenderer>(true))
+        SpriteRenderer[] allSpriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+
+        for (int i = 0; i < allSpriteRenderers.Length; i++)
         {
-            AddOutline(item);
+            bool flag = true;
+            for (int j = 0; j < ignoreRenderers.Length; j++)
+            {
+                if (allSpriteRenderers[i] == ignoreRenderers[j])
+                {
+                    flag = false;
+                }
+            }
+
+            if (flag)
+            {
+                AddOutline(allSpriteRenderers[i]);
+            }
         }
     }
 
@@ -54,7 +69,10 @@ public class OutlineController : MonoBehaviour
         foreach (SpriteRenderer item in attachedSpriteRenderers)
         {
             SpriteRenderer originSR = spriteRendererPairs[item];
+
             item.sprite = originSR.sprite;
+            item.transform.position = new Vector3(originSR.transform.position.x, originSR.transform.position.y, item.transform.position.z);
+            item.transform.rotation = originSR.transform.rotation;
         }
     }
 }
