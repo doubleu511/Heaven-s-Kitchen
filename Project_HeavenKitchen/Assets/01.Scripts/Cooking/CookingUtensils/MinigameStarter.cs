@@ -12,12 +12,12 @@ public class MinigameStarter : InteractiveObject
     public List<UtensilsInventory> utensilsInventories = new List<UtensilsInventory>();
     private List<MinigameInfo> minigameInfos = new List<MinigameInfo>();
 
-    private void Awake()
+    protected virtual void Awake()
     {
         utensilsInventoryHandler = FindObjectOfType<UtensilsUIHandler>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         InitUtensilsGUI();
     }

@@ -115,6 +115,12 @@ MonoBehaviour:
       value: "\uD504\uB77C\uC774\uD32C"
     - id: 507
       value: "\uB0C9\uC7A5\uACE0"
+    - id: 403
+      value: "\uC18C\uC138\uC9C0 \uAD7D\uAE30"
+    - id: 204
+      value: "\uC18C\uC138\uC9C0"
+    - id: 302
+      value: "\uAD6C\uC6B4 \uC18C\uC138\uC9C0"
   - lang: en
     langList:
     - id: 101
@@ -183,6 +189,12 @@ MonoBehaviour:
       value: Frying pan
     - id: 507
       value: Refrigerator
+    - id: 403
+      value: Grilling sausage
+    - id: 204
+      value: Sausage
+    - id: 302
+      value: Grilled sausage
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
 --- !u!1 &5062508780338717369
