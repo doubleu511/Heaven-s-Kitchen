@@ -13,9 +13,8 @@ public class TrashCan : MinigameStarter
 
     public DeleteDragableUI trashCanUI;
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         outline = GetComponent<OutlineController>();
     }
 

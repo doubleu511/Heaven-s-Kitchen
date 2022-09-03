@@ -9,6 +9,7 @@ public class PlayerInventoryTab
     public SpriteRenderer basketItem;
     public Image ingredientImgTab;
     public Image ingredientImgSpr;
+    public ParticleSystem inventorySmokeParticle;
 
     public IngredientSO ingredient;
 
@@ -21,12 +22,16 @@ public class PlayerInventoryTab
             basketItem.sprite = ingredient.ingredientMiniSpr;
             ingredientImgSpr.sprite = ingredient.ingredientMiniSpr;
             ingredientImgSpr.gameObject.SetActive(true);
+
+            if (ingredient.isHot) inventorySmokeParticle.Play();
+            else inventorySmokeParticle.Stop();
         }
         else
         {
             basketItem.sprite = null;
             ingredientImgSpr.sprite = null;
             ingredientImgSpr.gameObject.SetActive(false);
+            inventorySmokeParticle.Stop();
         }
     }
 }
@@ -70,6 +75,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 inventoryTabs[i].SetIngredient(ingredient);
                 memoHandler.SearchNavIngredient();
+
                 return true;
             }
         }
@@ -86,6 +92,7 @@ public class PlayerInventory : MonoBehaviour
                 inventoryTabs[i].SetIngredient(ingredient);
                 addIndex = i;
                 memoHandler.SearchNavIngredient();
+
                 return true;
             }
         }
@@ -97,7 +104,8 @@ public class PlayerInventory : MonoBehaviour
     public void InventoryRemoveAt(int index)
     {
         inventoryTabs[index].SetIngredient(null);
-        for(int i = index; i < inventoryCount; i++)
+
+        for (int i = index; i < inventoryCount; i++)
         {
             if(i < inventoryCount - 1)
             {

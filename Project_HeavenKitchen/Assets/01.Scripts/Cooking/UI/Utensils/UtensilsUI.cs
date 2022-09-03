@@ -9,6 +9,7 @@ public class UtensilsUI : MonoBehaviour
     [SerializeField] GameObject processBarValue;
 
     int ingredientsCount = 0;
+    UtensilsCircleInventoryUI[] circleUIs;
 
     public void InventoryRefresh(List<UtensilsInventory> inventory)
     {
@@ -38,7 +39,9 @@ public class UtensilsUI : MonoBehaviour
             }
         }
 
-        if(ingredientsCount >= 4)
+        circleUIs = circleTrm.GetComponentsInChildren<UtensilsCircleInventoryUI>();
+
+        if (ingredientsCount >= 4)
         {
             UtensilsCircleInventoryUI circleUI = Global.Pool.GetItem<UtensilsCircleInventoryUI>();
             circleUI.transform.SetParent(circleTrm);
@@ -59,5 +62,29 @@ public class UtensilsUI : MonoBehaviour
             processBar.SetActive(true);
         }
         processBarValue.transform.localScale = new Vector3(value, 1);
+    }
+
+    public void SetBackgroundImage(Sprite sprite)
+    {
+        for (int i = 0; i < circleUIs.Length; i++)
+        {
+            circleUIs[i].SetBackgroundImage(sprite);
+        }
+    }
+
+    public void SetStatusImage(Sprite sprite)
+    {
+        for (int i = 0; i < circleUIs.Length; i++)
+        {
+            circleUIs[i].SetStatusImage(sprite);
+        }
+    }
+
+    public void SetStatusAnimation(UtensilsCircleInventoryUI.StatusAnimationType animationType)
+    {
+        for (int i = 0; i < circleUIs.Length; i++)
+        {
+            circleUIs[i].SetStatusAnimation(animationType);
+        }
     }
 }

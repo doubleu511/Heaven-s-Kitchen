@@ -17,3 +17,4 @@ MonoBehaviour:
   ingredientMiniSpr: {fileID: 21300000, guid: 7793e7295e96d4d488d9a98d30770da0, type: 3}
   ingredientMinigameSprite: []
   particlePrefab: {fileID: 0}
+  isHot: 1

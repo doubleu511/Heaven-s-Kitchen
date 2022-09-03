@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 2102744942}
   - component: {fileID: 2102744944}
   - component: {fileID: 2102744943}
+  - component: {fileID: 4740956884778880882}
   m_Layer: 5
   m_Name: ClumpingObject
   m_TagString: Untagged
@@ -298,6 +299,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4740956884778880882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102744941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa200297b2ccd845b687ba9e8fa6f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1275468352680332684
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,8 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f421625da97c948975bb6c68320296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressIcon: {fileID: 1802858217}
-  clumpingImg: {fileID: 2102744943}
+  mainIngredientObjectUI: {fileID: 4740956884778880882}
   clumpingPoses:
   - {fileID: 41468136}
   - {fileID: 6102863147930602922}
@@ -362,6 +374,7 @@ MonoBehaviour:
   - {fileID: 6898857186138784945}
   posCloserIndex: 0000000001000000020000000300000004000000050000000600000007000000
   rotateTipImg: {fileID: 1145420117}
+  progressIcon: {fileID: 1802858217}
 --- !u!1 &2998127616298972879
 GameObject:
   m_ObjectHideFlags: 0

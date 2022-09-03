@@ -85,10 +85,13 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
     {
         if (CookingManager.Global.DragAndDropContainer.savedIngredient != null)
         {
-            // set data from drag object on Container
-            SetIngredient(CookingManager.Global.DragAndDropContainer.savedIngredient);
-            CookingManager.Global.DragAndDropContainer.SetIngredient(null);
-            CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+            if (myIngredient == null)
+            {
+                // set data from drag object on Container
+                SetIngredient(CookingManager.Global.DragAndDropContainer.savedIngredient);
+                CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+                CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+            }
         }
     }
 }

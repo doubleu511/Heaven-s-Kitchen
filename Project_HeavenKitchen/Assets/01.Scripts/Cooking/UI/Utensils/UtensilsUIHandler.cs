@@ -9,7 +9,15 @@ public class UtensilsUIHandler : MonoBehaviour
 
     [SerializeField] Transform circlePrefabBoxTrm;
 
+    [Header("Sprites")]
     [SerializeField] Sprite plusSpr;
+    [SerializeField] Sprite checkSpr;
+    [SerializeField] Sprite warningSpr;
+    [SerializeField] Sprite deadSpr;
+
+    [Space(10)]
+    [SerializeField] Sprite normalBalloonSpr;
+    [SerializeField] Sprite spikeBalloonSpr;
     public static Sprite PlusSpr;
 
     Dictionary<MinigameStarter, UtensilsUI> utensilsPairsDic = new Dictionary<MinigameStarter, UtensilsUI>();
@@ -47,5 +55,47 @@ public class UtensilsUIHandler : MonoBehaviour
     {
         UtensilsUI utensilsUI = utensilsPairsDic[utensils];
         utensilsUI.SetProcessBar(value);
+    }
+
+    public void SetBackgroundImage(MinigameStarter utensils, UtensilsCircleInventoryUI.BackgroundSpriteType spriteType)
+    {
+        UtensilsUI utensilsUI = utensilsPairsDic[utensils];
+
+        switch (spriteType)
+        {
+            case UtensilsCircleInventoryUI.BackgroundSpriteType.NORMAL:
+                utensilsUI.SetBackgroundImage(normalBalloonSpr);
+                break;
+            case UtensilsCircleInventoryUI.BackgroundSpriteType.SPIKE:
+                utensilsUI.SetBackgroundImage(spikeBalloonSpr);
+                break;
+        }
+    }
+
+    public void SetStatusImage(MinigameStarter utensils, UtensilsCircleInventoryUI.StatusSpriteType spriteType)
+    {
+        UtensilsUI utensilsUI = utensilsPairsDic[utensils];
+
+        switch(spriteType)
+        {
+            case UtensilsCircleInventoryUI.StatusSpriteType.NONE:
+                utensilsUI.SetStatusImage(null);
+                break;
+            case UtensilsCircleInventoryUI.StatusSpriteType.CHECK:
+                utensilsUI.SetStatusImage(checkSpr);
+                break;
+            case UtensilsCircleInventoryUI.StatusSpriteType.WARNING:
+                utensilsUI.SetStatusImage(warningSpr);
+                break;
+            case UtensilsCircleInventoryUI.StatusSpriteType.DEAD:
+                utensilsUI.SetStatusImage(deadSpr);
+                break;
+        }
+    }
+
+    public void SetStatusAnimation(MinigameStarter utensils, UtensilsCircleInventoryUI.StatusAnimationType animationType)
+    {
+        UtensilsUI utensilsUI = utensilsPairsDic[utensils];
+        utensilsUI.SetStatusAnimation(animationType);
     }
 }

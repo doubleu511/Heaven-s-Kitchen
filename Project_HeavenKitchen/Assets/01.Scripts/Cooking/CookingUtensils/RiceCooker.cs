@@ -12,6 +12,8 @@ public class RiceCooker : IngredientSender
     public Sprite spr_riceCookerBase_Closed;
     public Sprite spr_riceCookerBase_Opened;
 
+    public ParticleSystem smokeParticle;
+
     private void Awake()
     {
         riceCookerBaseSR = GetComponent<SpriteRenderer>();
@@ -25,6 +27,7 @@ public class RiceCooker : IngredientSender
         riceCookerBaseSR.sprite = spr_riceCookerBase_Opened;
         outline.RefreshOutline();
         riceCookerTopSR.gameObject.SetActive(true);
+        smokeParticle.Play();
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -34,6 +37,7 @@ public class RiceCooker : IngredientSender
             riceCookerBaseSR.sprite = spr_riceCookerBase_Closed;
             outline.RefreshOutline();
             riceCookerTopSR.gameObject.SetActive(false);
+            smokeParticle.Stop();
         }
     }
 }

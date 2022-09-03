@@ -20,7 +20,7 @@ public class MinigameHandler : MonoBehaviour
     [SerializeField] Transform ingredientInventoryTrm;
     [SerializeField] GameObject minigameNotExistTab;
     [SerializeField] GameObject minigameAlreadyPlayingTab;
-    List<UI_IngredientTab> currentIngredientTabs = new List<UI_IngredientTab>();
+    List<IngredientTabUI> currentIngredientTabs = new List<IngredientTabUI>();
 
     [Header("미니게임 텍스트")]
     [SerializeField] TextMeshProUGUI minigameStartText;
@@ -74,8 +74,8 @@ public class MinigameHandler : MonoBehaviour
         GameObject ingredientTabPrefab = Global.Resource.Load<GameObject>("UI/IngredientTab");
         GameObject ingredientInventoryPrefab = Global.Resource.Load<GameObject>("UI/IngredientInventory");
 
-        Global.Pool.CreatePool<UI_IngredientTab>(ingredientTabPrefab, minigameListContentTrm, 3);
-        Global.Pool.CreatePool<UI_IngredientInventory>(ingredientInventoryPrefab, ingredientInventoryTrm, 10);
+        Global.Pool.CreatePool<IngredientTabUI>(ingredientTabPrefab, minigameListContentTrm, 3);
+        Global.Pool.CreatePool<IngredientInventoryUI>(ingredientInventoryPrefab, ingredientInventoryTrm, 10);
     }
 
     private void Update()
@@ -134,7 +134,7 @@ public class MinigameHandler : MonoBehaviour
         currentIngredientTabs.Clear();
         for (int i = 0; i < info.Length; i++)
         {
-            UI_IngredientTab tab = Global.Pool.GetItem<UI_IngredientTab>();
+            IngredientTabUI tab = Global.Pool.GetItem<IngredientTabUI>();
             tab.transform.SetSiblingIndex(i);
             tab.InventoryClear(ingredientInventoryTrm);
             tab.InitName(TranslationManager.Instance.GetLangDialog(info[i].minigameNameTranslationId));
@@ -145,7 +145,7 @@ public class MinigameHandler : MonoBehaviour
 
             for (int j = 0; j < info[i].ingredients.Length; j++)
             {
-                UI_IngredientInventory inventory = Global.Pool.GetItem<UI_IngredientInventory>();
+                IngredientInventoryUI inventory = Global.Pool.GetItem<IngredientInventoryUI>();
                 inventory.transform.SetParent(tab.ingredientInventoryTrm);
                 inventory.InitIngredient(info[i].ingredients[j], i, j);
 

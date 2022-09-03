@@ -7,6 +7,8 @@ public class CookingManager : MonoBehaviour
 {
     public static CookingManager Global;
     public static PlayerController Player;
+    public static MinigameHandler Minigame;
+    public static UtensilsUIHandler UtensilsUI;
 
     public MinigameStarter CurrentUtensils;
     public DragAndDropContainer DragAndDropContainer;
@@ -29,6 +31,8 @@ public class CookingManager : MonoBehaviour
 
         AllUtensils = FindObjectsOfType<MinigameStarter>();
         Player = FindObjectOfType<PlayerController>(true);
+        Minigame = FindObjectOfType<MinigameHandler>();
+        UtensilsUI = FindObjectOfType<UtensilsUIHandler>();
         SetRecipes(testRecipes);
     }
 

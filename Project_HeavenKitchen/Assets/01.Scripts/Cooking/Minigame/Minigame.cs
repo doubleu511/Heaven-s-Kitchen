@@ -20,41 +20,47 @@ public abstract class Minigame : MonoBehaviour
 
     protected int progressValue = 0;
 
-    protected MinigameHandler handler;
     protected MinigameInfo minigameInfo;
-    [SerializeField] protected Image progressIcon;
 
-    private void Awake()
+    [SerializeField] protected MinigameIngredientUI mainIngredientObjectUI;
+
+    protected virtual void Start()
     {
-        handler = FindObjectOfType<MinigameHandler>();
+        mainIngredientObjectUI.clickAction += () =>
+        {
+            EndMinigame(true);
+        };
     }
 
     public virtual void StartMinigame(MinigameInfo info)
     {
         isPlaying = true;
         minigameInfo = info;
-        handler.ShowProgress(true);
+        CookingManager.Minigame.ShowProgress(true);
         minigameParent.OnMinigameStart();
     }
 
-    public virtual void EndMinigame()
+    public virtual void EndMinigame(bool clear)
     {
         isPlaying = false;
-        handler.MinigameEnd(this);
+        CookingManager.Minigame.MinigameEnd(this);
         minigameParent.OnMinigameEnd();
 
         // 미니게임에 성공했다면 딕셔너리에 해당 리워드 키의 값을 1 추가한다.
-        if (CookingManager.Global.MemoSuccessCountDic.ContainsKey(minigameInfo.reward))
+        if (clear)
         {
-            CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward]++;
-        }
-        else
-        {
-            CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward] = 1;
-        }
+            if (CookingManager.Global.MemoSuccessCountDic.ContainsKey(minigameInfo.reward))
+            {
+                CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward]++;
+            }
+            else
+            {
+                CookingManager.Global.MemoSuccessCountDic[minigameInfo.reward] = 1;
+            }
 
-        MemoHandler memoHandler = FindObjectOfType<MemoHandler>();
-        memoHandler.RefreshMinigameRecipes();
+            MemoHandler memoHandler = FindObjectOfType<MemoHandler>();
+            memoHandler.RefreshMinigameRecipes();
+        }
 
         Destroy(this.gameObject);
     }
@@ -63,7 +69,7 @@ public abstract class Minigame : MonoBehaviour
     {
         if (IsMinigameOpen)
         {
-            handler.ShowProgress(progressValue, false);
+            CookingManager.Minigame.ShowProgress(progressValue, false);
         }
     }
 
@@ -71,7 +77,7 @@ public abstract class Minigame : MonoBehaviour
     {
         if (IsMinigameOpen)
         {
-            handler.HideProgress();
+            CookingManager.Minigame.HideProgress();
         }
     }
 

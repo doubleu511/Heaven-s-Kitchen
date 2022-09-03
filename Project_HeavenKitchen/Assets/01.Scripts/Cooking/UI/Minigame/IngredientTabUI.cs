@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public class UI_IngredientTab : MonoBehaviour
+public class IngredientTabUI : MonoBehaviour
 {
     public Transform ingredientInventoryTrm;
     [SerializeField] TextMeshProUGUI minigameName;
@@ -38,7 +38,7 @@ public class UI_IngredientTab : MonoBehaviour
 
     public void InventoryClean() // 인벤토리 안에있는 아이템을 날린다.
     {
-        UI_IngredientInventory[] ingredientInventories = ingredientInventoryTrm.GetComponentsInChildren<UI_IngredientInventory>();
+        IngredientInventoryUI[] ingredientInventories = ingredientInventoryTrm.GetComponentsInChildren<IngredientInventoryUI>();
 
         for(int i =0; i<ingredientInventories.Length;i++)
         {

@@ -6,16 +6,10 @@ using UnityEngine;
 public class MinigameStarter : InteractiveObject
 {
     [SerializeField] Transform inventoryAppearTrm;
-    private UtensilsUIHandler utensilsInventoryHandler;
 
     public CookingUtensilsSO cookingUtensilsSO;
     public List<UtensilsInventory> utensilsInventories = new List<UtensilsInventory>();
     private List<MinigameInfo> minigameInfos = new List<MinigameInfo>();
-
-    protected virtual void Awake()
-    {
-        utensilsInventoryHandler = FindObjectOfType<UtensilsUIHandler>();
-    }
 
     protected virtual void Start()
     {
@@ -28,8 +22,7 @@ public class MinigameStarter : InteractiveObject
 
         RefreshInventory();
         CookingManager.Global.CurrentUtensils = this;
-        MinigameHandler handler = FindObjectOfType<MinigameHandler>();
-        handler.ReceiveInfo(cookingUtensilsSO, minigameInfos.ToArray());
+        CookingManager.Minigame.ReceiveInfo(cookingUtensilsSO, minigameInfos.ToArray());
     }
 
     public void RefreshInventory()
@@ -94,22 +87,22 @@ public class MinigameStarter : InteractiveObject
 
     public void InitUtensilsGUI()
     {
-        utensilsInventoryHandler.InitUI(this, inventoryAppearTrm.position);
+        CookingManager.UtensilsUI.InitUI(this, inventoryAppearTrm.position);
     }
 
     public void RefreshInventoryGUI()
     {
-        utensilsInventoryHandler.RefreshUtensilsInventory();
+        CookingManager.UtensilsUI.RefreshUtensilsInventory();
     }
 
     public void HideProcessBar()
     {
-        utensilsInventoryHandler.HideProcessBar(this);
+        CookingManager.UtensilsUI.HideProcessBar(this);
     }
 
     public void SetProcessBar(float value)
     {
-        utensilsInventoryHandler.SetProcessBar(this, value);
+        CookingManager.UtensilsUI.SetProcessBar(this, value);
     }
 }
 

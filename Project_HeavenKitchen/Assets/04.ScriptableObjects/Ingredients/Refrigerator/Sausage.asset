@@ -16,9 +16,10 @@ MonoBehaviour:
   ingredientDefaulrSpr: {fileID: 4082340720116302823, guid: 5e6fd946fc3c15c49baa1c6458957b41, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: da4cc9e5647ea5b4fb2437a79df6020e, type: 3}
   ingredientMinigameSprite:
-  - spritesName: Grilling
+  - spritesName: Grilled
     sprites:
     - {fileID: 4082340720116302823, guid: 5e6fd946fc3c15c49baa1c6458957b41, type: 3}
     - {fileID: -5081684550976657270, guid: 5e6fd946fc3c15c49baa1c6458957b41, type: 3}
     - {fileID: 7221909365846616829, guid: 5e6fd946fc3c15c49baa1c6458957b41, type: 3}
+    - {fileID: 8910848564106532633, guid: 5e6fd946fc3c15c49baa1c6458957b41, type: 3}
   particlePrefab: {fileID: 0}

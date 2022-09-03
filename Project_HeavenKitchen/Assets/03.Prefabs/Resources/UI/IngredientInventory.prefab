@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4961898731965297270}
   - component: {fileID: 4961898731965297272}
   - component: {fileID: 4961898731965297271}
-  - component: {fileID: 4961898731965297273}
+  - component: {fileID: 2133260028565708549}
   m_Layer: 5
   m_Name: IngredientInventory
   m_TagString: Untagged
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 5.69
---- !u!114 &4961898731965297273
+--- !u!114 &2133260028565708549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4961898731965297269}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21dccb2811dbe464388da89d109ab52c, type: 3}
+  m_Script: {fileID: 11500000, guid: 652d3ab70f97e1249b47b661f945c608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientImg: {fileID: 1045413505627625687}

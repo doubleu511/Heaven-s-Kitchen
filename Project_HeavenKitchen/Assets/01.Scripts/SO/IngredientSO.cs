@@ -16,6 +16,9 @@ public class IngredientSO : ScriptableObject
     [Header("재료 파티클")]
     public ParticleSystem particlePrefab; // TO DO : 나중에 이것도 스프라이트처럼 나눠야할수도?
 
+    [Header("재료 속성")]
+    public bool isHot;
+
     public bool FindSprites(string name, out Sprite[] sprites)
     {
         IngredientMinigameSprite nameOfSprites = ingredientMinigameSprite.Find(x => x.spritesName == name);

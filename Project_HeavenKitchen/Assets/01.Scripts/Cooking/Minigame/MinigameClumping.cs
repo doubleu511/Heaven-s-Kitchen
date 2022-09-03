@@ -6,7 +6,8 @@ using DG.Tweening;
 
 public class MinigameClumping : Minigame
 {
-    public Image clumpingImg;
+    private Image clumpingImg; // 뭉쳐질 오브젝트
+
     public Transform[] clumpingPoses;
     public List<int> posCloserIndex = new List<int>();
 
@@ -18,9 +19,15 @@ public class MinigameClumping : Minigame
     private int currentIndex = -1;
     private int targetIndex;
     private int nextTargetIndex;
+    [SerializeField] protected Image progressIcon;
 
     Sprite[] savedSprs;
     Sprite[] progressSprs;
+
+    private void Awake()
+    {
+        clumpingImg = mainIngredientObjectUI.GetComponent<Image>();
+    }
 
     public override void StartMinigame(MinigameInfo Info)
     {
@@ -36,8 +43,8 @@ public class MinigameClumping : Minigame
         progressIcon.sprite = progressSprs[0];
 
         rotateTipImg.gameObject.SetActive(true);
-        handler.ShowProgress(true);
-        handler.ShowStartText("뭉쳐라!"); // TO DO : 번역
+        CookingManager.Minigame.ShowProgress(true);
+        CookingManager.Minigame.ShowStartText("뭉쳐라!"); // TO DO : 번역
     }
 
     private void Update()
@@ -45,10 +52,7 @@ public class MinigameClumping : Minigame
         if (!IsMinigameOpen) return; // 안열려있을땐 감지할 필요가 없다.(뭉치기는)
         if (isCleared)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                EndMinigame();
-            }
+            mainIngredientObjectUI.SetClickAble();
 
             return;
         } // 클리어되면 업데이트를 돌릴 필요가 없다.
@@ -82,7 +86,7 @@ public class MinigameClumping : Minigame
                         nextTargetIndex = (currentIndex + 2) % posCloserIndex.Count;
 
                         progressValue += 2;
-                        handler.ShowProgress(progressValue);
+                        CookingManager.Minigame.ShowProgress(progressValue);
                     }
                 }
             }
@@ -104,13 +108,13 @@ public class MinigameClumping : Minigame
                 isCleared = true;
                 minigameParent.OnFinished();
                 rotateTipImg.gameObject.SetActive(false);
-                handler.HideProgress();
+                CookingManager.Minigame.HideProgress();
             }
             else
             {
                 clumpingImg.sprite = savedSprs[0];
                 progressValue = 0;
-                handler.ShowProgress(progressValue);
+                CookingManager.Minigame.ShowProgress(progressValue);
             }
         }
         else if(progressValue >= 66)
@@ -123,13 +127,13 @@ public class MinigameClumping : Minigame
         }
     }
 
-    public override void EndMinigame()
+    public override void EndMinigame(bool clear)
     {
         if(CookingManager.Player.Inventory.InventoryAdd(minigameInfo.reward, out int addIndex))
         {
             print("미니게임 끝");
-            handler.IngredientAddAnimation(minigameInfo.reward, transform.position, clumpingImg.rectTransform.sizeDelta / 2, addIndex);
-            base.EndMinigame();
+            CookingManager.Minigame.IngredientAddAnimation(minigameInfo.reward, transform.position, clumpingImg.rectTransform.sizeDelta / 2, addIndex);
+            base.EndMinigame(clear);
         }
     }
 }

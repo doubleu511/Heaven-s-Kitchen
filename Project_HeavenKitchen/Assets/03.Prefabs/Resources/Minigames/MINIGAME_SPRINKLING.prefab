@@ -52,11 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf5da5013a6bf8a458690ebb253ea5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  progressIcon: {fileID: 2287537489334439359}
-  sprinkleBaseImg: {fileID: 2287537489500124217}
+  mainIngredientObjectUI: {fileID: 9054019162880616177}
   sprinkledObjectImg: {fileID: 2353871183912964170}
   sprinkledObjectCaseImg: {fileID: 7782417291817332032}
   upAndDownTipImg: {fileID: 2287537489920645635}
+  progressIcon: {fileID: 2287537489334439359}
 --- !u!1 &2287537489500124219
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 2287537489500124216}
   - component: {fileID: 2287537489500124198}
   - component: {fileID: 2287537489500124217}
+  - component: {fileID: 9054019162880616177}
   m_Layer: 5
   m_Name: SprinkleBase
   m_TagString: Untagged
@@ -133,6 +134,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9054019162880616177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2287537489500124219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa200297b2ccd845b687ba9e8fa6f95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2287537489920645637
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -417,7 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

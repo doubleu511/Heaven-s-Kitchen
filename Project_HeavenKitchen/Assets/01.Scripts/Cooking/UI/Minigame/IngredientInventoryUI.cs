@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_IngredientInventory : MonoBehaviour
+public class IngredientInventoryUI : MonoBehaviour
 {
     [SerializeField] NeedyDragableUI ingredientImg;
     [SerializeField] Image fadeImg;

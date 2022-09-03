@@ -6,11 +6,14 @@ using DG.Tweening;
 
 public class MinigameSprinkling : Minigame
 {
-    public Image sprinkleBaseImg;    // 뿌림 당하는 것 (예 : 주먹밥에선 밥)
-    public Image sprinkledObjectImg;  // 뿌려지는것 (예 : 주먹밥에선 후리카케)
-    public Image sprinkledObjectCaseImg;  // 뿌려지는것의 통
+    Image sprinkleBaseImg; // 뿌림 당하는 것 (예 : 주먹밥에선 밥)
 
-    public Image upAndDownTipImg;
+    [SerializeField] Image sprinkledObjectImg;  // 뿌려지는것 (예 : 주먹밥에선 후리카케)
+    [SerializeField] Image sprinkledObjectCaseImg;  // 뿌려지는것의 통
+
+    [SerializeField] Image upAndDownTipImg;
+
+    [SerializeField] Image progressIcon;
 
     private IngredientSO sprinkledIngredient;
 
@@ -24,11 +27,18 @@ public class MinigameSprinkling : Minigame
 
     float beforeMousePosY;
 
+    private void Awake()
+    {
+        sprinkleBaseImg = mainIngredientObjectUI.GetComponent<Image>();
+    }
+
     public override void StartMinigame(MinigameInfo Info)
     {
         print("미니게임 시작");
         base.StartMinigame(Info);
         repeatCount = Info.repeatCount;
+
+        sprinkleBaseImg.sprite = minigameInfo.ingredients[0].ingredientDefaulrSpr;
 
         sprinkledIngredient = minigameInfo.FindIngredientsSprites("Sprinkling", out savedSprs);
         minigameInfo.reward.FindSprites("Sprinkling_Progress", out progressSprs);
@@ -44,8 +54,8 @@ public class MinigameSprinkling : Minigame
         sprinkledObjectImg.sprite = savedSprs[0];
         progressIcon.sprite = progressSprs[0];
 
-        handler.ShowProgress(true);
-        handler.ShowStartText("뿌려라!"); // TO DO : 번역
+        CookingManager.Minigame.ShowProgress(true);
+        CookingManager.Minigame.ShowStartText("뿌려라!"); // TO DO : 번역
     }
 
     private void Update()
@@ -53,10 +63,7 @@ public class MinigameSprinkling : Minigame
         if (!IsMinigameOpen) return; // 안열려있을땐 감지할 필요가 없다.(뿌리기도)
         if (isCleared)
         {
-            if (Input.GetMouseButtonDown(0))
-            {
-                EndMinigame();
-            }
+            mainIngredientObjectUI.SetClickAble();
 
             return;
         } // 클리어되면 업데이트를 돌릴 필요가 없다.
@@ -86,7 +93,7 @@ public class MinigameSprinkling : Minigame
                 {
                     // TO DO : 이펙트 추가
                     progressValue += 15;
-                    handler.ShowProgress(progressValue);
+                    CookingManager.Minigame.ShowProgress(progressValue);
                     shakeFlag = false;
                 }
             }
@@ -107,12 +114,12 @@ public class MinigameSprinkling : Minigame
                 isCleared = true;
                 minigameParent.OnFinished();
                 upAndDownTipImg.gameObject.SetActive(false);
-                handler.HideProgress();
+                CookingManager.Minigame.HideProgress();
             }
             else
             {
                 progressValue = 0;
-                handler.ShowProgress(progressValue);
+                CookingManager.Minigame.ShowProgress(progressValue);
             }
         }
         else if (progressValue >= 80)
@@ -134,13 +141,13 @@ public class MinigameSprinkling : Minigame
         }
     }
 
-    public override void EndMinigame()
+    public override void EndMinigame(bool clear)
     {
         if(CookingManager.Player.Inventory.InventoryAdd(minigameInfo.reward, out int addIndex))
         {
             print("미니게임 끝");
-            handler.IngredientAddAnimation(minigameInfo.reward, transform.position, sprinkleBaseImg.rectTransform.sizeDelta / 2, addIndex);
-            base.EndMinigame();
+            CookingManager.Minigame.IngredientAddAnimation(minigameInfo.reward, transform.position, sprinkleBaseImg.rectTransform.sizeDelta / 2, addIndex);
+            base.EndMinigame(clear);
         }
     }
 }
