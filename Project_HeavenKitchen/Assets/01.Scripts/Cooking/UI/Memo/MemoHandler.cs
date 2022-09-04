@@ -26,8 +26,8 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     RecipeSO[] recipes;
     int currentRecipeIndex = 0;
 
-    public MinigameInfo currentTargetMinigame;
-    public IngredientSO currentTargetIngredient;
+    private MinigameInfo currentTargetMinigame;
+    private IngredientSO currentTargetIngredient;
 
     private void Awake()
     {

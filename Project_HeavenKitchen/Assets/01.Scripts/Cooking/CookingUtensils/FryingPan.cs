@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FryingPan : MinigameStarter
 {
+    [Header("Deco")]
+    [SerializeField] SpriteRenderer stoveButtonSR;
+
     [SerializeField] ParticleSystem grillSmokeParticle;
     [SerializeField] GameObject[] fireAnimation;
 
@@ -37,6 +40,7 @@ public class FryingPan : MinigameStarter
         {
             fireAnimation[i].SetActive(true);
         }
+        stoveButtonSR.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
     }
 
     public override void OnMinigameEnd()
@@ -46,5 +50,6 @@ public class FryingPan : MinigameStarter
         {
             fireAnimation[i].SetActive(false);
         }
+        stoveButtonSR.transform.rotation = Quaternion.Euler(Vector3.zero);
     }
 }
