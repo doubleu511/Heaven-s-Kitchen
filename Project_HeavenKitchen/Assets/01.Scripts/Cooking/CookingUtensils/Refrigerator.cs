@@ -21,6 +21,22 @@ public class Refrigerator : MinigameStarter
     [SerializeField] Button bottomBtn;
     private Button[] buttons;
 
+    [Header("Deco")]
+    public Sprite spr_refeigeratorOpen;
+    public Sprite spr_refeigeratorClose;
+    public GameObject leftWing;
+    public GameObject rightWing;
+    public ParticleSystem coldAirParticle;
+
+    private OutlineController outline;
+    private SpriteRenderer refrigeratorBaseSR;
+
+    private void Awake()
+    {
+        outline = GetComponent<OutlineController>();
+        refrigeratorBaseSR = GetComponent<SpriteRenderer>();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -33,7 +49,20 @@ public class Refrigerator : MinigameStarter
         bottomBtn.onClick.AddListener(() => MoveContent(curIndex + REFRIGERATOR_WIDTH));
     }
 
-    private void MoveContent(int index)
+    public override void OnInteract()
+    {
+        base.OnInteract();
+
+        refrigeratorBaseSR.sprite = spr_refeigeratorOpen;
+
+        leftWing.gameObject.SetActive(true);
+        rightWing.gameObject.SetActive(true);
+        outline.RefreshOutline();
+
+        coldAirParticle.Play();
+    }
+
+        private void MoveContent(int index)
     {
         curIndex = index;
         int col = curIndex % REFRIGERATOR_WIDTH;
@@ -63,5 +92,18 @@ public class Refrigerator : MinigameStarter
         rightBtn.gameObject.SetActive(col < REFRIGERATOR_WIDTH - 1);
         topBtn.gameObject.SetActive(row > 0);
         bottomBtn.gameObject.SetActive(row < REFRIGERATOR_WIDTH - 1);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            refrigeratorBaseSR.sprite = spr_refeigeratorClose;
+            leftWing.gameObject.SetActive(false);
+            rightWing.gameObject.SetActive(false);
+            outline.RefreshOutline();
+
+            coldAirParticle.Stop();
+        }
     }
 }

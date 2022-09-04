@@ -22,7 +22,7 @@ public class RiceCooker : IngredientSender
 
     public override void OnInteract()
     {
-        CookingManager.Player.Inventory.InventoryAdd(ingredientBox);
+        base.OnInteract();
 
         riceCookerBaseSR.sprite = spr_riceCookerBase_Opened;
         outline.RefreshOutline();
@@ -35,8 +35,8 @@ public class RiceCooker : IngredientSender
         if(collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             riceCookerBaseSR.sprite = spr_riceCookerBase_Closed;
-            outline.RefreshOutline();
             riceCookerTopSR.gameObject.SetActive(false);
+            outline.RefreshOutline();
             smokeParticle.Stop();
         }
     }
