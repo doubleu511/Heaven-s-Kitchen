@@ -7,6 +7,9 @@ using UnityEngine;
 public class RecipeSO : ScriptableObject
 {
     public int recipeNameTranslationId;
+    public IngredientSO foodIngredient;
+    public int foodPrice;
+    public int averageCookingTime;
     public MinigameInfo[] recipe;
 }
 

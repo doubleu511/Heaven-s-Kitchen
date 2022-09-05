@@ -88,21 +88,18 @@ public class CookingDialogDic : MonoBehaviour
             CookingDialogInfo info = new CookingDialogInfo();
 
             int _dialogId = TryParse(Sentence[j, 0], ref savedDialogId, false);
+            int _translationId = int.Parse(Sentence[j, 1]);
+            int _faceIndex = int.Parse(Sentence[j, 2]);
+            int _speechbubbleType = int.Parse(Sentence[j, 3]);
             string _eventMethod = Sentence[j, 4];
+
+            info.tranlationId = _translationId;
+            info.faceIndex = _faceIndex;
+            info.speechbubble_type = _speechbubbleType;
 
             if (false == string.IsNullOrEmpty(_eventMethod))
             {
                 info.eventMethod = _eventMethod;
-            }
-            else
-            {
-                int _translationId = int.Parse(Sentence[j, 1]);
-                int _faceIndex = int.Parse(Sentence[j, 2]);
-                int _speechbubbleType = int.Parse(Sentence[j, 3]);
-
-                info.tranlationId = _translationId;
-                info.faceIndex = _faceIndex;
-                info.speechbubble_type = _speechbubbleType;
             }
 
             if (savedDialogId != _dialogId)

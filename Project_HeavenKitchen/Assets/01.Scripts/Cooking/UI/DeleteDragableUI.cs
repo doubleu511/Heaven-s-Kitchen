@@ -36,7 +36,7 @@ public class DeleteDragableUI : DragableUI
 
             // Reset Contatiner
             CookingManager.Global.DragAndDropContainer.SetIngredient(null);
-            CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+            CookingManager.Global.DragAndDropContainer.SetActive(false);
         }
     }
 }

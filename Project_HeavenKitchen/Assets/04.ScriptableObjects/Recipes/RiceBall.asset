@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: RiceBall
   m_EditorClassIdentifier: 
   recipeNameTranslationId: 301
+  foodIngredient: {fileID: 11400000, guid: 2b3f0715a4c97c143bcb6c32e569e1dd, type: 2}
+  foodPrice: 350
+  averageCookingTime: 100
   recipe:
   - minigameNameTranslationId: 401
     minigameType: 0

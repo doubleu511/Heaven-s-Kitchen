@@ -6,8 +6,6 @@ public class Counter : InteractiveObject
 {
     public override void OnInteract()
     {
-        CounterPanel counter = FindObjectOfType<CounterPanel>();
-
-        counter.SetScroll(true, false);
+        CookingManager.Counter.SetScroll(true, false);
     }
 }

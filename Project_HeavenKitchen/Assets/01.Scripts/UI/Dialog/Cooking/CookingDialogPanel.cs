@@ -16,8 +16,9 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
 
     [Header("Dialog")]
     [SerializeField] TextMeshProUGUI dialogText = null;
+    [SerializeField] TextMeshProUGUI textSizeFitter = null;
     [SerializeField] Text phoneDialogText = null;
-    [SerializeField] GameObject textEndArrow;
+    [SerializeField] Image textEndArrow;
 
     private bool isPlayingDialog = false; // 현재 하나의 문단 다이얼로그가 재생중인가?
     private bool isText = false;
@@ -63,25 +64,40 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
             CookingDialogInfo dialog = dialogQueue.Dequeue();
             ShowText(TranslationManager.Instance.GetLangDialog(dialog.tranlationId));
 
-            yield return new WaitUntil(() => isTextEnd);
-            // 이벤트가 걸리는지 확인
-            EventTest(dialog);
-            yield return new WaitUntil(() => !eventWaitFlag);
+            textEndArrow.gameObject.SetActive(string.IsNullOrEmpty(dialog.eventMethod));
+            textEndArrow.color = new Color(1, 1, 1, 0);
+            Global.UI.UIFade(dialogPanel, true);
 
-            yield return new WaitUntil(() => isClicked);
+            // 이벤트가 걸리는지 확인
+            if (EventTest(dialog))
+            {
+                yield return new WaitUntil(() => isTextEnd);
+                dialogEvents.OnTextEnd();
+                Global.UI.UIFade(dialogPanel, false);
+                yield return new WaitUntil(() => !eventWaitFlag);
+            }
+            else
+            {
+                yield return new WaitUntil(() => isTextEnd);
+                textEndArrow.color = Color.white;
+                yield return new WaitUntil(() => isClicked);
+            }
         }
 
         Global.UI.UIFade(dialogPanel, false);
         isPlayingDialog = false;
     }
 
-    private void EventTest(CookingDialogInfo info)
+    private bool EventTest(CookingDialogInfo info)
     {
         if (false == string.IsNullOrEmpty(info.eventMethod))
         {
             eventWaitFlag = true;
             dialogEvents.ThrowEvent(info.eventMethod);
+            return true;
         }
+
+        return false;
     }
 
     public void SetCharacterFace(Image chara, CharacterSO charaData, int faceIndex)
@@ -96,9 +112,9 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
         isText = true;
         isTextEnd = false;
 
+        textSizeFitter.text = text;
         dialogText.text = "";
         phoneDialogText.text = "";
-        textEndArrow.SetActive(false);
         int textLength = TextLength(text);
 
         textTween = phoneDialogText.DOText(text, textLength * 0.1f)
@@ -107,7 +123,6 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
                     {
                         textString = "";
                         isTextEnd = true;
-                        textEndArrow.SetActive(true);
                     })
                     .OnUpdate(() =>
                     {
@@ -147,6 +162,11 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
 
             return len;
         }
+    }
+
+    public void ResetEvent()
+    {
+        dialogEvents.ResetEvent();
     }
 
     public void OnPointerClick(PointerEventData eventData)

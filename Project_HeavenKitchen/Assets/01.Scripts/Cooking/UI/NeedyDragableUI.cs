@@ -17,7 +17,7 @@ public class NeedyDragableUI : DragableUI
         }
 
         // Activate Container
-        CookingManager.Global.DragAndDropContainer.gameObject.SetActive(true);
+        CookingManager.Global.DragAndDropContainer.SetActive(true);
         // Set Data
         CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient);
         myImg.color = new Color(1, 1, 1, 0);
@@ -46,7 +46,7 @@ public class NeedyDragableUI : DragableUI
         isDragging = false;
         // Reset Contatiner
         CookingManager.Global.DragAndDropContainer.SetIngredient(null);
-        CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+        CookingManager.Global.DragAndDropContainer.SetActive(false);
     }
 
     public override void OnDrop(PointerEventData eventData) // OnDrop이 OnEndDrag보다 먼저 실행된다.
@@ -64,7 +64,7 @@ public class NeedyDragableUI : DragableUI
 
             SetIngredient(CookingManager.Global.DragAndDropContainer.savedIngredient);
             CookingManager.Global.DragAndDropContainer.SetIngredient(null);
-            CookingManager.Global.DragAndDropContainer.gameObject.SetActive(false);
+            CookingManager.Global.DragAndDropContainer.SetActive(false);
         }
     }
 }

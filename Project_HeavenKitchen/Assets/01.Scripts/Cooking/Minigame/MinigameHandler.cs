@@ -36,6 +36,8 @@ public class MinigameHandler : MonoBehaviour
     
     [Header("버튼")]
     [SerializeField] Button minigameExitButton;
+    [SerializeField] Transform arrowButtonTrm;
+    private Button[] arrowButtons;
 
     [Header("주방기구들")]
     [SerializeField] Transform utensilsTrm;
@@ -76,6 +78,8 @@ public class MinigameHandler : MonoBehaviour
 
         Global.Pool.CreatePool<IngredientTabUI>(ingredientTabPrefab, minigameListContentTrm, 3);
         Global.Pool.CreatePool<IngredientInventoryUI>(ingredientInventoryPrefab, ingredientInventoryTrm, 10);
+
+        arrowButtons = arrowButtonTrm.GetComponentsInChildren<Button>();
     }
 
     private void Update()
@@ -118,6 +122,12 @@ public class MinigameHandler : MonoBehaviour
         {
             CanvasGroup utensilsCanvas = utensilsTrm.GetChild(i).GetComponent<CanvasGroup>();
             Global.UI.UIFade(utensilsCanvas, false);
+        }
+
+        // 화살버튼 UI도 모두 끄고
+        for (int i = 0; i < arrowButtons.Length; i++)
+        {
+            arrowButtons[i].gameObject.SetActive(false);
         }
 
         // 현재 조리기구 캔버스 찾은 후 켜주기
@@ -240,7 +250,7 @@ public class MinigameHandler : MonoBehaviour
         }
     }
 
-    private void InventorySync()
+    public void InventorySync()
     {
         // 요리 UI 인벤토리 재료를 게임 인벤토리로
         List<IngredientSO> tempInventory = new List<IngredientSO>();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ public class CookingManager : MonoBehaviour
     public static PlayerController Player;
     public static MinigameHandler Minigame;
     public static UtensilsUIHandler UtensilsUI;
+    public static CounterHandler Counter;
 
     public MinigameStarter CurrentUtensils;
     public DragAndDropContainer DragAndDropContainer;
@@ -19,8 +21,12 @@ public class CookingManager : MonoBehaviour
 
     private MinigameStarter[] AllUtensils;
     private RecipeSO[] CurrentRecipes = new RecipeSO[1];
+    public event Action OnRecipeAdded;
+
     private List<MinigameInfo> CurrentMinigames = new List<MinigameInfo>();
-    [SerializeField] RecipeSO[] testRecipes; // 테스트
+
+    public RecipeSO[] canAppearRecipes; // 테스트로 일단 너두고 나중에 필요할때 덮어쓴다.
+    public Dictionary<int, RecipeSO> RecipeIDPairDic = new Dictionary<int, RecipeSO>();
 
     private void Awake()
     {
@@ -33,7 +39,12 @@ public class CookingManager : MonoBehaviour
         Player = FindObjectOfType<PlayerController>(true);
         Minigame = FindObjectOfType<MinigameHandler>();
         UtensilsUI = FindObjectOfType<UtensilsUIHandler>();
-        SetRecipes(testRecipes);
+        Counter = FindObjectOfType<CounterHandler>();
+
+        for (int i = 0; i < canAppearRecipes.Length; i++)
+        {
+            RecipeIDPairDic[canAppearRecipes[i].recipeNameTranslationId] = canAppearRecipes[i];
+        }
     }
 
     public static void SetRecipes(RecipeSO recipe)
@@ -51,6 +62,7 @@ public class CookingManager : MonoBehaviour
         Global.CurrentMinigames = Global.CurrentMinigames.Distinct().ToList();
 
         SetTargetNavDic();
+        Global.OnRecipeAdded?.Invoke();
     }
 
     public static void SetRecipes(RecipeSO[] recipe)
@@ -70,6 +82,7 @@ public class CookingManager : MonoBehaviour
         Global.CurrentMinigames = Global.CurrentMinigames.Distinct().ToList();
 
         SetTargetNavDic();
+        Global.OnRecipeAdded?.Invoke();
     }
 
     private static void SetTargetNavDic()

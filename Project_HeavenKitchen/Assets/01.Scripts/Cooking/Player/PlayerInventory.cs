@@ -8,7 +8,7 @@ public class PlayerInventoryTab
 {
     public SpriteRenderer basketItem;
     public Image ingredientImgTab;
-    public Image ingredientImgSpr;
+    public PlayerInventoryDragableUI ingredientInventoryUI;
     public ParticleSystem inventorySmokeParticle;
 
     public IngredientSO ingredient;
@@ -20,8 +20,7 @@ public class PlayerInventoryTab
         if (ingredient != null)
         {
             basketItem.sprite = ingredient.ingredientMiniSpr;
-            ingredientImgSpr.sprite = ingredient.ingredientMiniSpr;
-            ingredientImgSpr.gameObject.SetActive(true);
+            ingredientInventoryUI.SetIngredient(ingredient);
 
             if (ingredient.isHot) inventorySmokeParticle.Play();
             else inventorySmokeParticle.Stop();
@@ -29,8 +28,7 @@ public class PlayerInventoryTab
         else
         {
             basketItem.sprite = null;
-            ingredientImgSpr.sprite = null;
-            ingredientImgSpr.gameObject.SetActive(false);
+            ingredientInventoryUI.SetIngredient(null);
             inventorySmokeParticle.Stop();
         }
     }

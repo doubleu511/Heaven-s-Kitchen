@@ -23,7 +23,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     [SerializeField] Image memoPostIt;
     [SerializeField] TextMeshProUGUI memoPostItIndexText;
 
-    RecipeSO[] recipes;
+    RecipeSO[] recipes = new RecipeSO[1];
     int currentRecipeIndex = 0;
 
     private MinigameInfo currentTargetMinigame;
@@ -37,19 +37,29 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        CookingManager.Global.OnRecipeAdded += OnRecipeAdded;
+        memoRecipeNameText.text = "레시피 없음";
+        memoPostIt.gameObject.SetActive(false);
+    }
+
+    private void OnRecipeAdded()
+    {
         recipes = CookingManager.GetRecipes();
 
-        FrontInit(currentRecipeIndex);
-        memoPostItIndexText.text = $"{currentRecipeIndex + 1}";
-
-        if (recipes.Length > 1)
+        if (recipes.Length > 0)
         {
-            int nextRecipeIndex = (currentRecipeIndex + 1) % recipes.Length;
-            BackInit(nextRecipeIndex);
-        }
+            FrontInit(currentRecipeIndex);
+            memoPostItIndexText.text = $"{currentRecipeIndex + 1}";
 
-        memoBack.gameObject.SetActive(recipes.Length > 1);
-        memoPostIt.gameObject.SetActive(recipes.Length > 1);
+            if (recipes.Length > 1)
+            {
+                int nextRecipeIndex = (currentRecipeIndex + 1) % recipes.Length;
+                BackInit(nextRecipeIndex);
+            }
+
+            memoBack.gameObject.SetActive(recipes.Length > 1);
+            memoPostIt.gameObject.SetActive(recipes.Length > 1);
+        }
     }
 
     private void FrontInit(int index)
