@@ -96,7 +96,6 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
             }
         }
 
-        print("?");
         SetQuitMessage(currentGuest.quitTranslationIds);
         Global.UI.UIFade(dialogPanel, false);
         isPlayingDialog = false;

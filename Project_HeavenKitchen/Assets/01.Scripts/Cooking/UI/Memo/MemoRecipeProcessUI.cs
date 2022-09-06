@@ -38,8 +38,8 @@ public class MemoRecipeProcessUI : MonoBehaviour
                 break;
         }
 
-        minigameName.fontStyle = FontStyles.Normal;
-        recipeIngredients.fontStyle = FontStyles.Normal;
+        minigameName.fontStyle = FontStyles.Bold;
+        recipeIngredients.fontStyle = FontStyles.Bold;
 
         minigameName.text = TranslationManager.Instance.GetLangDialog(info.minigameNameTranslationId);
         minigameIcon.sprite = CookingManager.Global.TargetNavDic[myInfo.minigameNameTranslationId].cookingUtensilsSO.defaultMapSprite;
@@ -99,7 +99,7 @@ public class MemoRecipeProcessUI : MonoBehaviour
         checkBox.gameObject.SetActive(value);
 
         minigameName.color = value ? new Color32(119, 110, 109, 255) : new Color32(0, 0, 0, 255);
-        minigameName.fontStyle = value ? FontStyles.Strikethrough : FontStyles.Normal;
+        minigameName.fontStyle = value ? FontStyles.Strikethrough | FontStyles.Bold : FontStyles.Bold;
 
         switch (UPGRADE_COUNT)
         {
@@ -107,7 +107,7 @@ public class MemoRecipeProcessUI : MonoBehaviour
                 break;
             case 1:
                 recipeIngredients.color = value ? new Color32(119, 110, 109, 255) : new Color32(0, 0, 0, 255);
-                recipeIngredients.fontStyle = value ? FontStyles.Strikethrough : FontStyles.Normal;
+                recipeIngredients.fontStyle = value ? FontStyles.Strikethrough | FontStyles.Bold : FontStyles.Bold;
                 break;
             case 2:
                 {

@@ -17,8 +17,9 @@ public class CounterIngredientInventoryUI : MonoBehaviour
             ingredientImg.beginDragLock = true;
             SetFade(x);
             isFinished = x;
-            CookingManager.Counter.AddDish(ingredientImg.myIngredient);
             //이곳에 추가되었을때 레시피 갱신 및 검사
+            CookingManager.Counter.AddDish(ingredientImg.myIngredient);
+            CookingManager.Global.MinusAllIngredients(ingredientImg.myIngredient);
 
             bool isOrderEnd = true;
 
@@ -35,6 +36,9 @@ public class CounterIngredientInventoryUI : MonoBehaviour
                 // 주문 클리어
                 CookingManager.Counter.OrderClear();
             }
+
+            MemoHandler memoHandler = FindObjectOfType<MemoHandler>();
+            memoHandler.RefreshMinigameRecipes();
         };
     }
 

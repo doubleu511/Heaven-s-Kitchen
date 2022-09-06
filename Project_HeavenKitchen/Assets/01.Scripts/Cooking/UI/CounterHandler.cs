@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
+using TMPro;
+using DG.Tweening;
 
 public class CounterHandler : MonoBehaviour
 {
@@ -21,10 +24,25 @@ public class CounterHandler : MonoBehaviour
     [SerializeField] Animator guestAnimator;
     [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
 
+    [Header("WindowUI")]
+    [SerializeField] Image cuttonImg;
+    [SerializeField] Image[] windowBGs;
+    private int bgIndex = 0;
+    [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] Sprite morningBG;
+    [SerializeField] Sprite daytimeBG;
+    [SerializeField] Sprite sunsetBG;
+    [SerializeField] Sprite duskBG;
+
     [Header("Deco")]
     [SerializeField] CounterDishUI counterDishPrefab;
     [SerializeField] Transform counterDishTrm;
+    [SerializeField] ValuableEffectUI valuableEffectPrefab;
+    [SerializeField] Transform valuableEffectTrm;
+    public Sprite[] moneyTypeSprs;
 
+    private DateTime todayDate;
+    private float minuteTimer = 0f;
 
     private void Awake()
     {
@@ -39,10 +57,14 @@ public class CounterHandler : MonoBehaviour
     private void Start()
     {
         Global.Pool.CreatePool<CounterDishUI>(counterDishPrefab.gameObject, counterDishTrm, 3);
+        Global.Pool.CreatePool<ValuableEffectUI>(valuableEffectPrefab.gameObject, valuableEffectTrm, 3);
 
         // Test
         SetScroll(true, true);
         StartCoroutine(GuestEncounter());
+
+        todayDate = new DateTime(2023, 1, 1, 9, 0, 0);
+        RefreshWindow(true);
     }
 
     private void Update()
@@ -60,6 +82,13 @@ public class CounterHandler : MonoBehaviour
                 isTimer = false;
             }
         }
+
+        minuteTimer += Time.deltaTime;
+        if(minuteTimer > 2)
+        {
+            minuteTimer -= 2;
+            AddMinuteTime(20);
+        }
     }
 
     public void AddDialog(int dialogId)
@@ -74,7 +103,7 @@ public class CounterHandler : MonoBehaviour
             if(guestAnimator.GetCurrentAnimatorStateInfo(0).IsName("Guest_None"))
             {
                 //Init ÇØ¾ßÇÔ
-                int random = Random.Range(0, allGuests.Count);
+                int random = UnityEngine.Random.Range(0, allGuests.Count);
                 currentGuest = allGuests[random];
                 Dialog.GuestInit(currentGuest);
 
@@ -88,9 +117,54 @@ public class CounterHandler : MonoBehaviour
 
     private IEnumerator GuestDialogPlay()
     {
-        yield return new WaitForSeconds(1.5f);
-        int random = Random.Range(0, currentGuest.canPlayDialogIds.Length);
+        yield return new WaitForSeconds(2.5f);
+        int random = UnityEngine.Random.Range(0, currentGuest.canPlayDialogIds.Length);
         AddDialog(currentGuest.canPlayDialogIds[random]);
+    }
+
+    private void AddMinuteTime(int value)
+    {
+        todayDate = todayDate.AddMinutes(value);
+        RefreshWindow();
+    }
+
+    private void RefreshWindow(bool immediately = false)
+    {
+        timeText.text = $"{todayDate:h:mm tt}";
+
+        if (todayDate.Hour >= 19)
+        {
+            SetBackground(duskBG, immediately);
+        }
+        else if (todayDate.Hour >= 18)
+        {
+            SetBackground(sunsetBG, immediately);
+        }
+        else if (todayDate.Hour >= 14)
+        {
+            SetBackground(daytimeBG, immediately);
+        }
+        else if (todayDate.Hour >= 9)
+        {
+            SetBackground(morningBG, immediately);
+        }
+    }
+
+    private void SetBackground(Sprite bg, bool immediately)
+    {
+        if(windowBGs[bgIndex].sprite != bg)
+        {
+            if (!immediately)
+            {
+                windowBGs[1].DOFade((bgIndex == 0) ? 1 : 0, 1);
+            }
+            else
+            {
+                windowBGs[1].color = new Color(1, 1, 1, (bgIndex == 0) ? 1 : 0);
+            }
+            bgIndex = (bgIndex + 1) % 2;
+            windowBGs[bgIndex].sprite = bg;
+        }
     }
 
     public void SetTimer(int timeSec)
@@ -151,6 +225,7 @@ public class CounterHandler : MonoBehaviour
     {
         StopTimer();
         Dialog.ResetEvent();
+        CookingManager.ClearRecipes();
         guestAnimator.SetTrigger("Disappear");
     }
 

@@ -73,4 +73,12 @@ public class Define
         MINIGAME_GRILLING
     }
     #endregion
+
+    #region 게임
+    public enum MoneyType
+    {
+        GOLD,
+        STARCANDY
+    }
+    #endregion
 }

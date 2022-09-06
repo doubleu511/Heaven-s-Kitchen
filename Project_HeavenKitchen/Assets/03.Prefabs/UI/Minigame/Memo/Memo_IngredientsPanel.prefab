@@ -143,8 +143,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uBB49\uCE5C \uBC25"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 4721a2ff4ed47284f9c328bd6982e21f, type: 2}
-  m_sharedMaterial: {fileID: -886022863519056124, guid: 4721a2ff4ed47284f9c328bd6982e21f, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2e7e483b0fabd3c4ea8b892e23a2aeeb, type: 2}
+  m_sharedMaterial: {fileID: 4907947255712306200, guid: 2e7e483b0fabd3c4ea8b892e23a2aeeb, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_enableAutoSizing: 1
   m_fontSizeMin: 5
   m_fontSizeMax: 23
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

@@ -53,6 +53,14 @@ MonoBehaviour:
       value: "\uC62C\uB9AC\uBE0C"
     - id: 102
       value: "\uB9C8\uCE74\uB2E4\uBBF8\uC544"
+    - id: 151
+      value: "\uAE40\uC608\uB9AC\uB098"
+    - id: 152
+      value: "\uD55C\uC6B0\uC5FD"
+    - id: 153
+      value: "\uC774\uC81C\uC724"
+    - id: 154
+      value: "\uAE40\uBBFC\uC900"
     - id: 201
       value: "\uBC25"
     - id: 202
@@ -61,12 +69,14 @@ MonoBehaviour:
       value: "\uD6C4\uB9AC\uCE74\uCF00"
     - id: 204
       value: "\uC18C\uAE08"
-    - id: 204
-      value: "\uC18C\uC138\uC9C0"
     - id: 205
       value: "\uC124\uD0D5"
-    - id: 205
+    - id: 206
+      value: "\uC18C\uC138\uC9C0"
+    - id: 207
       value: "\uACC4\uB780"
+    - id: 208
+      value: "\uBCF5\uC22D\uC544 \uCC28"
     - id: 301
       value: "\uC8FC\uBA39\uBC25"
     - id: 302
@@ -127,12 +137,6 @@ MonoBehaviour:
       value: "\uADF8\uB7FC \uC774\uAC78\uB85C \uC8FC\uC138\uC694."
     - id: 9006
       value: "\uADF8\uB7FC \uADF8\uAC78\uB85C \uC8FC\uC138\uC694."
-    - id: 151
-      value: "\uAE40\uC608\uB9AC\uB098"
-    - id: 152
-      value: "\uD55C\uC6B0\uC5FD"
-    - id: 153
-      value: "\uC774\uC81C\uC724"
     - id: 9007
       value: "\uC548\uB155\uD2F0\uB77C\uB178"
     - id: 9008
@@ -156,7 +160,7 @@ MonoBehaviour:
     - id: 9017
       value: "\uBC30\uACE0\uD30C\uC694"
     - id: 9018
-      value: "\uC8FC\uBA39\uBC25\uC774\uB791 \uAC8C\uB780\uD6C4\uB77C\uC774\uB791
+      value: "\uC8FC\uBA39\uBC25\uC774\uB791 \uACC4\uB780\uD6C4\uB77C\uC774\uB791
         \uC18C\uC2DC\uC9C0\uB97C \uAC01\uAC01 \uD558\uB098\uC529 \uD574\uC8FC\uC138\uC694"
     - id: 9019
       value: "\uD760 \uB9C8\uC74C\uC774 \uBC14\uAF07\uC5B4\uC694"
@@ -167,8 +171,6 @@ MonoBehaviour:
       value: "\uB124?"
     - id: 9022
       value: "\uBB50\uC694?"
-    - id: 154
-      value: "\uAE40\uBBFC\uC900"
     - id: 9023
       value: "\uB098\uC058\uC9C0\uC54A\uB124\uC694"
     - id: 9024
@@ -195,6 +197,14 @@ MonoBehaviour:
       value: Olive
     - id: 102
       value: Macadamia
+    - id: 151
+      value: 
+    - id: 152
+      value: 
+    - id: 153
+      value: 
+    - id: 154
+      value: 
     - id: 201
       value: Cooked rice
     - id: 202
@@ -203,12 +213,14 @@ MonoBehaviour:
       value: Hurikake
     - id: 204
       value: Salt
-    - id: 204
-      value: Sausage
     - id: 205
       value: Sugar
-    - id: 205
+    - id: 206
+      value: Sausage
+    - id: 207
       value: Egg
+    - id: 208
+      value: Peach tea
     - id: 301
       value: Rice ball
     - id: 302
@@ -269,12 +281,6 @@ MonoBehaviour:
       value: 
     - id: 9006
       value: 
-    - id: 151
-      value: 
-    - id: 152
-      value: 
-    - id: 153
-      value: 
     - id: 9007
       value: 
     - id: 9008
@@ -306,8 +312,6 @@ MonoBehaviour:
     - id: 9021
       value: 
     - id: 9022
-      value: 
-    - id: 154
       value: 
     - id: 9023
       value: 

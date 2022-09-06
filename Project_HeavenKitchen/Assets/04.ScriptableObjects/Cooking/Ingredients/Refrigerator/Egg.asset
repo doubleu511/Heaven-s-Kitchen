@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac07c7882b4041b4fa11fb7d51aaead8, type: 3}
   m_Name: Egg
   m_EditorClassIdentifier: 
-  ingredientTranslationId: 205
+  ingredientTranslationId: 207
   ingredientDefaulrSpr: {fileID: 21300000, guid: 9e002b5fa0147cc42a0025f4c3f07992, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: c5f70066870d33f47a6cd7419944ddea, type: 3}
   ingredientMinigameSprite:

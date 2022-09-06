@@ -47,6 +47,40 @@ public class CookingManager : MonoBehaviour
         }
     }
 
+    public void MinusAllIngredients(IngredientSO ingredient)
+    {
+        MinusIngredient(ingredient);
+
+        List<MinigameInfo> minigameInfos = GetMinigames();
+
+        for (int i = 0; i < minigameInfos.Count; i++)
+        {
+            if (ingredient.Equals(minigameInfos[i].reward))
+            {
+                // 버린 아이템이 리워드로 존재한다.
+                for (int j = 0; j < minigameInfos[i].ingredients.Length; j++)
+                {
+                    MinusAllIngredients(minigameInfos[i].ingredients[j]);
+                }
+            }
+        }
+
+        MemoHandler memoHandler = FindObjectOfType<MemoHandler>();
+        memoHandler.RefreshMinigameRecipes();
+    }
+
+    private void MinusIngredient(IngredientSO ingredient)
+    {
+        if (Global.MemoSuccessCountDic.ContainsKey(ingredient))
+        {
+            Global.MemoSuccessCountDic[ingredient]--;
+        }
+        else
+        {
+            Global.MemoSuccessCountDic[ingredient] = 0;
+        }
+    }
+
     public static void SetRecipes(RecipeSO recipe)
     {
         Global.MemoSuccessCountDic.Clear();
@@ -80,6 +114,16 @@ public class CookingManager : MonoBehaviour
             }
         }
         Global.CurrentMinigames = Global.CurrentMinigames.Distinct().ToList();
+
+        SetTargetNavDic();
+        Global.OnRecipeAdded?.Invoke();
+    }
+
+    public static void ClearRecipes()
+    {
+        Global.MemoSuccessCountDic.Clear();
+        Global.TargetNavDic.Clear();
+        Global.CurrentRecipes = new RecipeSO[0];
 
         SetTargetNavDic();
         Global.OnRecipeAdded?.Invoke();

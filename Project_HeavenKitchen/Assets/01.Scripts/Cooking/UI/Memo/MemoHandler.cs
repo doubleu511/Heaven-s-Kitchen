@@ -60,6 +60,24 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
             memoBack.gameObject.SetActive(recipes.Length > 1);
             memoPostIt.gameObject.SetActive(recipes.Length > 1);
         }
+        else
+        {
+            for (int i = 1; i < frontRecipePrefabBoxTrm.childCount; i++)
+            {
+                frontRecipePrefabBoxTrm.GetChild(i).gameObject.SetActive(false);
+            }
+
+            // ContentSizeFitter를 강제 새로고침한다.
+            ContentSizeFitter[] csfs = GetComponentsInChildren<ContentSizeFitter>();
+            for (int i = 0; i < csfs.Length; i++)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
+            }
+
+            memoRecipeNameText.text = "레시피 없음";
+            memoBack.gameObject.SetActive(false);
+            memoPostIt.gameObject.SetActive(false);
+        }
     }
 
     private void FrontInit(int index)
