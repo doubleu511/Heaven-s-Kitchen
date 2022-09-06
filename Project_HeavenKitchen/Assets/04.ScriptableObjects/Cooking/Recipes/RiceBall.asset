@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 052efdb2f451a144bb68ea56f58f428d, type: 3}
+  m_Name: RiceBall
+  m_EditorClassIdentifier: 
+  recipeNameTranslationId: 301
+  foodIngredient: {fileID: 11400000, guid: 2b3f0715a4c97c143bcb6c32e569e1dd, type: 2}
+  foodPrice: 350
+  averageCookingTime: 100
+  recipe:
+  - minigameNameTranslationId: 401
+    minigameType: 0
+    repeatCount: 3
+    ingredients:
+    - {fileID: 11400000, guid: 826c6d6d03e38db48b0ddf13a5958866, type: 2}
+    reward: {fileID: 11400000, guid: 24e254a29f63f4e4b880a78b59c8ea79, type: 2}
+  - minigameNameTranslationId: 402
+    minigameType: 1
+    repeatCount: 3
+    ingredients:
+    - {fileID: 11400000, guid: 24e254a29f63f4e4b880a78b59c8ea79, type: 2}
+    - {fileID: 11400000, guid: ab9a56cd2b984c2488affa677583a9cb, type: 2}
+    reward: {fileID: 11400000, guid: 2b3f0715a4c97c143bcb6c32e569e1dd, type: 2}

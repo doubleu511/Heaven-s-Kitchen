@@ -15,10 +15,16 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
     public static bool eventWaitFlag = false;
 
     [Header("Dialog")]
+    [SerializeField] CanvasGroup speechBubble = null;
+    [SerializeField] TextMeshProUGUI guestNameText = null;
     [SerializeField] TextMeshProUGUI dialogText = null;
     [SerializeField] TextMeshProUGUI textSizeFitter = null;
     [SerializeField] Text phoneDialogText = null;
     [SerializeField] Image textEndArrow;
+
+    [Header("Guest")]
+    [SerializeField] Image guestPortrait;
+    private GuestSO currentGuest;
 
     private bool isPlayingDialog = false; // 현재 하나의 문단 다이얼로그가 재생중인가?
     private bool isText = false;
@@ -51,9 +57,15 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
             isPlayingDialog = true;
 
             Global.UI.UIFade(dialogPanel, true);
+            ShowSpeechBubble(true);
 
             textCoroutine = StartCoroutine(TextCoroutine());
         }
+    }
+
+    public void ShowSpeechBubble(bool value)
+    {
+        Global.UI.UIFade(speechBubble, value);
     }
 
     private IEnumerator TextCoroutine()
@@ -84,6 +96,8 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
             }
         }
 
+        print("?");
+        SetQuitMessage(currentGuest.quitTranslationIds);
         Global.UI.UIFade(dialogPanel, false);
         isPlayingDialog = false;
     }
@@ -100,11 +114,28 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
         return false;
     }
 
+    public void GuestInit(GuestSO guest)
+    {
+        currentGuest = guest;
+        guestPortrait.sprite = currentGuest.guestPortrait;
+
+        int randomName = Random.Range(0, currentGuest.guestNameTranslationIds.Length);
+        guestNameText.text = TranslationManager.Instance.GetLangDialog(currentGuest.guestNameTranslationIds[randomName]);
+    }
+
     public void SetCharacterFace(Image chara, CharacterSO charaData, int faceIndex)
     {
         Image faceTrm = chara.transform.Find("FaceImg").GetComponent<Image>();
 
         faceTrm.sprite = charaData.faceBox[faceIndex];
+    }
+
+    public void SetQuitMessage(int[] translationId)
+    {
+        int random = Random.Range(0, translationId.Length);
+
+        dialogText.text = TranslationManager.Instance.GetLangDialog(translationId[random]);
+        textSizeFitter.text = dialogText.text;
     }
 
     private void ShowText(string text)
@@ -136,7 +167,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
                         }
 
                         textString = dialogText.text;
-                    }).SetUpdate(true);
+                    });
 
         int TextLength(string richText)
         {

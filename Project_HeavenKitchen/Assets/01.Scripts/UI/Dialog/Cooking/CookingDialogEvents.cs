@@ -189,6 +189,7 @@ public class CookingDialogEvents : MonoBehaviour
 
     public void ResetEvent()
     {
+        CookingDialogPanel.eventWaitFlag = false;
         choicePanelTrm.gameObject.SetActive(false);
         ingredientPanelTrm.gameObject.SetActive(false);
         timerGroup.gameObject.SetActive(false);

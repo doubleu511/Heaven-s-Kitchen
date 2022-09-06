@@ -8,18 +8,23 @@ public class CounterHandler : MonoBehaviour
 {
     public float GivenTime { get; set; } = 0;
     public float RemainTime { get; set; } = 0;
+    public bool IsInCounter { get; set; } = false;
 
     private bool isTimer = false;
+
+    private RectTransform scrollRect;
+    private GuestSO currentGuest;
 
     [SerializeField] CookingDialogPanel Dialog;
     [SerializeField] Button goToCookingBtn;
     [SerializeField] CounterTimeBarUI[] timeBarUis;
+    [SerializeField] Animator guestAnimator;
+    [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
 
     [Header("Deco")]
     [SerializeField] CounterDishUI counterDishPrefab;
     [SerializeField] Transform counterDishTrm;
 
-    private RectTransform scrollRect;
 
     private void Awake()
     {
@@ -37,7 +42,7 @@ public class CounterHandler : MonoBehaviour
 
         // Test
         SetScroll(true, true);
-        Dialog.StartDialog(TranslationManager.Instance.CookingDialog.GetDialog(1001));
+        StartCoroutine(GuestEncounter());
     }
 
     private void Update()
@@ -62,6 +67,32 @@ public class CounterHandler : MonoBehaviour
         Dialog.StartDialog(TranslationManager.Instance.CookingDialog.GetDialog(dialogId));
     }
 
+    private IEnumerator GuestEncounter()
+    {
+        while(true)
+        {
+            if(guestAnimator.GetCurrentAnimatorStateInfo(0).IsName("Guest_None"))
+            {
+                //Init ÇØ¾ßÇÔ
+                int random = Random.Range(0, allGuests.Count);
+                currentGuest = allGuests[random];
+                Dialog.GuestInit(currentGuest);
+
+                Dialog.ShowSpeechBubble(false);
+                guestAnimator.SetTrigger("Appear");
+                StartCoroutine(GuestDialogPlay());
+            }
+            yield return new WaitForSeconds(10);
+        }
+    }
+
+    private IEnumerator GuestDialogPlay()
+    {
+        yield return new WaitForSeconds(1.5f);
+        int random = Random.Range(0, currentGuest.canPlayDialogIds.Length);
+        AddDialog(currentGuest.canPlayDialogIds[random]);
+    }
+
     public void SetTimer(int timeSec)
     {
         isTimer = true;
@@ -84,15 +115,19 @@ public class CounterHandler : MonoBehaviour
 
     public void SetScroll(bool value, bool IsImmediately)
     {
-        if(value)
+        if (value)
         {
             if (IsImmediately)
             {
                 scrollRect.offsetMin = new Vector2(0, 0);
+                IsInCounter = value;
             }
             else
             {
-                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(0, 0), 1).SetEase(Ease.OutBounce);
+                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(0, 0), 1).SetEase(Ease.OutBounce).OnComplete(() =>
+                {
+                    IsInCounter = value;
+                });
             }
         }
         else
@@ -100,10 +135,14 @@ public class CounterHandler : MonoBehaviour
             if (IsImmediately)
             {
                 scrollRect.offsetMin = new Vector2(1920, 0);
+                IsInCounter = value;
             }
             else
             {
-                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(1920, 0), 1).SetEase(Ease.OutBounce);
+                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(1920, 0), 1).SetEase(Ease.OutBounce).OnComplete(() =>
+                {
+                    IsInCounter = value;
+                });
             }
         }
     }
@@ -112,6 +151,7 @@ public class CounterHandler : MonoBehaviour
     {
         StopTimer();
         Dialog.ResetEvent();
+        guestAnimator.SetTrigger("Disappear");
     }
 
     public void AddDish(IngredientSO ingredient)

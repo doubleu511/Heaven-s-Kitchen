@@ -5,6 +5,14 @@ using UnityEngine.EventSystems;
 
 public class PlayerInventoryDragableUI : DragableUI
 {
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+        if (CookingManager.Counter.IsInCounter)
+        {
+            base.OnBeginDrag(eventData);
+        }
+    }
+
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);

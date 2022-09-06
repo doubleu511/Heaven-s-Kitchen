@@ -42,6 +42,8 @@ public class CounterIngredientInventoryUI : MonoBehaviour
     {
         ingredientImg.SetIngredient(ingredient);
         counterIngredientInventories = counterIngredientList;
+        ingredientImg.beginDragLock = true;
+        SetFade(false);
     }
 
     public void CleanInventory()
