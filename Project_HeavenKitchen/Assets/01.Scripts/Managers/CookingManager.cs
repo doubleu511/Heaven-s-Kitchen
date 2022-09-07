@@ -14,6 +14,7 @@ public class CookingManager : MonoBehaviour
 
     public MinigameStarter CurrentUtensils;
     public DragAndDropContainer DragAndDropContainer;
+    public IngredientLoreHandler IngredientLore;
     public Material SelectedObejctMat;
 
     public Dictionary<IngredientSO, int> MemoSuccessCountDic = new Dictionary<IngredientSO, int>();

@@ -21,11 +21,28 @@ public class DragAndDropContainer : MonoBehaviour
         if (ingredient != null)
         {
             image.sprite = ingredient.ingredientMiniSpr;
+            CookingManager.Global.IngredientLore.SetLore(ingredient);
         }
     }
 
     public void SetActive(bool value)
     {
-        canvasGroup.alpha = value ? 1 : 0;
+        if (value)
+        {
+            canvasGroup.alpha = 1;
+        }
+        else
+        {
+            canvasGroup.alpha = 0;
+            CookingManager.Global.IngredientLore.HideLore();
+        }
+    }
+
+    private void Update()
+    {
+        if(savedIngredient != null)
+        {
+            CookingManager.Global.IngredientLore.SetScreenPosToPos(Input.mousePosition);
+        }
     }
 }

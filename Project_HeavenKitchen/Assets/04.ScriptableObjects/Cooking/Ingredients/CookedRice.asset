@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CookedRice
   m_EditorClassIdentifier: 
   ingredientTranslationId: 201
+  ingredientLoreId: 601
   ingredientDefaulrSpr: {fileID: 21300000, guid: bc988e2a186e39e4c976bb7ef01edbcc, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: 29ea09470ca58d9449400e37f74da3ba, type: 3}
   ingredientMinigameSprite:
@@ -22,4 +23,5 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 315afd4d10bc8a644be089be81ea824d, type: 3}
     - {fileID: 21300000, guid: 5e6bff0d5559998499cb83ff5eb06063, type: 3}
   particlePrefab: {fileID: 0}
+  isFood: 0
   isHot: 1

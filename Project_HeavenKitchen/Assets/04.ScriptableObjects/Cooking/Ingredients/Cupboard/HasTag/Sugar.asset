@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Sugar
   m_EditorClassIdentifier: 
   ingredientTranslationId: 205
+  ingredientLoreId: 605
   ingredientDefaulrSpr: {fileID: 21300000, guid: d031ba30d97d5da47b7b41339e630187, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: f58abb03291196245babe0a638444589, type: 3}
   ingredientMinigameSprite: []
   particlePrefab: {fileID: 0}
+  isFood: 0
   isHot: 0
   tagAnchorPos: {x: -32.8, y: -90.3}
   translationTagSpr:

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class IngredientSO : ScriptableObject
 {
     public int ingredientTranslationId;
+    public int ingredientLoreId;
     public Sprite ingredientDefaulrSpr;
     public Sprite ingredientMiniSpr;
 
@@ -17,6 +18,7 @@ public class IngredientSO : ScriptableObject
     public ParticleSystem particlePrefab; // TO DO : 나중에 이것도 스프라이트처럼 나눠야할수도?
 
     [Header("재료 속성")]
+    public bool isFood;
     public bool isHot;
 
     public bool FindSprites(string name, out Sprite[] sprites)

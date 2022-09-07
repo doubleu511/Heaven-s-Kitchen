@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Egg
   m_EditorClassIdentifier: 
   ingredientTranslationId: 207
+  ingredientLoreId: 607
   ingredientDefaulrSpr: {fileID: 21300000, guid: 9e002b5fa0147cc42a0025f4c3f07992, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: c5f70066870d33f47a6cd7419944ddea, type: 3}
   ingredientMinigameSprite:
@@ -23,4 +24,5 @@ MonoBehaviour:
     - {fileID: -7578226498497253333, guid: b15ad68290fecf84aad99382dd8d9493, type: 3}
     - {fileID: 2599295178660905587, guid: b15ad68290fecf84aad99382dd8d9493, type: 3}
   particlePrefab: {fileID: 0}
+  isFood: 0
   isHot: 0

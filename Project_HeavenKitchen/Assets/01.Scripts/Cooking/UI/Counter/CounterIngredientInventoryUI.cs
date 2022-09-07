@@ -44,6 +44,7 @@ public class CounterIngredientInventoryUI : MonoBehaviour
 
     public void Init(IngredientSO ingredient, List<CounterIngredientInventoryUI> counterIngredientList)
     {
+        isFinished = false;
         ingredientImg.SetIngredient(ingredient);
         counterIngredientInventories = counterIngredientList;
         ingredientImg.beginDragLock = true;

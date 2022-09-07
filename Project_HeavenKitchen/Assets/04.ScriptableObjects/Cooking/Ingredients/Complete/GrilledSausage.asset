@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: GrilledSausage
   m_EditorClassIdentifier: 
   ingredientTranslationId: 302
+  ingredientLoreId: 702
   ingredientDefaulrSpr: {fileID: 7221909365846616829, guid: 5e6fd946fc3c15c49baa1c6458957b41, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: 7793e7295e96d4d488d9a98d30770da0, type: 3}
   ingredientMinigameSprite: []
   particlePrefab: {fileID: 0}
+  isFood: 1
   isHot: 1

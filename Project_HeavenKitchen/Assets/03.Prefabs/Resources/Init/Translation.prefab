@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecefe643625dd444aa612a6be134ef1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curLangIndex: 0
+  curLangIndex: 1
   Langs:
   - lang: kr
     langList:
@@ -76,7 +76,7 @@ MonoBehaviour:
     - id: 207
       value: "\uACC4\uB780"
     - id: 208
-      value: "\uBCF5\uC22D\uC544 \uCC28"
+      value: "\uBCF5\uC22D\uC544 \uD2F0\uBC31"
     - id: 301
       value: "\uC8FC\uBA39\uBC25"
     - id: 302
@@ -191,6 +191,32 @@ MonoBehaviour:
       value: "\uACE0\uAE30 \uC8FC\uC138\uC694"
     - id: 9032
       value: "\uD0A4\uD0BC"
+    - id: 304
+      value: "\uBCF5\uC22D\uC544 \uCC28"
+    - id: 601
+      value: "\uB530\uB73B\uD55C \uBC25\uC785\uB2C8\uB2E4."
+    - id: 602
+      value: "\uB3D9\uAE00\uB3D9\uAE00\uD558\uAC8C \uBB49\uCE5C \uBC25\uC785\uB2C8\uB2E4."
+    - id: 603
+      value: "\uBC25\uC5D0-\uBFCC\uB9AC\uB294- \uC870\uBBF8\uB8CC\uC785\uB2C8\uB2E4."
+    - id: 604
+      value: "\uC9ED\uC9E4\uD55C \uC18C\uAE08\uC785\uB2C8\uB2E4."
+    - id: 605
+      value: "\uB2EC\uB2EC\uD55C \uC124\uD0D5\uC785\uB2C8\uB2E4."
+    - id: 606
+      value: "\uB450\uD23C\uD55C \uC18C\uC138\uC9C0\uC785\uB2C8\uB2E4."
+    - id: 607
+      value: "\uAE68\uC9C0\uC9C0\uC54A\uAC8C \uC870\uC2EC\uD558\uC138\uC694!"
+    - id: 608
+      value: "\uBCF5\uC22D\uC544 \uCC28\uB97C \uC704\uD55C \uD2F0\uBC31\uC785\uB2C8\uB2E4."
+    - id: 701
+      value: "\uB3D9\uAE00\uB3D9\uAE00 \uB9DB\uC788\uC5B4\uBCF4\uC785\uB2C8\uB2E4."
+    - id: 702
+      value: "\uC801\uC808\uD788 \uC775\uD78C \uC18C\uC138\uC9C0\uC785\uB2C8\uB2E4."
+    - id: 703
+      value: "\uC801\uC808\uD788 \uC775\uD78C \uACC4\uB780 \uD6C4\uB77C\uC774\uC785\uB2C8\uB2E4."
+    - id: 704
+      value: "\uB728\uB048\uD558\uAC8C \uC6B0\uB824\uB0B8 \uBCF5\uC22D\uC544 \uCC28\uC785\uB2C8\uB2E4."
   - lang: en
     langList:
     - id: 101
@@ -220,7 +246,7 @@ MonoBehaviour:
     - id: 207
       value: Egg
     - id: 208
-      value: Peach tea
+      value: Peach teabag
     - id: 301
       value: Rice ball
     - id: 302
@@ -332,6 +358,32 @@ MonoBehaviour:
     - id: 9031
       value: 
     - id: 9032
+      value: 
+    - id: 304
+      value: Peach tea
+    - id: 601
+      value: 
+    - id: 602
+      value: 
+    - id: 603
+      value: 
+    - id: 604
+      value: 
+    - id: 605
+      value: 
+    - id: 606
+      value: 
+    - id: 607
+      value: 
+    - id: 608
+      value: 
+    - id: 701
+      value: 
+    - id: 702
+      value: 
+    - id: 703
+      value: 
+    - id: 704
       value: 
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
@@ -632,6 +684,10 @@ MonoBehaviour:
       speechbubble_type: 0
       eventMethod: 
     - tranlationId: 9031
+      faceIndex: 0
+      speechbubble_type: 0
+      eventMethod: 
+    - tranlationId: 9032
       faceIndex: 0
       speechbubble_type: 0
       eventMethod: SETID 302

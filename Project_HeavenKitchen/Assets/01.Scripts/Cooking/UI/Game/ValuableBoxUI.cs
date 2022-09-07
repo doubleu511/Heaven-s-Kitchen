@@ -14,19 +14,31 @@ public class ValuableBoxUI : MonoBehaviour
 
     public void SetText(int current, int target)
     {
-        if(textCoroutine != null)
+        if (current != target)
         {
-            StopCoroutine(textCoroutine);
-            textCoroutine = null;
+            if (textCoroutine != null)
+            {
+                StopCoroutine(textCoroutine);
+                textCoroutine = null;
+            }
+
+            textCoroutine = StartCoroutine(TextCoroutine(current, target));
+
+            if (valuableTextBoxTrm != null)
+            {
+                ValuableEffectUI effectUI = Global.Pool.GetItem<ValuableEffectUI>();
+
+                effectUI.transform.SetParent(valuableTextBoxTrm);
+                effectUI.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+
+                effectUI.Init(moneyType, target - current);
+            }
         }
+    }
 
-        textCoroutine = StartCoroutine(TextCoroutine(current, target));
-
-        if(valuableTextBoxTrm != null)
-        {
-            ValuableEffectUI effectUI = Global.Pool.GetItem<ValuableEffectUI>();
-
-        }
+    public void SetText(int target)
+    {
+        valuableText.text = $"{target}";
     }
 
     private IEnumerator TextCoroutine(int current, int target)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NeedyDragableUI : DragableUI
+public class NeedyDragableUI : DragableUI, IPointerDownHandler, IPointerUpHandler
 {
     [HideInInspector] public bool beginDragLock = false;
     public Action<bool> onPrepareItem;
@@ -66,5 +66,18 @@ public class NeedyDragableUI : DragableUI
             CookingManager.Global.DragAndDropContainer.SetIngredient(null);
             CookingManager.Global.DragAndDropContainer.SetActive(false);
         }
+    }
+
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+        if(beginDragLock)
+        {
+            CookingManager.Global.IngredientLore.SetNeed(myIngredient);
+        }
+    }
+
+    public virtual void OnPointerUp(PointerEventData eventData)
+    {
+        CookingManager.Global.IngredientLore.HideLore();
     }
 }
