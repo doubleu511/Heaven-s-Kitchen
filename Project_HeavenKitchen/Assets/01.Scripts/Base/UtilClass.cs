@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class UtilClass
 {
@@ -23,5 +24,15 @@ public static class UtilClass
         float degrees = radians * Mathf.Rad2Deg;
 
         return degrees;
+    }
+
+    public static void ForceRefreshSize(Transform transform)
+    {
+        // ContentSizeFitter를 강제 새로고침한다.
+        ContentSizeFitter[] csfs = transform.GetComponentsInChildren<ContentSizeFitter>();
+        for (int i = 0; i < csfs.Length; i++)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
+        }
     }
 }

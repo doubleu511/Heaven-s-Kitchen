@@ -42,11 +42,7 @@ public class IngredientLoreHandler : MonoBehaviour
         ingredientLore.text = TranslationManager.Instance.GetLangDialog(ingredient.ingredientLoreId);
 
         // ContentSizeFitter를 강제 새로고침한다.
-        ContentSizeFitter[] csfs = GetComponentsInChildren<ContentSizeFitter>();
-        for (int i = 0; i < csfs.Length; i++)
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
-        }
+        UtilClass.ForceRefreshSize(transform);
 
         Global.UI.UIFade(canvasGroup, Define.UIFadeType.IN, 0.5f, false);
 

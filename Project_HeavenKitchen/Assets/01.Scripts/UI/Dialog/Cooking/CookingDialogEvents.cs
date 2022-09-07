@@ -184,6 +184,8 @@ public class CookingDialogEvents : MonoBehaviour
             CookingManager.SetRecipes(orderRecipes.ToArray());
             Global.UI.UIFade(timerGroup, true);
             CookingManager.Counter.SetTimer(totalCookingTime);
+
+            GuestSO guest = CookingManager.Counter.GetCurrentGuest;
         };
     }
 

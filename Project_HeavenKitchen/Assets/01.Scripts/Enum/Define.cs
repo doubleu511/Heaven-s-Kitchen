@@ -80,5 +80,11 @@ public class Define
         GOLD,
         STARCANDY
     }
+
+    public enum TextAnimationType
+    {
+        NONE,
+        SHAKE
+    }
     #endregion
 }

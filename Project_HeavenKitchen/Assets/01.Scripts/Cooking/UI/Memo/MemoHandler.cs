@@ -68,11 +68,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
             }
 
             // ContentSizeFitter를 강제 새로고침한다.
-            ContentSizeFitter[] csfs = GetComponentsInChildren<ContentSizeFitter>();
-            for (int i = 0; i < csfs.Length; i++)
-            {
-                LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
-            }
+            UtilClass.ForceRefreshSize(transform);
 
             memoRecipeNameText.text = "레시피 없음";
             memoBack.gameObject.SetActive(false);
@@ -101,11 +97,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
         }
 
         // ContentSizeFitter를 강제 새로고침한다.
-        ContentSizeFitter[] csfs = GetComponentsInChildren<ContentSizeFitter>();
-        for(int i =0; i< csfs.Length;i++)
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
-        }
+        UtilClass.ForceRefreshSize(transform);
 
         RefreshMinigameRecipes();
     }
@@ -129,11 +121,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
         }
 
         // ContentSizeFitter를 강제 새로고침한다.
-        ContentSizeFitter[] csfs = GetComponentsInChildren<ContentSizeFitter>();
-        for (int i = 0; i < csfs.Length; i++)
-        {
-            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
-        }
+        UtilClass.ForceRefreshSize(transform);
     }
 
     public void OnPointerClick(PointerEventData eventData)

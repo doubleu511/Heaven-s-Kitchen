@@ -36,6 +36,7 @@ public class CounterHandler : MonoBehaviour
     [Header("Deco")]
     [SerializeField] CounterDishUI counterDishPrefab;
     [SerializeField] Transform counterDishTrm;
+    public GuestTalkInKitchenUI guestTalk;
 
     private DateTime todayDate;
     private float minuteTimer = 0f;
@@ -66,7 +67,7 @@ public class CounterHandler : MonoBehaviour
         Global.Pool.CreatePool<ValuableEffectUI>(valuableEffectPrefab.gameObject, valuableEffectTrm, 3);
 
         // Test
-        SetScroll(true, true);
+        //SetScroll(true, true);
         StartCoroutine(GuestEncounter());
 
         SetMoney(Define.MoneyType.GOLD, 0);
@@ -129,6 +130,8 @@ public class CounterHandler : MonoBehaviour
         int random = UnityEngine.Random.Range(0, currentGuest.canPlayDialogIds.Length);
         AddDialog(currentGuest.canPlayDialogIds[random]);
     }
+
+    public GuestSO GetCurrentGuest => currentGuest;
 
     private void AddMinuteTime(int value)
     {
