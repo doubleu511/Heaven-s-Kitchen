@@ -67,7 +67,7 @@ public class CounterHandler : MonoBehaviour
         Global.Pool.CreatePool<ValuableEffectUI>(valuableEffectPrefab.gameObject, valuableEffectTrm, 3);
 
         // Test
-        //SetScroll(true, true);
+        SetScroll(true, true);
         StartCoroutine(GuestEncounter());
 
         SetMoney(Define.MoneyType.GOLD, 0);
@@ -117,6 +117,7 @@ public class CounterHandler : MonoBehaviour
                 Dialog.GuestInit(currentGuest);
 
                 Dialog.ShowSpeechBubble(false);
+                //CookingManager.Counter.guestTalk.ShowGuestTalk(currentGuest.guestPortrait);
                 guestAnimator.SetTrigger("Appear");
                 StartCoroutine(GuestDialogPlay());
             }
@@ -247,6 +248,7 @@ public class CounterHandler : MonoBehaviour
         Dialog.ResetEvent();
         CookingManager.ClearRecipes();
         guestAnimator.SetTrigger("Disappear");
+        //CookingManager.Counter.guestTalk.HideGuestTalk();
     }
 
     public void AddDish(IngredientSO ingredient)

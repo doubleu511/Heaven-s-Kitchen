@@ -27,6 +27,7 @@ public class GuestTalkInKitchenUI : MonoBehaviour
 
     public void ShowGuestTalk(Sprite sprite)
     {
+        HideSpeechBubbles();
         SetPortrait(sprite);
         canvasGroup.alpha = 1;
     }
@@ -83,7 +84,7 @@ public class GuestTalkInKitchenUI : MonoBehaviour
         bubbleCoroutine = null;
     }
 
-    public void SpeechBubbleChange(CanvasGroup oldOne, CanvasGroup newOne)
+    private void SpeechBubbleChange(CanvasGroup oldOne, CanvasGroup newOne)
     {
         isBubblePlaying = true;
 

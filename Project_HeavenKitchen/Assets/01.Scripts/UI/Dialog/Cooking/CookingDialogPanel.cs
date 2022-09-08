@@ -21,6 +21,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
     [SerializeField] TextMeshProUGUI textSizeFitter = null;
     [SerializeField] Text phoneDialogText = null;
     [SerializeField] Image textEndArrow;
+    public static CookingDialogInfo currentDialog;
 
     [Header("Guest")]
     [SerializeField] Image guestPortrait;
@@ -30,7 +31,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
     private bool isText = false;
     private bool isTextEnd = false;
 
-    public static bool isClicked = false;
+    private bool isClicked = false;
 
     private Queue<CookingDialogInfo> dialogQueue = new Queue<CookingDialogInfo>();
 
@@ -74,6 +75,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
         {
             isClicked = false;
             CookingDialogInfo dialog = dialogQueue.Dequeue();
+            currentDialog = dialog;
             ShowText(TranslationManager.Instance.GetLangDialog(dialog.tranlationId));
 
             textEndArrow.gameObject.SetActive(string.IsNullOrEmpty(dialog.eventMethod));
