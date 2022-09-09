@@ -17,8 +17,27 @@ public class CookingDialogInfo
     public int tranlationId;
     public int faceIndex;
     public int speechbubble_type;
+    public int text_animation_type;
     public string eventMethod;
     // ...더 추가
+
+    public CookingDialogInfo(int _translationId, int _faceIndex, int _speechbubbleType, int _textAnimationType, string _eventMethod)
+    {
+        tranlationId = _translationId;
+        faceIndex = _faceIndex;
+        speechbubble_type = _speechbubbleType;
+        text_animation_type = _textAnimationType;
+        eventMethod = _eventMethod;
+    }
+
+    public CookingDialogInfo(int _translationId)
+    {
+        tranlationId = _translationId;
+        faceIndex = 0;
+        speechbubble_type = 0;
+        text_animation_type = 0;
+        eventMethod = "";
+    }
 }
 
 public class CookingDialogDic : MonoBehaviour
@@ -85,22 +104,29 @@ public class CookingDialogDic : MonoBehaviour
         for (int j = 1; j < rowSize; j++)
         {
             //TO DO : 다이얼로그 옵션 추가될 때마다 이곳에 정보를 추가할것
-            CookingDialogInfo info = new CookingDialogInfo();
 
             int _dialogId = TryParse(Sentence[j, 0], ref savedDialogId, false);
             int _translationId = int.Parse(Sentence[j, 1]);
-            int _faceIndex = int.Parse(Sentence[j, 2]);
-            int _speechbubbleType = int.Parse(Sentence[j, 3]);
-            string _eventMethod = Sentence[j, 4];
-
-            info.tranlationId = _translationId;
-            info.faceIndex = _faceIndex;
-            info.speechbubble_type = _speechbubbleType;
-
-            if (false == string.IsNullOrEmpty(_eventMethod))
+            if(!int.TryParse(Sentence[j, 2], out int _faceIndex))
             {
-                info.eventMethod = _eventMethod;
+                _faceIndex = 0;
             }
+            if (!int.TryParse(Sentence[j, 3], out int _speechbubbleType))
+            {
+                _speechbubbleType = 0;
+            }
+            if (!int.TryParse(Sentence[j, 4], out int _textAnimationType))
+            {
+                _textAnimationType = 0;
+            }
+
+            string _eventMethod = Sentence[j, 5];
+            if (string.IsNullOrEmpty(_eventMethod))
+            {
+                _eventMethod = "";
+            }
+
+            CookingDialogInfo info = new CookingDialogInfo(_translationId, _faceIndex, _speechbubbleType, _textAnimationType, _eventMethod);
 
             if (savedDialogId != _dialogId)
             {

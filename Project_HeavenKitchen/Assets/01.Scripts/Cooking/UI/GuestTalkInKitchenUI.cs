@@ -14,10 +14,11 @@ public class GuestTalkInKitchenUI : MonoBehaviour
     [Header("SpeechBubbles")]
     [SerializeField] CanvasGroup[] speechBubbles;
     [SerializeField] TextMeshProUGUI[] speechBubbleTexts;
+    [SerializeField] WordWobble[] wordWobbles;
     private int curIndex = 0;
 
     private bool isBubblePlaying = false;
-    private Queue<string> bubbleQueue = new Queue<string>();
+    private Queue<CookingDialogInfo> bubbleQueue = new Queue<CookingDialogInfo>();
     private Coroutine bubbleCoroutine;
 
     private void Awake()
@@ -29,12 +30,12 @@ public class GuestTalkInKitchenUI : MonoBehaviour
     {
         HideSpeechBubbles();
         SetPortrait(sprite);
-        canvasGroup.alpha = 1;
+        canvasGroup.DOFade(1, 0.5f);
     }
 
     public void HideGuestTalk()
     {
-        canvasGroup.alpha = 0;
+        canvasGroup.DOFade(0, 0.5f);
         HideSpeechBubbles();
     }
 
@@ -52,9 +53,19 @@ public class GuestTalkInKitchenUI : MonoBehaviour
         }
     }
 
-    public void AddBubbleMessage(string value)
+    public void AddBubbleMessage(CookingDialogInfo info)
     {
-        bubbleQueue.Enqueue(value);
+        bubbleQueue.Enqueue(info);
+
+        if (bubbleCoroutine == null)
+        {
+            bubbleCoroutine = StartCoroutine(BubbleMessage());
+        }
+    }
+
+    public void AddBubbleMessageFromLastMessage()
+    {
+        bubbleQueue.Enqueue(CookingDialogPanel.currentDialog);
 
         if (bubbleCoroutine == null)
         {
@@ -66,13 +77,20 @@ public class GuestTalkInKitchenUI : MonoBehaviour
     {
         while(bubbleQueue.Count > 0)
         {
-            string text = bubbleQueue.Dequeue();
+            CookingDialogInfo info = bubbleQueue.Dequeue();
 
             CanvasGroup oldOne = speechBubbles[curIndex];
+            wordWobbles[curIndex].StopWobble();
+
             curIndex = (curIndex + 1) % 2;
             CanvasGroup newOne = speechBubbles[curIndex];
 
-            speechBubbleTexts[curIndex].text = text;
+            speechBubbleTexts[curIndex].text = TranslationManager.Instance.GetLangDialog(info.tranlationId);
+            if ((Define.TextAnimationType)info.text_animation_type == Define.TextAnimationType.SHAKE)
+            {
+                wordWobbles[curIndex].SetWobble(TranslationManager.Instance.GetLangDialog(info.tranlationId));
+            }
+
             UtilClass.ForceRefreshSize(newOne.transform);
 
             SpeechBubbleChange(oldOne, newOne);

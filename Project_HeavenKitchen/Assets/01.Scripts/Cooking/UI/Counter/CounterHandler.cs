@@ -13,6 +13,7 @@ public class CounterHandler : MonoBehaviour
     public bool IsInCounter { get; set; } = false;
 
     private bool isTimer = false;
+    private bool isHurry = false;
 
     private RectTransform scrollRect;
     private GuestSO currentGuest;
@@ -50,7 +51,6 @@ public class CounterHandler : MonoBehaviour
     private int gold = 0;
     private int starCandy = 0;
 
-
     private void Awake()
     {
         scrollRect = GetComponent<RectTransform>();
@@ -84,11 +84,27 @@ public class CounterHandler : MonoBehaviour
             {
                 RemainTime -= Time.deltaTime;
                 RefreshTimeBarValue();
+
+                if (!isHurry)
+                {
+                    if (RemainTime / GivenTime < 0.25f)
+                    {
+                        isHurry = true;
+
+                        for (int i = 0; i < currentGuest.hurryUpTranlationIds.Length; i++)
+                        {
+                            CookingDialogInfo info = new CookingDialogInfo(currentGuest.hurryUpTranlationIds[i], 0, 0, (int)Define.TextAnimationType.SHAKE, "");
+
+                            guestTalk.AddBubbleMessage(info);
+                        }
+                    }
+                }
             }
             else
             {
+                // 요리 시간 초과
                 RemainTime = 0;
-                isTimer = false;
+                OrderFail();
             }
         }
 
@@ -117,7 +133,15 @@ public class CounterHandler : MonoBehaviour
                 Dialog.GuestInit(currentGuest);
 
                 Dialog.ShowSpeechBubble(false);
-                //CookingManager.Counter.guestTalk.ShowGuestTalk(currentGuest.guestPortrait);
+                CookingManager.Counter.guestTalk.ShowGuestTalk(currentGuest.guestPortrait);
+                if(!IsInCounter)
+                {
+                    CookingDialogInfo info = new CookingDialogInfo(currentGuest.heyTranslationId);
+                    info.text_animation_type = (int)Define.TextAnimationType.SHAKE;
+
+                    CookingManager.Counter.guestTalk.AddBubbleMessage(info);
+                }
+
                 guestAnimator.SetTrigger("Appear");
                 StartCoroutine(GuestDialogPlay());
             }
@@ -128,6 +152,7 @@ public class CounterHandler : MonoBehaviour
     private IEnumerator GuestDialogPlay()
     {
         yield return new WaitForSeconds(2.5f);
+        yield return new WaitUntil(() => IsInCounter);
         int random = UnityEngine.Random.Range(0, currentGuest.canPlayDialogIds.Length);
         AddDialog(currentGuest.canPlayDialogIds[random]);
     }
@@ -189,6 +214,7 @@ public class CounterHandler : MonoBehaviour
     public void StopTimer()
     {
         isTimer = false;
+        isHurry = false;
     }
 
     private void RefreshTimeBarValue()
@@ -201,19 +227,17 @@ public class CounterHandler : MonoBehaviour
 
     public void SetScroll(bool value, bool IsImmediately)
     {
+        IsInCounter = value;
+
         if (value)
         {
             if (IsImmediately)
             {
-                scrollRect.offsetMin = new Vector2(0, 0);
-                IsInCounter = value;
+                scrollRect.offsetMin = new Vector2(0, 0);           
             }
             else
             {
-                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(0, 0), 1).SetEase(Ease.OutBounce).OnComplete(() =>
-                {
-                    IsInCounter = value;
-                });
+                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(0, 0), 1).SetEase(Ease.OutBounce);
             }
         }
         else
@@ -221,14 +245,10 @@ public class CounterHandler : MonoBehaviour
             if (IsImmediately)
             {
                 scrollRect.offsetMin = new Vector2(1920, 0);
-                IsInCounter = value;
             }
             else
             {
-                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(1920, 0), 1).SetEase(Ease.OutBounce).OnComplete(() =>
-                {
-                    IsInCounter = value;
-                });
+                DOTween.To(() => scrollRect.offsetMin, value => scrollRect.offsetMin = value, new Vector2(1920, 0), 1).SetEase(Ease.OutBounce);
             }
         }
     }
@@ -248,7 +268,17 @@ public class CounterHandler : MonoBehaviour
         Dialog.ResetEvent();
         CookingManager.ClearRecipes();
         guestAnimator.SetTrigger("Disappear");
-        //CookingManager.Counter.guestTalk.HideGuestTalk();
+        CookingManager.Counter.guestTalk.HideGuestTalk();
+    }
+
+    public void OrderFail()
+    {
+        StopTimer();
+        Dialog.ResetEvent();
+        CookingManager.ClearRecipes();
+        guestAnimator.SetTrigger("Disappear");
+        Dialog.SetQuitMessage(currentGuest.gameOverTranslationIds);
+        guestTalk.AddBubbleMessageFromLastMessage();
     }
 
     public void AddDish(IngredientSO ingredient)

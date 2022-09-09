@@ -185,8 +185,7 @@ public class CookingDialogEvents : MonoBehaviour
             Global.UI.UIFade(timerGroup, true);
             CookingManager.Counter.SetTimer(totalCookingTime);
 
-            CookingDialogInfo info = CookingDialogPanel.currentDialog;
-            //CookingManager.Counter.guestTalk.AddBubbleMessage(TranslationManager.Instance.GetLangDialog(info.tranlationId));
+            CookingManager.Counter.guestTalk.AddBubbleMessageFromLastMessage();
         };
     }
 

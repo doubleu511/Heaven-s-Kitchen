@@ -11,6 +11,9 @@ public class GuestSO : ScriptableObject
     public Vector2 faceRectPos;
     public Sprite[] faceBox;
 
+    public int heyTranslationId;
     public int[] canPlayDialogIds;
+    public int[] hurryUpTranlationIds;
     public int[] quitTranslationIds;
+    public int[] gameOverTranslationIds;
 }
