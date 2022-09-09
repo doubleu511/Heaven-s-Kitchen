@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecefe643625dd444aa612a6be134ef1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curLangIndex: 1
+  curLangIndex: 0
   Langs:
   - lang: kr
     langList:
@@ -217,6 +217,12 @@ MonoBehaviour:
       value: "\uC801\uC808\uD788 \uC775\uD78C \uACC4\uB780 \uD6C4\uB77C\uC774\uC785\uB2C8\uB2E4."
     - id: 704
       value: "\uB728\uB048\uD558\uAC8C \uC6B0\uB824\uB0B8 \uBCF5\uC22D\uC544 \uCC28\uC785\uB2C8\uB2E4."
+    - id: 9033
+      value: "\uC5B8\uC81C \uB098\uC624\uB098\uC694 ?!?"
+    - id: 9034
+      value: "\uD277\uD277 \uC548\uBA39\uC5B4"
+    - id: 9035
+      value: "\uC800\uAE30\uC694?"
   - lang: en
     langList:
     - id: 101
@@ -384,6 +390,12 @@ MonoBehaviour:
     - id: 703
       value: 
     - id: 704
+      value: 
+    - id: 9033
+      value: 
+    - id: 9034
+      value: 
+    - id: 9035
       value: 
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
@@ -572,122 +584,148 @@ MonoBehaviour:
     - tranlationId: 9001
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9002
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9003
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: CHOOSE 9004,301 1002,1003
   - dialogid: 1002
     dialogInfos:
     - tranlationId: 9005
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETRANDOM 3
   - dialogid: 1003
     dialogInfos:
     - tranlationId: 9006
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETID 301
   - dialogid: 1004
     dialogInfos:
     - tranlationId: 9007
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9008
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9009
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETID 301
   - dialogid: 1005
     dialogInfos:
     - tranlationId: 9010
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9011
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9012
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETID 303
   - dialogid: 1006
     dialogInfos:
     - tranlationId: 9013
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9014
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9015
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETID 302
   - dialogid: 1007
     dialogInfos:
     - tranlationId: 9016
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9017
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9018
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: CHOOSE 9021,9022 1008,1008
   - dialogid: 1008
     dialogInfos:
     - tranlationId: 9019
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 1
       eventMethod: 
     - tranlationId: 9020
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETID 301,301
   - dialogid: 1009
     dialogInfos:
     - tranlationId: 9026
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9027
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9028
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETID 303
   - dialogid: 1010
     dialogInfos:
     - tranlationId: 9029
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9030
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9031
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: 
     - tranlationId: 9032
       faceIndex: 0
       speechbubble_type: 0
+      text_animation_type: 0
       eventMethod: SETID 302

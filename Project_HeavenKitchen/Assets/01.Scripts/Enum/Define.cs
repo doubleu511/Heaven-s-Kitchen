@@ -83,8 +83,8 @@ public class Define
 
     public enum TextAnimationType
     {
-        NONE,
-        SHAKE
+        NONE = 0,
+        SHAKE = 1,
     }
     #endregion
 }

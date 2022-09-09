@@ -17,4 +17,6 @@ MonoBehaviour:
   faceRectPos: {x: 0, y: 0}
   faceBox: []
   canPlayDialogIds: 
-  quitDialogIds: 
+  hurryUpTranlationIds: 
+  quitTranslationIds: 
+  gameOverTranslationIds: 

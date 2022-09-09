@@ -16,5 +16,8 @@ MonoBehaviour:
   guestPortrait: {fileID: 21300000, guid: 8a658d107dc0efa4a8e2a8d49d53764d, type: 3}
   faceRectPos: {x: 0, y: 0}
   faceBox: []
+  heyTranslationId: 9035
   canPlayDialogIds: ef030000
+  hurryUpTranlationIds: 49230000
   quitTranslationIds: 40230000
+  gameOverTranslationIds: 4a230000

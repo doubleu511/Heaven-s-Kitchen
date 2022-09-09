@@ -18,6 +18,8 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
     [SerializeField] CanvasGroup speechBubble = null;
     [SerializeField] TextMeshProUGUI guestNameText = null;
     [SerializeField] TextMeshProUGUI dialogText = null;
+    private WordWobble dialogTextWobble;
+
     [SerializeField] TextMeshProUGUI textSizeFitter = null;
     [SerializeField] Text phoneDialogText = null;
     [SerializeField] Image textEndArrow;
@@ -44,6 +46,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
     {
         dialogPanel = GetComponent<CanvasGroup>();
         dialogEvents = GetComponent<CookingDialogEvents>();
+        dialogTextWobble = dialogText.GetComponent<WordWobble>();
     }
 
     public void StartDialog(CookingDialog dialog)
@@ -76,7 +79,8 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
             isClicked = false;
             CookingDialogInfo dialog = dialogQueue.Dequeue();
             currentDialog = dialog;
-            ShowText(TranslationManager.Instance.GetLangDialog(dialog.tranlationId));
+            dialogTextWobble.StopWobble();
+            ShowText(TranslationManager.Instance.GetLangDialog(dialog.tranlationId), (TextAnimationType)dialog.text_animation_type);
 
             textEndArrow.gameObject.SetActive(string.IsNullOrEmpty(dialog.eventMethod));
             textEndArrow.color = new Color(1, 1, 1, 0);
@@ -135,11 +139,13 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
     {
         int random = Random.Range(0, translationId.Length);
 
-        dialogText.text = TranslationManager.Instance.GetLangDialog(translationId[random]);
+        currentDialog = new CookingDialogInfo(translationId[random]);
+
+        dialogText.text = TranslationManager.Instance.GetLangDialog(currentDialog.tranlationId);
         textSizeFitter.text = dialogText.text;
     }
 
-    private void ShowText(string text)
+    private void ShowText(string text, TextAnimationType textAnimation)
     {
         isText = true;
         isTextEnd = false;
@@ -148,6 +154,11 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
         dialogText.text = "";
         phoneDialogText.text = "";
         int textLength = TextLength(text);
+
+        if (textAnimation == TextAnimationType.SHAKE)
+        {
+            dialogTextWobble.SetWobble(text);
+        }
 
         textTween = phoneDialogText.DOText(text, textLength * 0.1f)
                     .SetEase(Ease.Linear)
