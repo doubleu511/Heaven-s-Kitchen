@@ -77,12 +77,16 @@ MonoBehaviour:
       value: "\uACC4\uB780"
     - id: 208
       value: "\uBCF5\uC22D\uC544 \uD2F0\uBC31"
+    - id: 209
+      value: "\uBB3C"
     - id: 301
       value: "\uC8FC\uBA39\uBC25"
     - id: 302
       value: "\uAD6C\uC6B4 \uC18C\uC138\uC9C0"
     - id: 303
       value: "\uACC4\uB780 \uD6C4\uB77C\uC774"
+    - id: 304
+      value: "\uBCF5\uC22D\uC544 \uCC28"
     - id: 401
       value: "\uBC25 \uBB49\uCE58\uAE30"
     - id: 402
@@ -91,6 +95,8 @@ MonoBehaviour:
       value: "\uC18C\uC138\uC9C0 \uAD7D\uAE30"
     - id: 404
       value: "\uACC4\uB780 \uAD7D\uAE30"
+    - id: 405
+      value: "\uBCF5\uC22D\uC544 \uCC28 \uB053\uC774\uAE30"
     - id: 501
       value: "\uBC25\uC1A5"
     - id: 502
@@ -105,6 +111,34 @@ MonoBehaviour:
       value: "\uD504\uB77C\uC774\uD32C"
     - id: 507
       value: "\uB0C9\uC7A5\uACE0"
+    - id: 508
+      value: "\uC8FC\uC804\uC790"
+    - id: 601
+      value: "\uB530\uB73B\uD55C \uBC25\uC785\uB2C8\uB2E4."
+    - id: 602
+      value: "\uB3D9\uAE00\uB3D9\uAE00\uD558\uAC8C \uBB49\uCE5C \uBC25\uC785\uB2C8\uB2E4."
+    - id: 603
+      value: "\uBC25\uC5D0-\uBFCC\uB9AC\uB294- \uC870\uBBF8\uB8CC\uC785\uB2C8\uB2E4."
+    - id: 604
+      value: "\uC9ED\uC9E4\uD55C \uC18C\uAE08\uC785\uB2C8\uB2E4."
+    - id: 605
+      value: "\uB2EC\uB2EC\uD55C \uC124\uD0D5\uC785\uB2C8\uB2E4."
+    - id: 606
+      value: "\uB450\uD23C\uD55C \uC18C\uC138\uC9C0\uC785\uB2C8\uB2E4."
+    - id: 607
+      value: "\uAE68\uC9C0\uC9C0\uC54A\uAC8C \uC870\uC2EC\uD558\uC138\uC694!"
+    - id: 608
+      value: "\uBCF5\uC22D\uC544 \uCC28\uB97C \uC704\uD55C \uD2F0\uBC31\uC785\uB2C8\uB2E4."
+    - id: 609
+      value: "\uAE68\uB057\uD55C \uBB3C\uC785\uB2C8\uB2E4."
+    - id: 701
+      value: "\uB3D9\uAE00\uB3D9\uAE00 \uB9DB\uC788\uC5B4\uBCF4\uC785\uB2C8\uB2E4."
+    - id: 702
+      value: "\uC801\uC808\uD788 \uC775\uD78C \uC18C\uC138\uC9C0\uC785\uB2C8\uB2E4."
+    - id: 703
+      value: "\uC801\uC808\uD788 \uC775\uD78C \uACC4\uB780 \uD6C4\uB77C\uC774\uC785\uB2C8\uB2E4."
+    - id: 704
+      value: "\uB728\uB048\uD558\uAC8C \uC6B0\uB824\uB0B8 \uBCF5\uC22D\uC544 \uCC28\uC785\uB2C8\uB2E4."
     - id: 1000
       value: "\uC6B0\uC640 \uC774\uACF3\uC740!!!"
     - id: 1001
@@ -191,32 +225,6 @@ MonoBehaviour:
       value: "\uACE0\uAE30 \uC8FC\uC138\uC694"
     - id: 9032
       value: "\uD0A4\uD0BC"
-    - id: 304
-      value: "\uBCF5\uC22D\uC544 \uCC28"
-    - id: 601
-      value: "\uB530\uB73B\uD55C \uBC25\uC785\uB2C8\uB2E4."
-    - id: 602
-      value: "\uB3D9\uAE00\uB3D9\uAE00\uD558\uAC8C \uBB49\uCE5C \uBC25\uC785\uB2C8\uB2E4."
-    - id: 603
-      value: "\uBC25\uC5D0-\uBFCC\uB9AC\uB294- \uC870\uBBF8\uB8CC\uC785\uB2C8\uB2E4."
-    - id: 604
-      value: "\uC9ED\uC9E4\uD55C \uC18C\uAE08\uC785\uB2C8\uB2E4."
-    - id: 605
-      value: "\uB2EC\uB2EC\uD55C \uC124\uD0D5\uC785\uB2C8\uB2E4."
-    - id: 606
-      value: "\uB450\uD23C\uD55C \uC18C\uC138\uC9C0\uC785\uB2C8\uB2E4."
-    - id: 607
-      value: "\uAE68\uC9C0\uC9C0\uC54A\uAC8C \uC870\uC2EC\uD558\uC138\uC694!"
-    - id: 608
-      value: "\uBCF5\uC22D\uC544 \uCC28\uB97C \uC704\uD55C \uD2F0\uBC31\uC785\uB2C8\uB2E4."
-    - id: 701
-      value: "\uB3D9\uAE00\uB3D9\uAE00 \uB9DB\uC788\uC5B4\uBCF4\uC785\uB2C8\uB2E4."
-    - id: 702
-      value: "\uC801\uC808\uD788 \uC775\uD78C \uC18C\uC138\uC9C0\uC785\uB2C8\uB2E4."
-    - id: 703
-      value: "\uC801\uC808\uD788 \uC775\uD78C \uACC4\uB780 \uD6C4\uB77C\uC774\uC785\uB2C8\uB2E4."
-    - id: 704
-      value: "\uB728\uB048\uD558\uAC8C \uC6B0\uB824\uB0B8 \uBCF5\uC22D\uC544 \uCC28\uC785\uB2C8\uB2E4."
     - id: 9033
       value: "\uC5B8\uC81C \uB098\uC624\uB098\uC694 ?!?"
     - id: 9034
@@ -253,12 +261,16 @@ MonoBehaviour:
       value: Egg
     - id: 208
       value: Peach teabag
+    - id: 209
+      value: Water
     - id: 301
       value: Rice ball
     - id: 302
       value: Grilled sausage
     - id: 303
       value: Fried egg
+    - id: 304
+      value: Peach tea
     - id: 401
       value: Clumping cooked rice
     - id: 402
@@ -267,6 +279,8 @@ MonoBehaviour:
       value: Grilling sausage
     - id: 404
       value: Frying egg
+    - id: 405
+      value: Boiling peach tea
     - id: 501
       value: Rice cooker
     - id: 502
@@ -281,6 +295,34 @@ MonoBehaviour:
       value: Frying pan
     - id: 507
       value: Refrigerator
+    - id: 508
+      value: Kettle
+    - id: 601
+      value: 
+    - id: 602
+      value: 
+    - id: 603
+      value: 
+    - id: 604
+      value: 
+    - id: 605
+      value: 
+    - id: 606
+      value: 
+    - id: 607
+      value: 
+    - id: 608
+      value: 
+    - id: 609
+      value: 
+    - id: 701
+      value: 
+    - id: 702
+      value: 
+    - id: 703
+      value: 
+    - id: 704
+      value: 
     - id: 1000
       value: Hello!!
     - id: 1001
@@ -364,32 +406,6 @@ MonoBehaviour:
     - id: 9031
       value: 
     - id: 9032
-      value: 
-    - id: 304
-      value: Peach tea
-    - id: 601
-      value: 
-    - id: 602
-      value: 
-    - id: 603
-      value: 
-    - id: 604
-      value: 
-    - id: 605
-      value: 
-    - id: 606
-      value: 
-    - id: 607
-      value: 
-    - id: 608
-      value: 
-    - id: 701
-      value: 
-    - id: 702
-      value: 
-    - id: 703
-      value: 
-    - id: 704
       value: 
     - id: 9033
       value: 
@@ -626,7 +642,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 301
+      eventMethod: SETID 304
   - dialogid: 1005
     dialogInfos:
     - tranlationId: 9010
@@ -643,7 +659,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 303
+      eventMethod: SETID 304
   - dialogid: 1006
     dialogInfos:
     - tranlationId: 9013
@@ -660,7 +676,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 302
+      eventMethod: SETID 304
   - dialogid: 1007
     dialogInfos:
     - tranlationId: 9016
@@ -689,7 +705,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 301,301
+      eventMethod: SETID 304
   - dialogid: 1009
     dialogInfos:
     - tranlationId: 9026
@@ -706,7 +722,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 303
+      eventMethod: SETID 304
   - dialogid: 1010
     dialogInfos:
     - tranlationId: 9029

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientTranslationId: 304
   ingredientLoreId: 704
-  ingredientDefaulrSpr: {fileID: 21300000, guid: 8064392f5558b1b41ae06f5009435951, type: 3}
+  ingredientDefaulrSpr: {fileID: 21300000, guid: d4c4d358f72edeb49b1a9add65ec65bc, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: 8064392f5558b1b41ae06f5009435951, type: 3}
   ingredientMinigameSprite: []
   particlePrefab: {fileID: 0}

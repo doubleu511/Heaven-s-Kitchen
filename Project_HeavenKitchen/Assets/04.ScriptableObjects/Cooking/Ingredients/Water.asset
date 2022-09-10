@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac07c7882b4041b4fa11fb7d51aaead8, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  ingredientTranslationId: 209
+  ingredientLoreId: 609
+  ingredientDefaulrSpr: {fileID: 21300000, guid: 3f541b2ca42734248af760a5d0c970d3, type: 3}
+  ingredientMiniSpr: {fileID: 21300000, guid: 4271734e429e8c942a4204b963885c97, type: 3}
+  ingredientMinigameSprite: []
+  particlePrefab: {fileID: 0}
+  isFood: 0
+  isHot: 0

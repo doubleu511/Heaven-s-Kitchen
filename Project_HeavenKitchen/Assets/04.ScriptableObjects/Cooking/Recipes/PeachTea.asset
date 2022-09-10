@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 052efdb2f451a144bb68ea56f58f428d, type: 3}
+  m_Name: PeachTea
+  m_EditorClassIdentifier: 
+  recipeNameTranslationId: 304
+  foodIngredient: {fileID: 11400000, guid: 8d725e0f189476240b459faa6ff8ee0f, type: 2}
+  foodPrice: 250
+  averageCookingTime: 80
+  recipe:
+  - minigameNameTranslationId: 405
+    minigameType: 3
+    repeatCount: 1
+    ingredients:
+    - {fileID: 11400000, guid: 7ee29f4387b137b48bfd604f5d7930a5, type: 2}
+    - {fileID: 11400000, guid: 584e7a60e70a2a14b876875d0ac9b176, type: 2}
+    reward: {fileID: 11400000, guid: 8d725e0f189476240b459faa6ff8ee0f, type: 2}

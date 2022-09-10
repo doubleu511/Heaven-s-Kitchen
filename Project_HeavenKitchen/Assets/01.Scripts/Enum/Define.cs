@@ -61,7 +61,7 @@ public class Define
         COOKING_TRAY,
         COOKING_FRYINGPAN,
         COOKING_REFRIGERATOR,
-
+        COOKING_KETTLE,
 
         COOKING_TRASHCAN = 99
     }
@@ -70,7 +70,8 @@ public class Define
     {
         MINIGAME_CLUMPING,
         MINIGAME_SPRINKLING,
-        MINIGAME_GRILLING
+        MINIGAME_GRILLING,
+        MINIGAME_BOILINGANDFILLING
     }
     #endregion
 
