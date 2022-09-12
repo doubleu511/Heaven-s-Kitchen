@@ -16,7 +16,25 @@ MonoBehaviour:
   ingredientLoreId: 609
   ingredientDefaulrSpr: {fileID: 21300000, guid: 3f541b2ca42734248af760a5d0c970d3, type: 3}
   ingredientMiniSpr: {fileID: 21300000, guid: 4271734e429e8c942a4204b963885c97, type: 3}
-  ingredientMinigameSprite: []
+  ingredientMinigameSprite:
+  - spritesName: Streaming
+    sprites:
+    - {fileID: 2287235241491412324, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: -7090224396664608663, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: -7268543926749668520, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: -82422508405727265, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: 6924399570290439038, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: 602785083071611578, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: -3561723536599878536, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: -921437107267728059, guid: c70ad32fcaf3bfc4887882537e7dc2ab, type: 3}
+    - {fileID: -7442625923071323467, guid: 56d492914a48f9743a7cf6df9fefc1db, type: 3}
+    - {fileID: 4470899337666709244, guid: 56d492914a48f9743a7cf6df9fefc1db, type: 3}
+    - {fileID: 2433041027202225838, guid: 56d492914a48f9743a7cf6df9fefc1db, type: 3}
+    - {fileID: 2527070052233507431, guid: 56d492914a48f9743a7cf6df9fefc1db, type: 3}
+    - {fileID: -1381002515466953450, guid: 50efecad8e42739429f0c94a2ef164b2, type: 3}
+    - {fileID: 2627903236452805878, guid: 50efecad8e42739429f0c94a2ef164b2, type: 3}
+    - {fileID: 8591983538506905824, guid: 50efecad8e42739429f0c94a2ef164b2, type: 3}
+    - {fileID: 6328666408365161360, guid: 50efecad8e42739429f0c94a2ef164b2, type: 3}
   particlePrefab: {fileID: 0}
   isFood: 0
   isHot: 0

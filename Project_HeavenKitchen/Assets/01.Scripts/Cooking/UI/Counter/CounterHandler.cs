@@ -268,6 +268,7 @@ public class CounterHandler : MonoBehaviour
         Dialog.ResetEvent();
         CookingManager.ClearRecipes();
         guestAnimator.SetTrigger("Disappear");
+        Dialog.SetQuitMessage(currentGuest.quitTranslationIds);
         CookingManager.Counter.guestTalk.HideGuestTalk();
     }
 
@@ -327,7 +328,7 @@ public class CounterHandler : MonoBehaviour
         {
             if (valuableBoxes[i].moneyType == moneyType)
             {
-                valuableBoxes[i].SetText(addTemp, addTemp + value);
+                valuableBoxes[i].SetText(addTemp, addTemp + value, 10);
             }
         }
 

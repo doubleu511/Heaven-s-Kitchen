@@ -10,6 +10,8 @@ public class SpriteAnimator : MonoBehaviour
     public bool ignoreTimeScale = false;
     public float delayTime = 0.5f;
 
+    [HideInInspector] public bool refreshNativeSizeEveryFrame = false;
+
     private bool isPlaying = false;
     private bool isForceStopped = false;
 
@@ -92,6 +94,10 @@ public class SpriteAnimator : MonoBehaviour
                 if (image)
                 {
                     image.sprite = sprites[index];
+                    if (refreshNativeSizeEveryFrame)
+                    {
+                        image.SetNativeSize();
+                    }
                 }
                 else if (sr)
                 {
@@ -114,6 +120,11 @@ public class SpriteAnimator : MonoBehaviour
             }
         }
         while (isLoop);
+    }
+
+    public void SetSprites(Sprite[] _sprites)
+    {
+        sprites = _sprites;
     }
 
     private void OnDisable()

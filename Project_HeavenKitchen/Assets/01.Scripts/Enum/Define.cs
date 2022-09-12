@@ -71,7 +71,7 @@ public class Define
         MINIGAME_CLUMPING,
         MINIGAME_SPRINKLING,
         MINIGAME_GRILLING,
-        MINIGAME_BOILINGANDFILLING
+        MINIGAME_FILLING
     }
     #endregion
 

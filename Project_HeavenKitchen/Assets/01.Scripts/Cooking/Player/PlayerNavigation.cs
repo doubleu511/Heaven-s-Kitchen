@@ -40,8 +40,16 @@ public class PlayerNavigation : MonoBehaviour
 
         if(info == null)
         {
-            // 요리가 다 만들어졌으므로 네비게이션은 카운터로 향한다.
-            RotateToTarget(counter.transform);
+            if (ingredient == null)
+            {
+                // 요리가 다 만들어졌으므로 네비게이션은 카운터로 향한다.
+                RotateToTarget(counter.transform);
+            }
+            else
+            {
+                // 재료는 null이 아니라면 그 재료로 향하게 한다.
+                NavIngredient();
+            }
         }
         else
         {
@@ -53,18 +61,23 @@ public class PlayerNavigation : MonoBehaviour
             else
             {
                 // 재료에 맞는 기구로 가기
-                if(ingredient.Equals(cookedRiceIngredient))
-                {
-                    RotateToTarget(riceCooker.transform);
-                }
-                else if (ingredient.Equals(waterIngredient))
-                {
-                    RotateToTarget(waterPurifier.transform);
-                }
-                else
-                {
-                    CupboardORRefrigerator(ingredient);
-                }
+                NavIngredient();
+            }
+        }
+
+        void NavIngredient()
+        {
+            if (ingredient.Equals(cookedRiceIngredient))
+            {
+                RotateToTarget(riceCooker.transform);
+            }
+            else if (ingredient.Equals(waterIngredient))
+            {
+                RotateToTarget(waterPurifier.transform);
+            }
+            else
+            {
+                CupboardORRefrigerator(ingredient);
             }
         }
     }

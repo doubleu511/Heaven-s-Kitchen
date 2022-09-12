@@ -20,11 +20,15 @@ public class ValuableEffectUI : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void Init(Define.MoneyType moneyType, int delta)
+    public void Init(Define.MoneyType moneyType, int delta, bool isTip = false)
     {
         bool isPlus = delta > 0;
 
-        signText.text = isPlus ? "+" : "-";
+        string signTextStr = "";
+        if (isTip) signTextStr += "фа! ";
+        signTextStr += isPlus ? "+" : "-";
+
+        signText.text = signTextStr;
         signText.color = CookingManager.Counter.plusMinusColors[isPlus ? 0 : 1];
 
         iconImg.sprite = CookingManager.Counter.moneyTypeSprs[(int)moneyType];

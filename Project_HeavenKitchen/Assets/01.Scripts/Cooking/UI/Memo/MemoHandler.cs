@@ -87,19 +87,32 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
             frontRecipePrefabBoxTrm.GetChild(i).gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < currentRecipe.recipe.Length; i++)
+        if (currentRecipe.recipe.Length > 0)
         {
-            MemoRecipeProcessUI recipe = Global.Pool.GetItem<MemoRecipeProcessUI>();
-            recipe.transform.SetParent(frontRecipePrefabBoxTrm);
-            recipe.transform.SetAsLastSibling();
+            for (int i = 0; i < currentRecipe.recipe.Length; i++)
+            {
+                MemoRecipeProcessUI recipe = Global.Pool.GetItem<MemoRecipeProcessUI>();
+                recipe.transform.SetParent(frontRecipePrefabBoxTrm);
+                recipe.transform.SetAsLastSibling();
 
-            recipe.Init(currentRecipe.recipe[i]);
+                recipe.Init(currentRecipe.recipe[i]);
+            }
+
+            // ContentSizeFitter를 강제 새로고침한다.
+            UtilClass.ForceRefreshSize(transform);
+            RefreshMinigameRecipes();
         }
-
-        // ContentSizeFitter를 강제 새로고침한다.
-        UtilClass.ForceRefreshSize(transform);
-
-        RefreshMinigameRecipes();
+        else  // 가끔 레시피가 없는 주문을 할경우 이쪽으로 간다.
+        {
+            if (!CookingManager.Player.Inventory.IsItemExist(currentRecipe.foodIngredient))
+            {
+                currentTargetIngredient = currentRecipe.foodIngredient;
+            }
+            else
+            {
+                currentTargetIngredient = null;
+            }
+        }
     }
 
     private void BackInit(int index)
@@ -172,40 +185,54 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
 
     public void SearchNavIngredient()
     {
-        if (currentTargetMinigame == null) return;
-
-        MinigameStarter selectedUtensils = CookingManager.Global.TargetNavDic[currentTargetMinigame.minigameNameTranslationId];
-
-        if (selectedUtensils.utensilsInventories.Count == 0)
+        if (currentTargetMinigame != null)
         {
-            selectedUtensils.RefreshInventory();
-        }
+            MinigameStarter selectedUtensils = CookingManager.Global.TargetNavDic[currentTargetMinigame.minigameNameTranslationId];
 
-        for (int i = 0; i < selectedUtensils.utensilsInventories.Count; i++)
-        {
-            if (selectedUtensils.utensilsInventories[i].minigameId == currentTargetMinigame.minigameNameTranslationId) // 내 미니게임의 주방기구 인벤토리의 맞는 인덱스를 찾는다.
+            if (selectedUtensils.utensilsInventories.Count == 0)
             {
-                for (int j = 0; j < selectedUtensils.utensilsInventories[i].ingredients.Length; j++)
-                {
-                    if(selectedUtensils.utensilsInventories[i].ingredients[j] == null)
-                    {
-                        IngredientSO ingredient = currentTargetMinigame.ingredients[j];
+                selectedUtensils.RefreshInventory();
+            }
 
-                        if (CookingManager.Player.Inventory.IsItemExist(ingredient))
+            for (int i = 0; i < selectedUtensils.utensilsInventories.Count; i++)
+            {
+                if (selectedUtensils.utensilsInventories[i].minigameId == currentTargetMinigame.minigameNameTranslationId) // 내 미니게임의 주방기구 인벤토리의 맞는 인덱스를 찾는다.
+                {
+                    for (int j = 0; j < selectedUtensils.utensilsInventories[i].ingredients.Length; j++)
+                    {
+                        if (selectedUtensils.utensilsInventories[i].ingredients[j] == null)
                         {
-                            continue;
-                        }
-                        else
-                        {
-                            currentTargetIngredient = ingredient;
-                            return;
+                            IngredientSO ingredient = currentTargetMinigame.ingredients[j];
+
+                            if (CookingManager.Player.Inventory.IsItemExist(ingredient))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                currentTargetIngredient = ingredient;
+                                return;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        currentTargetIngredient = null;
+            currentTargetIngredient = null;
+        }
+        else // 가끔 레시피가 없는 주문을 할경우 이쪽으로 간다.
+        {
+            RecipeSO currentRecipe = recipes[currentRecipeIndex];
+
+            if (!CookingManager.Player.Inventory.IsItemExist(currentRecipe.foodIngredient))
+            {
+                currentTargetIngredient = currentRecipe.foodIngredient;
+            }
+            else
+            {
+                currentTargetIngredient = null;
+            }
+        }
     }
 
     public void GetNavInfo(out MinigameInfo targetInfo, out IngredientSO targetIngredient)

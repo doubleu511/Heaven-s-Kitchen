@@ -25,7 +25,7 @@ public class MinigameSprinkling : Minigame
     Sprite[] savedSprs;
     Sprite[] progressSprs;
 
-    float beforeMousePosY;
+    float beforeMousePosY = 0f;
 
     private void Awake()
     {
