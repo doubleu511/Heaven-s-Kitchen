@@ -23,7 +23,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     [SerializeField] Image memoPostIt;
     [SerializeField] TextMeshProUGUI memoPostItIndexText;
 
-    RecipeSO[] recipes = new RecipeSO[1];
+    RecipeSO[] recipes = new RecipeSO[0];
     int currentRecipeIndex = 0;
 
     private MinigameInfo currentTargetMinigame;
@@ -222,15 +222,18 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
         }
         else // 가끔 레시피가 없는 주문을 할경우 이쪽으로 간다.
         {
-            RecipeSO currentRecipe = recipes[currentRecipeIndex];
+            if (recipes.Length > 0)
+            {
+                RecipeSO currentRecipe = recipes[currentRecipeIndex];
 
-            if (!CookingManager.Player.Inventory.IsItemExist(currentRecipe.foodIngredient))
-            {
-                currentTargetIngredient = currentRecipe.foodIngredient;
-            }
-            else
-            {
-                currentTargetIngredient = null;
+                if (!CookingManager.Player.Inventory.IsItemExist(currentRecipe.foodIngredient))
+                {
+                    currentTargetIngredient = currentRecipe.foodIngredient;
+                }
+                else
+                {
+                    currentTargetIngredient = null;
+                }
             }
         }
     }

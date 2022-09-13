@@ -8,10 +8,26 @@ public class PlayerInventoryTab
 {
     public SpriteRenderer basketItem;
     public Image ingredientImgTab;
-    public PlayerInventoryDragableUI ingredientInventoryUI;
-    public ParticleSystem inventorySmokeParticle;
+
+    [HideInInspector] public PlayerInventoryDragableUI ingredientInventoryUI;
+    private ParticleSystem inventorySmokeParticle;
+    private Image inventoryDishImg;
 
     public IngredientSO ingredient;
+
+    private bool _isDish = false;
+    public bool isDish
+    {
+        get
+        {
+            return _isDish;
+        }
+        set
+        {
+            inventoryDishImg.gameObject.SetActive(value);
+            _isDish = value;
+        }
+    }
 
     public void SetIngredient(IngredientSO so)
     {
@@ -31,6 +47,15 @@ public class PlayerInventoryTab
             ingredientInventoryUI.SetIngredient(null);
             inventorySmokeParticle.Stop();
         }
+    }
+
+    public void Init()
+    {
+        inventorySmokeParticle = basketItem.transform.Find("SmokeParticle").GetComponent<ParticleSystem>();
+        ingredientInventoryUI = ingredientImgTab.transform.Find("IngredientImg").GetComponent<PlayerInventoryDragableUI>();
+        inventoryDishImg = ingredientImgTab.transform.Find("Dish").GetComponent<Image>();
+
+        isDish = false;
     }
 }
 
@@ -57,6 +82,7 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
+            inventoryTabs[i].Init();
             inventoryTabs[i].SetIngredient(null);
             inventoryTabs[i].basketItem.gameObject.SetActive        (i < count);
 

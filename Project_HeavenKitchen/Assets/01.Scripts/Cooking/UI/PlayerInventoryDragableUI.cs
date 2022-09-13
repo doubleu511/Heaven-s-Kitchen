@@ -5,17 +5,20 @@ using UnityEngine.EventSystems;
 
 public class PlayerInventoryDragableUI : DragableUI
 {
-    public override void OnBeginDrag(PointerEventData eventData)
-    {
-        if (CookingManager.Counter.IsInCounter)
-        {
-            base.OnBeginDrag(eventData);
-        }
-    }
-
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
+        InventoryFill();
+    }
+
+    public override void OnDrop(PointerEventData eventData) // OnDrop이 OnEndDrag보다 먼저 실행된다.
+    {
+        base.OnDrop(eventData);
+        InventoryFill();
+    }
+
+    private void InventoryFill()
+    {
         List<IngredientSO> tempInventory = new List<IngredientSO>();
         for (int i = 0; i < CookingManager.Player.Inventory.inventoryTabs.Length; i++)
         {
@@ -34,10 +37,5 @@ public class PlayerInventoryDragableUI : DragableUI
                 CookingManager.Player.Inventory.inventoryTabs[i].SetIngredient(tempInventory[i]);
             }
         }
-    }
-
-    public override void OnDrop(PointerEventData eventData) // OnDrop이 OnEndDrag보다 먼저 실행된다.
-    {
-        
     }
 }

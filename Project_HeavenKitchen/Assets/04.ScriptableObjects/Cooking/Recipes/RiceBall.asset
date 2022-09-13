@@ -30,3 +30,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 24e254a29f63f4e4b880a78b59c8ea79, type: 2}
     - {fileID: 11400000, guid: ab9a56cd2b984c2488affa677583a9cb, type: 2}
     reward: {fileID: 11400000, guid: 2b3f0715a4c97c143bcb6c32e569e1dd, type: 2}
+  dishCraftRecipe:
+  - {fileID: 11400000, guid: 2b3f0715a4c97c143bcb6c32e569e1dd, type: 2}

@@ -11,6 +11,7 @@ public class RecipeSO : ScriptableObject
     public int foodPrice;
     public int averageCookingTime;
     public MinigameInfo[] recipe;
+    public IngredientSO[] dishCraftRecipe;
 }
 
 [System.Serializable]

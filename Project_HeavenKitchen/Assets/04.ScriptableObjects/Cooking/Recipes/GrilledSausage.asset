@@ -23,3 +23,5 @@ MonoBehaviour:
     ingredients:
     - {fileID: 11400000, guid: 77b4e6369248ed243987628199a4c459, type: 2}
     reward: {fileID: 11400000, guid: 7148ceec7afccbc45a27d050de1dc3df, type: 2}
+  dishCraftRecipe:
+  - {fileID: 11400000, guid: 7148ceec7afccbc45a27d050de1dc3df, type: 2}

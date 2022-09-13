@@ -12,6 +12,7 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
 {
     protected Image myImg;
     public IngredientSO myIngredient;
+    [HideInInspector] public PlayerInventoryTab myTab;
     protected bool isDragging = false;
 
     private void Awake()
