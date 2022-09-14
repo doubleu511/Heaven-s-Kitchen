@@ -41,6 +41,10 @@ public class IngredientInventoryUI : MonoBehaviour
     {
         ingredientImg.SetIngredient(ingredient);
 
+        TabInfo info = new TabInfo();
+        info.isDish = ingredient.isFood;
+        ingredientImg.SetTabInfo(info);
+
         minigameIndex = minigameIdx;
         ingredientIndex = ingredientIdx;
     }

@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class WaterPurifier : IngredientSender
 {
+    [SerializeField] ParticleSystem waterSmokeParticle;
+
     public override void OnInteract()
     {
-        CookingManager.Player.Inventory.InventoryAdd(ingredientBox);
+        if(CookingManager.Player.Inventory.InventoryAdd(ingredientBox))
+        {
+            waterSmokeParticle.Play();
+        }
     }
 }

@@ -5,17 +5,28 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+public class TabInfo
+{
+    public bool isDish;
+
+    public TabInfo()
+    {
+        isDish = false;
+    }
+}
+
 /// <summary>
 /// 요리 미니게임에서, 인벤토리에 있는 재료를 드래그할때 사용합니다.
 /// </summary>
-public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropHandler, IEndDragHandler
+public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropHandler, IEndDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     protected Image myImg;
     public IngredientSO myIngredient;
-    [HideInInspector] public PlayerInventoryTab myTab;
+    public TabInfo myInfo;
+
     protected bool isDragging = false;
 
-    private void Awake()
+    public virtual void Awake()
     {
         myImg = GetComponent<Image>();
     }
@@ -36,9 +47,21 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         }
     }
 
+    public virtual void SetTabInfo(TabInfo info)
+    {
+        if (info != null)
+        {
+            myInfo = info;
+        }
+        else
+        {
+            myInfo = new TabInfo();
+        }
+    }
+
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        if (!myImg.enabled || myImg.sprite == null)
+        if (!myImg.enabled || myImg.sprite == null || myInfo.isDish)
         {
             return;
         }
@@ -46,7 +69,7 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
         // Activate Container
         CookingManager.Global.DragAndDropContainer.SetActive(true);
         // Set Data
-        CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient);
+        CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient, myInfo);
         myImg.color = new Color(1, 1, 1, 0);
         myImg.sprite = null;
         myImg.enabled = false;
@@ -70,15 +93,17 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
             if (CookingManager.Global.DragAndDropContainer.savedIngredient == null)
             {
                 myIngredient = null;
+                myInfo = null;
             }
 
             SetIngredient(myIngredient);
+            SetTabInfo(myInfo);
         }
 
         myImg.enabled = true;
         isDragging = false;
         // Reset Contatiner
-        CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+        CookingManager.Global.DragAndDropContainer.SetIngredient(null, null);
         CookingManager.Global.DragAndDropContainer.SetActive(false);
     }
 
@@ -90,9 +115,29 @@ public class DragableUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IDropH
             {
                 // set data from drag object on Container
                 SetIngredient(CookingManager.Global.DragAndDropContainer.savedIngredient);
-                CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+                SetTabInfo(CookingManager.Global.DragAndDropContainer.savedInfo);
+                CookingManager.Global.DragAndDropContainer.SetIngredient(null, null);
                 CookingManager.Global.DragAndDropContainer.SetActive(false);
             }
         }
+    }
+
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+        if (myIngredient != null)
+        {
+            if (myInfo != null)
+            {
+                if (myInfo.isDish)
+                {
+                    CookingManager.Global.IngredientLore.SetLore(myIngredient, myInfo);
+                }
+            }
+        }
+    }
+
+    public virtual void OnPointerUp(PointerEventData eventData)
+    {
+        CookingManager.Global.IngredientLore.HideLore();
     }
 }

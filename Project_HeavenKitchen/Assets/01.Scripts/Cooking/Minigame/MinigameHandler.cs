@@ -235,18 +235,23 @@ public class MinigameHandler : MonoBehaviour
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
             Transform lockTrm = inventoryTabs[i].transform.Find("Lock");
+            Transform dishTrm = inventoryTabs[i].transform.Find("Dish");
             DragableUI ingredientImg = inventoryTabs[i].GetComponentInChildren<DragableUI>();
 
             if (i < playerInventoryTabs.Length)
             {
                 lockTrm.gameObject.SetActive(false);
                 ingredientImg.SetIngredient(playerInventoryTabs[i].ingredient);
+                ingredientImg.SetTabInfo(playerInventoryTabs[i].tabinfo);
             }
             else
             {
                 lockTrm.gameObject.SetActive(true);
                 ingredientImg.SetIngredient(null);
+                ingredientImg.SetTabInfo(null);
             }
+
+            dishTrm.gameObject.SetActive(ingredientImg.myInfo.isDish);
         }
     }
 
@@ -254,23 +259,27 @@ public class MinigameHandler : MonoBehaviour
     {
         // 요리 UI 인벤토리 재료를 게임 인벤토리로
         List<IngredientSO> tempInventory = new List<IngredientSO>();
+        List<TabInfo> tempInventoryInfo = new List<TabInfo>();
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
-            DragableUI ingredientImg = inventoryTabs[i].transform.GetChild(0).GetComponent<DragableUI>();
+            DragableUI ingredientImg = inventoryTabs[i].transform.GetComponentInChildren<DragableUI>();
 
             if (ingredientImg.myIngredient != null)
             {
                 tempInventory.Add(ingredientImg.myIngredient);
+                tempInventoryInfo.Add(ingredientImg.myInfo);
             }
         }
 
         for (int i = 0; i < CookingManager.Player.Inventory.inventoryTabs.Length; i++)
         {
             CookingManager.Player.Inventory.inventoryTabs[i].SetIngredient(null);
+            CookingManager.Player.Inventory.inventoryTabs[i].InitInfo();
 
             if (i < tempInventory.Count)
             {
                 CookingManager.Player.Inventory.inventoryTabs[i].SetIngredient(tempInventory[i]);
+                CookingManager.Player.Inventory.inventoryTabs[i].SetInfo(tempInventoryInfo[i]);
             }
         }
 

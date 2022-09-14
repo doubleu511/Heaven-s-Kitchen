@@ -21,7 +21,7 @@ public class CookingManager : MonoBehaviour
     public Dictionary<int, MinigameStarter> TargetNavDic = new Dictionary<int, MinigameStarter>();
 
     private MinigameStarter[] AllUtensils;
-    private RecipeSO[] CurrentRecipes = new RecipeSO[1];
+    private RecipeSO[] CurrentRecipes = new RecipeSO[0];
     public event Action OnRecipeAdded;
 
     private List<MinigameInfo> CurrentMinigames = new List<MinigameInfo>();
@@ -86,8 +86,7 @@ public class CookingManager : MonoBehaviour
     {
         Global.MemoSuccessCountDic.Clear();
         Global.TargetNavDic.Clear();
-        Global.CurrentRecipes = new RecipeSO[1];
-        Global.CurrentRecipes[0] = recipe;
+        Global.CurrentRecipes = new RecipeSO[1] { recipe };
 
         Global.CurrentMinigames.Clear();
         for (int i = 0; i < recipe.recipe.Length; i++)
@@ -97,6 +96,10 @@ public class CookingManager : MonoBehaviour
         Global.CurrentMinigames = Global.CurrentMinigames.Distinct().ToList();
 
         SetTargetNavDic();
+
+        GuestSO currentGuest = Counter.GetCurrentGuest;
+        currentGuest.talkativeTalk.FilteringConditions();
+
         Global.OnRecipeAdded?.Invoke();
     }
 
@@ -117,6 +120,10 @@ public class CookingManager : MonoBehaviour
         Global.CurrentMinigames = Global.CurrentMinigames.Distinct().ToList();
 
         SetTargetNavDic();
+
+        GuestSO currentGuest = Counter.GetCurrentGuest;
+        currentGuest.talkativeTalk.FilteringConditions();
+
         Global.OnRecipeAdded?.Invoke();
     }
 

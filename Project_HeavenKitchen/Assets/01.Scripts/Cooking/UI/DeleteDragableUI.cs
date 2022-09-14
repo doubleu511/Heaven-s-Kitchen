@@ -35,7 +35,7 @@ public class DeleteDragableUI : DragableUI
             }
 
             // Reset Contatiner
-            CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+            CookingManager.Global.DragAndDropContainer.SetIngredient(null, null);
             CookingManager.Global.DragAndDropContainer.SetActive(false);
         }
     }

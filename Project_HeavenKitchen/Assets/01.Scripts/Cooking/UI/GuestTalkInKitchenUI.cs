@@ -96,7 +96,7 @@ public class GuestTalkInKitchenUI : MonoBehaviour
             SpeechBubbleChange(oldOne, newOne);
 
             yield return new WaitUntil(() => !isBubblePlaying);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(2.5f);
         }
 
         bubbleCoroutine = null;

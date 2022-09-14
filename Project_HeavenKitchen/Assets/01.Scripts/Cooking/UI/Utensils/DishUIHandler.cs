@@ -7,8 +7,15 @@ using UnityEngine.UI;
 
 public class DishUIHandler : MonoBehaviour
 {
+    private bool isFade = false;
+    private CanvasGroup canvasGroup;
     [SerializeField] DragableUI[] dishTabs;
     [SerializeField] Button submitBtn;
+
+    private void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
 
     private void Start()
     {
@@ -16,6 +23,30 @@ public class DishUIHandler : MonoBehaviour
         {
             CheckRecipeDish();
         });
+
+        for (int i = 0; i < dishTabs.Length; i++)
+        {
+            dishTabs[i].SetIngredient(null);
+        }
+    }
+
+    public void UIFade(bool value)
+    {
+        Global.UI.UIFade(canvasGroup, value);
+        if (isFade && !value)
+        {
+            ReturnToInventory();
+        }
+
+        isFade = value;
+    }
+
+    private void ReturnToInventory()
+    {
+        for (int i = 0; i < dishTabs.Length; i++)
+        {
+            CookingManager.Player.Inventory.InventoryAdd(dishTabs[i].myIngredient);
+        }
 
         for (int i = 0; i < dishTabs.Length; i++)
         {
@@ -35,23 +66,32 @@ public class DishUIHandler : MonoBehaviour
             if (tabIngredients.SequenceEqual(recipeDishRecipe))
             {
                 Debug.Log("True : " + recipes[i].foodIngredient);
-                AddDishFood(recipes[i].foodIngredient);
-
+                if(AddDishFood(recipes[i].foodIngredient))
+                {
+                    UIFade(false);
+                    return;
+                }
             }
         }
     }
 
-    private void AddDishFood(IngredientSO ingredient)
+    private bool AddDishFood(IngredientSO ingredient)
     {
         if(CookingManager.Player.Inventory.InventoryAdd(ingredient, out int addIndex))
         {
-            CookingManager.Player.Inventory.inventoryTabs[addIndex].isDish = true;
+            TabInfo info = new TabInfo();
+            info.isDish = true;
+            CookingManager.Player.Inventory.inventoryTabs[addIndex].SetInfo(info);
 
             for (int i = 0; i < dishTabs.Length; i++)
             {
                 dishTabs[i].SetIngredient(null);
             }
+
+            return true;
         }
+
+        return false;
     }
 
     private IngredientSO[] GetIngredientAndSort()

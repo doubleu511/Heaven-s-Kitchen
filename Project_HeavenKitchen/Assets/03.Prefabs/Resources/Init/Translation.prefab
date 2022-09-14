@@ -231,6 +231,34 @@ MonoBehaviour:
       value: "\uD277\uD277 \uC548\uBA39\uC5B4"
     - id: 9035
       value: "\uC800\uAE30\uC694?"
+    - id: 9036
+      value: "\uC5B4! \uBC29\uAE08 \uC8FC\uBB38\uD588\uC5B4!"
+    - id: 9037
+      value: "\uB9DB\uC788\uAC8C \uD574\uB2EC\uB77C\uACE0 \uC8FC\uBB38\uD588\uC73C\uB2C8
+        \uC798 \uB098\uC624\uACA0\uC9C0 \uBB50."
+    - id: 9038
+      value: "\uD55C 2\uBD84? \uC548\uC5D0 \uB3C4\uCC29\uD560\uAC70 \uAC19\uC544.
+        \uAE30\uB2E4\uB824!"
+    - id: 9039
+      value: "\uC0AC\uC7A5\uB2D8! \uC694\uC998 \uC7A5\uC0AC\uB294 \uC798 \uB418\uC138\uC694?"
+    - id: 9040
+      value: ...
+    - id: 9041
+      value: ....
+    - id: 9042
+      value: "....\uB300\uB2F5\uC774 \uC5C6\uB124?"
+    - id: 9043
+      value: "\uB9DB\uC788\uB294 \uACC4\uB780~ \uD6C4\uB77C\uC774~ \uCC39\uCC39~"
+    - id: 9044
+      value: "\uC18C\uAE08\uC744 \uCD35\uCD35~ \uC9ED\uC870\uB985\uD558\uAC8C~ \uCD35\uCD35~
+        \uB9DB\uC788\uACA0\uB2E4 \uCD35\uCD35!"
+    - id: 9045
+      value: "\uD56B! \uB098\uB3C4 \uBAA8\uB974\uAC8C \uBAA9\uC18C\uB9AC\uAC00..
+        \uC8C4\uC1A1\uD569\uB2C8\uB2E4."
+    - id: 9046
+      value: "\uC18C\uC138\uC9C0\uC5D0\uB294 \uD6C4\uCD94\uB97C \uD6C4\uCDA7\uD6C4\uCDA7!"
+    - id: 9047
+      value: "\uBFCC\uB824\uC11C \uCD35\uCD35! \uCEAC...\uB9DB\uC788\uACA0\uB2E4."
   - lang: en
     langList:
     - id: 101
@@ -412,6 +440,30 @@ MonoBehaviour:
     - id: 9034
       value: 
     - id: 9035
+      value: 
+    - id: 9036
+      value: 
+    - id: 9037
+      value: 
+    - id: 9038
+      value: 
+    - id: 9039
+      value: 
+    - id: 9040
+      value: 
+    - id: 9041
+      value: 
+    - id: 9042
+      value: 
+    - id: 9043
+      value: 
+    - id: 9044
+      value: 
+    - id: 9045
+      value: 
+    - id: 9046
+      value: 
+    - id: 9047
       value: 
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
@@ -642,7 +694,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 301
   - dialogid: 1005
     dialogInfos:
     - tranlationId: 9010
@@ -659,7 +711,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 303
   - dialogid: 1006
     dialogInfos:
     - tranlationId: 9013
@@ -676,7 +728,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 302
   - dialogid: 1007
     dialogInfos:
     - tranlationId: 9016
@@ -705,7 +757,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 301,301
   - dialogid: 1009
     dialogInfos:
     - tranlationId: 9026
@@ -722,7 +774,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 303
   - dialogid: 1010
     dialogInfos:
     - tranlationId: 9029

@@ -53,7 +53,7 @@ public class Define
     }
     #endregion
 
-    #region 요리
+    #region 요리 씬
     public enum CookingTool
     {
         COOKING_BOWL,
@@ -72,6 +72,24 @@ public class Define
         MINIGAME_SPRINKLING,
         MINIGAME_GRILLING,
         MINIGAME_FILLING
+    }
+
+    [Flags]
+    public enum GuestPersonality
+    {
+        EASYGOING = 1,
+        URGENT = 2,
+        FEISTY = 4,
+        PATIENT = 8,
+        TALKATIVE = 16
+    }
+
+    public enum TimerInterval
+    {
+        RED = 0,
+        ORANGE,
+        YELLOW,
+        GREEN
     }
     #endregion
 

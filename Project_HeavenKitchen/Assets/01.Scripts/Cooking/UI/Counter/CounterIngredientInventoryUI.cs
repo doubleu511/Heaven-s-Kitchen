@@ -7,6 +7,7 @@ public class CounterIngredientInventoryUI : MonoBehaviour
 {
     [SerializeField] NeedyDragableUI ingredientImg;
     [SerializeField] Image fadeImg;
+    [SerializeField] Image dishImg;
     private bool isFinished = false;
     private List<CounterIngredientInventoryUI> counterIngredientInventories;
 
@@ -45,8 +46,15 @@ public class CounterIngredientInventoryUI : MonoBehaviour
     public void Init(IngredientSO ingredient, List<CounterIngredientInventoryUI> counterIngredientList)
     {
         isFinished = false;
-        ingredientImg.SetIngredient(ingredient);
+
+        dishImg.gameObject.SetActive(ingredient.isFood);
         counterIngredientInventories = counterIngredientList;
+
+        TabInfo info = new TabInfo();
+        info.isDish = ingredient.isFood;
+        ingredientImg.SetTabInfo(info);
+
+        ingredientImg.SetIngredient(ingredient);
         ingredientImg.beginDragLock = true;
         SetFade(false);
     }

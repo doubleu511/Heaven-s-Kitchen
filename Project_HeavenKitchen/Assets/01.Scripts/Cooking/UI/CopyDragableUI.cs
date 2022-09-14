@@ -12,7 +12,7 @@ public class CopyDragableUI : DragableUI
         // Activate Container
         CookingManager.Global.DragAndDropContainer.SetActive(true);
         // Set Data
-        CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient);
+        CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient, null);
         isDragging = true;
     }
 
@@ -20,7 +20,7 @@ public class CopyDragableUI : DragableUI
     {
         isDragging = false;
         // Reset Contatiner
-        CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+        CookingManager.Global.DragAndDropContainer.SetIngredient(null, null);
         CookingManager.Global.DragAndDropContainer.SetActive(false);
     }
 

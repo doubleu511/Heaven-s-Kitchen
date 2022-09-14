@@ -46,7 +46,7 @@ public class ValuableBoxUI : MonoBehaviour
                 textCoroutine = null;
             }
 
-            textCoroutine = StartCoroutine(TextCoroutine(current, target));
+            textCoroutine = StartCoroutine(TextCoroutine(current, target + tipValue));
 
             if (valuableTextBoxTrm != null)
             {

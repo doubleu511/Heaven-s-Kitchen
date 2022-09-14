@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class NeedyDragableUI : DragableUI, IPointerDownHandler, IPointerUpHandler
+public class NeedyDragableUI : DragableUI
 {
     [HideInInspector] public bool beginDragLock = false;
     public Action<bool> onPrepareItem;
@@ -19,7 +19,7 @@ public class NeedyDragableUI : DragableUI, IPointerDownHandler, IPointerUpHandle
         // Activate Container
         CookingManager.Global.DragAndDropContainer.SetActive(true);
         // Set Data
-        CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient);
+        CookingManager.Global.DragAndDropContainer.SetIngredient(myIngredient, null);
         myImg.color = new Color(1, 1, 1, 0);
         myImg.sprite = null;
         myImg.enabled = false;
@@ -45,7 +45,7 @@ public class NeedyDragableUI : DragableUI, IPointerDownHandler, IPointerUpHandle
         myImg.enabled = true;
         isDragging = false;
         // Reset Contatiner
-        CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+        CookingManager.Global.DragAndDropContainer.SetIngredient(null, null);
         CookingManager.Global.DragAndDropContainer.SetActive(false);
     }
 
@@ -56,6 +56,9 @@ public class NeedyDragableUI : DragableUI, IPointerDownHandler, IPointerUpHandle
             if (CookingManager.Global.DragAndDropContainer.savedIngredient != myIngredient)
                 return;
 
+            if (CookingManager.Global.DragAndDropContainer.savedInfo.isDish != myInfo.isDish)
+                return;
+
             beginDragLock = false;
             if (onPrepareItem != null)
             {
@@ -63,20 +66,20 @@ public class NeedyDragableUI : DragableUI, IPointerDownHandler, IPointerUpHandle
             }
 
             SetIngredient(CookingManager.Global.DragAndDropContainer.savedIngredient);
-            CookingManager.Global.DragAndDropContainer.SetIngredient(null);
+            CookingManager.Global.DragAndDropContainer.SetIngredient(null, null);
             CookingManager.Global.DragAndDropContainer.SetActive(false);
         }
     }
 
-    public virtual void OnPointerDown(PointerEventData eventData)
+    public override void OnPointerDown(PointerEventData eventData)
     {
         if(beginDragLock)
         {
-            CookingManager.Global.IngredientLore.SetNeed(myIngredient);
+            CookingManager.Global.IngredientLore.SetNeed(myIngredient, myInfo);
         }
     }
 
-    public virtual void OnPointerUp(PointerEventData eventData)
+    public override void OnPointerUp(PointerEventData eventData)
     {
         CookingManager.Global.IngredientLore.HideLore();
     }

@@ -6,22 +6,38 @@ using UnityEngine.UI;
 public class DragAndDropContainer : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
-    private Image image;
+    [SerializeField] Image ingredientImg;
+    [SerializeField] Image dishImg;
     public IngredientSO savedIngredient;
+    public TabInfo savedInfo;
 
     private void Awake()
     {
-        image = GetComponent<Image>();
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void SetIngredient(IngredientSO ingredient)
+    public void SetIngredient(IngredientSO ingredient, TabInfo info)
     {
         savedIngredient = ingredient;
         if (ingredient != null)
         {
-            image.sprite = ingredient.ingredientMiniSpr;
-            CookingManager.Global.IngredientLore.SetLore(ingredient);
+            ingredientImg.sprite = ingredient.ingredientMiniSpr;
+
+            if (info != null)
+            {
+                savedInfo = info;
+            }
+            else
+            {
+                savedInfo = new TabInfo();
+            }
+
+            // 특성에따른 상호작용
+            {
+                dishImg.gameObject.SetActive(savedInfo.isDish);
+            }
+
+            CookingManager.Global.IngredientLore.SetLore(savedIngredient, savedInfo);
         }
     }
 

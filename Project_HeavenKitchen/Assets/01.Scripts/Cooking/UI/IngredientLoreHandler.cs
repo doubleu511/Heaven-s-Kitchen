@@ -20,6 +20,7 @@ public class IngredientLoreHandler : MonoBehaviour
     [Header("NeedPanel")]
     [SerializeField] CanvasGroup needCanvasGroup;
     [SerializeField] TextMeshProUGUI needIngredientName;
+    [SerializeField] TextMeshProUGUI needIngredientTag;
 
     [Header("Colors")]
     [SerializeField] Color ingredientColor;
@@ -30,14 +31,15 @@ public class IngredientLoreHandler : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void SetLore(IngredientSO ingredient)
+    public void SetLore(IngredientSO ingredient, TabInfo info)
     {
         Global.UI.UIFade(needCanvasGroup, false);
         Global.UI.UIFade(loreCanvasGroup, true);
 
         ingredientImg.sprite = ingredient.ingredientMiniSpr;
         ingredientName.text = TranslationManager.Instance.GetLangDialog(ingredient.ingredientTranslationId);
-        ingredientType.text = ingredient.isFood ? "음식" : "재료";
+        ingredientType.text = ingredient.isFood ? "음식" : "재료"; // TO DO : 번역
+        if(info.isDish) ingredientType.text += " / 그릇에 담김";
         ingredientType.color = ingredient.isFood ? foodColor : ingredientColor;
         ingredientLore.text = TranslationManager.Instance.GetLangDialog(ingredient.ingredientLoreId);
 
@@ -48,13 +50,14 @@ public class IngredientLoreHandler : MonoBehaviour
 
     }
 
-    public void SetNeed(IngredientSO ingredient)
+    public void SetNeed(IngredientSO ingredient, TabInfo info)
     {
         Global.UI.UIFade(needCanvasGroup, true);
         Global.UI.UIFade(loreCanvasGroup, false);
 
         ingredientImg.sprite = ingredient.ingredientMiniSpr;
         needIngredientName.text = TranslationManager.Instance.GetLangDialog(ingredient.ingredientTranslationId);
+        needIngredientTag.text = info.isDish ? "그릇에 담긴" : "그릇에 담기지 않은";
         needIngredientName.color = ingredient.isFood ? foodColor : ingredientColor;
 
         Global.UI.UIFade(canvasGroup, Define.UIFadeType.IN, 0.5f, false);

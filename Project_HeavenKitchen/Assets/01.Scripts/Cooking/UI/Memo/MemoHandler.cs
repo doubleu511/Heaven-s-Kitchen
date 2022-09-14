@@ -18,6 +18,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     [SerializeField] RectTransform memoBack;
 
     [SerializeField] TextMeshProUGUI memoRecipeNameText;
+    [SerializeField] MemoDishProcessUI dishProcessUI;
 
     [Header("Post It")]
     [SerializeField] Image memoPostIt;
@@ -27,7 +28,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     int currentRecipeIndex = 0;
 
     private MinigameInfo currentTargetMinigame;
-    private IngredientSO currentTargetIngredient;
+    public IngredientSO currentTargetIngredient;
 
     private void Awake()
     {
@@ -73,6 +74,8 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
             memoRecipeNameText.text = "레시피 없음";
             memoBack.gameObject.SetActive(false);
             memoPostIt.gameObject.SetActive(false);
+
+            RefreshMinigameRecipes();
         }
     }
 
@@ -113,6 +116,8 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
                 currentTargetIngredient = null;
             }
         }
+
+        dishProcessUI.Refresh(currentRecipe);
     }
 
     private void BackInit(int index)
@@ -176,7 +181,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
             }
         }
 
-        if(!bFind)
+        if(!bFind || processUIs.Length == 0)
         {
             currentTargetMinigame = null;
             currentTargetIngredient = null;
@@ -234,6 +239,11 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
                 {
                     currentTargetIngredient = null;
                 }
+            }
+            else
+            {
+                currentTargetMinigame = null;
+                currentTargetIngredient = null;
             }
         }
     }

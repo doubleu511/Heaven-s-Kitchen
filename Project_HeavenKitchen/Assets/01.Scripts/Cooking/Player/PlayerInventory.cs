@@ -11,23 +11,9 @@ public class PlayerInventoryTab
 
     [HideInInspector] public PlayerInventoryDragableUI ingredientInventoryUI;
     private ParticleSystem inventorySmokeParticle;
-    private Image inventoryDishImg;
 
     public IngredientSO ingredient;
-
-    private bool _isDish = false;
-    public bool isDish
-    {
-        get
-        {
-            return _isDish;
-        }
-        set
-        {
-            inventoryDishImg.gameObject.SetActive(value);
-            _isDish = value;
-        }
-    }
+    public TabInfo tabinfo;
 
     public void SetIngredient(IngredientSO so)
     {
@@ -45,17 +31,33 @@ public class PlayerInventoryTab
         {
             basketItem.sprite = null;
             ingredientInventoryUI.SetIngredient(null);
+            InitInfo();
             inventorySmokeParticle.Stop();
         }
+    }
+
+    public void SetInfo(TabInfo info)
+    {
+        tabinfo = info;
+        ingredientInventoryUI.SetTabInfo(info);
+    }
+
+    public void InitInfo()
+    {
+        TabInfo info = new TabInfo();
+        info.isDish = false;
+
+        SetInfo(info);
     }
 
     public void Init()
     {
         inventorySmokeParticle = basketItem.transform.Find("SmokeParticle").GetComponent<ParticleSystem>();
         ingredientInventoryUI = ingredientImgTab.transform.Find("IngredientImg").GetComponent<PlayerInventoryDragableUI>();
-        inventoryDishImg = ingredientImgTab.transform.Find("Dish").GetComponent<Image>();
 
-        isDish = false;
+        TabInfo info = new TabInfo();
+        info.isDish = false;
+        SetInfo(info);
     }
 }
 
@@ -98,6 +100,7 @@ public class PlayerInventory : MonoBehaviour
             if(inventoryTabs[i].ingredient == null)
             {
                 inventoryTabs[i].SetIngredient(ingredient);
+                inventoryTabs[i].SetInfo(new TabInfo());
                 memoHandler.SearchNavIngredient();
 
                 return true;
@@ -114,6 +117,7 @@ public class PlayerInventory : MonoBehaviour
             if (inventoryTabs[i].ingredient == null)
             {
                 inventoryTabs[i].SetIngredient(ingredient);
+                inventoryTabs[i].SetInfo(new TabInfo());
                 addIndex = i;
                 memoHandler.SearchNavIngredient();
 

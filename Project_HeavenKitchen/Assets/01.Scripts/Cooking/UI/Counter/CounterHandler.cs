@@ -6,11 +6,17 @@ using DG.Tweening;
 using System;
 using TMPro;
 
+using static Define;
+
 public class CounterHandler : MonoBehaviour
 {
     public float GivenTime { get; set; } = 0;
     public float RemainTime { get; set; } = 0;
     public bool IsInCounter { get; set; } = false;
+
+    public Vector3 TimerBarInterval { get; set; }
+    public GuestPersonality GuestPersonality { get; set; }
+    public TimerInterval BarIntervalIndex { get; set; } = TimerInterval.GREEN;
 
     private bool isTimer = false;
     private bool isHurry = false;
@@ -21,6 +27,7 @@ public class CounterHandler : MonoBehaviour
     [SerializeField] CookingDialogPanel Dialog;
     [SerializeField] Button goToCookingBtn;
     [SerializeField] CounterTimeBarUI[] timeBarUis;
+
     [SerializeField] Animator guestAnimator;
     [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
 
@@ -70,8 +77,8 @@ public class CounterHandler : MonoBehaviour
         SetScroll(true, true);
         StartCoroutine(GuestEncounter());
 
-        SetMoney(Define.MoneyType.GOLD, 0);
-        SetMoney(Define.MoneyType.STARCANDY, 0);
+        SetMoney(MoneyType.GOLD, 0);
+        SetMoney(MoneyType.STARCANDY, 0);
         todayDate = new DateTime(2023, 1, 1, 9, 0, 0);
         RefreshWindow(true);
     }
@@ -85,15 +92,35 @@ public class CounterHandler : MonoBehaviour
                 RemainTime -= Time.deltaTime;
                 RefreshTimeBarValue();
 
+                TimerInterval currentIntervalIndex = GetTimerIntervalIndex();
+                if(currentIntervalIndex != BarIntervalIndex)
+                {
+                    // 수다
+                    if (GuestPersonality == GuestPersonality.TALKATIVE)
+                    {
+                        GuestTalkCondition[] talkCondition = currentGuest.talkativeTalk.GetFilteredConditions();
+                        int randomIdx = UnityEngine.Random.Range(0, talkCondition.Length);
+                        GuestTalkCondition condition = talkCondition[randomIdx];
+
+                        for (int i = 0; i < condition.translationIds.Length; i++)
+                        {
+                            CookingDialogInfo info = new CookingDialogInfo(condition.translationIds[i], 0, 0, (int)TextAnimationType.NONE, "");
+                            guestTalk.AddBubbleMessage(info);
+                        }
+                    }
+
+                    BarIntervalIndex = currentIntervalIndex;
+                }
+
                 if (!isHurry)
                 {
-                    if (RemainTime / GivenTime < 0.25f)
+                    if (RemainTime / GivenTime < TimerBarInterval.y) // 주황색 구간이 되면 빨리하라고 재촉
                     {
                         isHurry = true;
 
                         for (int i = 0; i < currentGuest.hurryUpTranlationIds.Length; i++)
                         {
-                            CookingDialogInfo info = new CookingDialogInfo(currentGuest.hurryUpTranlationIds[i], 0, 0, (int)Define.TextAnimationType.SHAKE, "");
+                            CookingDialogInfo info = new CookingDialogInfo(currentGuest.hurryUpTranlationIds[i], 0, 0, (int)TextAnimationType.SHAKE, "");
 
                             guestTalk.AddBubbleMessage(info);
                         }
@@ -131,13 +158,14 @@ public class CounterHandler : MonoBehaviour
                 int random = UnityEngine.Random.Range(0, allGuests.Count);
                 currentGuest = allGuests[random];
                 Dialog.GuestInit(currentGuest);
+                SetGuestPersonality();
 
                 Dialog.ShowSpeechBubble(false);
                 CookingManager.Counter.guestTalk.ShowGuestTalk(currentGuest.guestPortrait);
                 if(!IsInCounter)
                 {
                     CookingDialogInfo info = new CookingDialogInfo(currentGuest.heyTranslationId);
-                    info.text_animation_type = (int)Define.TextAnimationType.SHAKE;
+                    info.text_animation_type = (int)TextAnimationType.SHAKE;
 
                     CookingManager.Counter.guestTalk.AddBubbleMessage(info);
                 }
@@ -158,6 +186,23 @@ public class CounterHandler : MonoBehaviour
     }
 
     public GuestSO GetCurrentGuest => currentGuest;
+
+    private void SetGuestPersonality()
+    {
+        List<GuestPersonality> personalityList = new List<GuestPersonality>();
+
+        foreach (GuestPersonality personality in Enum.GetValues(typeof(GuestPersonality)))
+        {
+            if (UtilClass.IsIncludeFlag(currentGuest.personalitys, personality))
+            {
+                personalityList.Add(personality);
+            }
+        }
+
+        int randomIdx = UnityEngine.Random.Range(0, personalityList.Count);
+        GuestPersonality = personalityList[randomIdx];
+        BarIntervalIndex = (GuestPersonality == GuestPersonality.PATIENT) ? TimerInterval.YELLOW : TimerInterval.GREEN;
+    }
 
     private void AddMinuteTime(int value)
     {
@@ -207,14 +252,72 @@ public class CounterHandler : MonoBehaviour
     public void SetTimer(int timeSec)
     {
         isTimer = true;
-        GivenTime = timeSec;
+
+        float timerScale = 1.0f;
+        if (GuestPersonality == GuestPersonality.PATIENT) timerScale = 1.2f;
+        if (GuestPersonality == GuestPersonality.FEISTY) timerScale = 0.8f;
+
+        GivenTime = timeSec * timerScale;
         RemainTime = GivenTime;
+
+        TimerBarInterval = GetTimerIntervalToPersonality();
+        SetTimerInterval(TimerBarInterval);
     }
 
     public void StopTimer()
     {
         isTimer = false;
         isHurry = false;
+        RemainTime = GivenTime;
+        RefreshTimeBarValue();
+    }
+
+    private Vector3 GetTimerIntervalToPersonality()
+    {
+        Vector3 interval = GuestPersonality switch
+        {
+            GuestPersonality.EASYGOING => new Vector3(0.1f, 0.25f, 0.4f),
+            GuestPersonality.URGENT => new Vector3(0.2f, 0.4f, 0.6f),
+            GuestPersonality.PATIENT => new Vector3(0.2f, 0.4f, 1),
+            GuestPersonality.FEISTY => new Vector3(0.2f, 0.3f, 0.5f),
+            GuestPersonality.TALKATIVE => new Vector3(0.2f, 0.3f, 0.5f),
+            _ => new Vector3(0.1f, 0.25f, 0.4f),
+        };
+        return interval;
+    }
+
+    private TimerInterval GetTimerIntervalIndex()
+    {
+        float barValue = RemainTime / GivenTime;
+
+        if (barValue <= TimerBarInterval.x)
+        {
+            // RED
+            return TimerInterval.RED;
+        }
+        else if (barValue <= TimerBarInterval.y)
+        {
+            // ORANGE
+            return TimerInterval.ORANGE;
+        }
+        else if (barValue <= TimerBarInterval.z)
+        {
+            // YELLOW
+            return TimerInterval.YELLOW;
+        }
+        else
+        {
+            // GREEN
+            return TimerInterval.GREEN;
+        }
+    }
+
+    public void SetTimerInterval(Vector3 interval)
+    {
+        for (int i = 0; i < timeBarUis.Length; i++)
+        {
+            timeBarUis[i].SetBarInterval(interval);
+        }
     }
 
     private void RefreshTimeBarValue()
@@ -263,7 +366,22 @@ public class CounterHandler : MonoBehaviour
             allPrice += currentRecipes[i].foodPrice;
         }
 
-        AddMoney(Define.MoneyType.GOLD, allPrice);
+        switch(BarIntervalIndex)
+        {
+            case TimerInterval.RED:
+                AddMoney(MoneyType.GOLD, (int)(allPrice * 0.75f));
+                break;
+            case TimerInterval.ORANGE:
+                AddMoney(MoneyType.GOLD, allPrice);
+                break;
+            case TimerInterval.YELLOW:
+                AddMoney(MoneyType.GOLD, allPrice, allPrice / 20);
+                break;
+            case TimerInterval.GREEN:
+                AddMoney(MoneyType.GOLD, allPrice, allPrice / 10);
+                break;
+        }
+
         StopTimer();
         Dialog.ResetEvent();
         CookingManager.ClearRecipes();
@@ -296,7 +414,7 @@ public class CounterHandler : MonoBehaviour
         }
     }
 
-    public void SetMoney(Define.MoneyType moneyType, int value)
+    public void SetMoney(MoneyType moneyType, int value)
     {
         ValuableBoxUI[] valuableBoxes = FindObjectsOfType<ValuableBoxUI>();
 
@@ -308,37 +426,45 @@ public class CounterHandler : MonoBehaviour
             }
         }
 
-        if (moneyType == Define.MoneyType.GOLD)
+        if (moneyType == MoneyType.GOLD)
         {
             gold = value;
         }
-        else if (moneyType == Define.MoneyType.STARCANDY)
+        else if (moneyType == MoneyType.STARCANDY)
         {
             starCandy = value;
         }
     }
 
-    public void AddMoney(Define.MoneyType moneyType, int value)
+    public void AddMoney(MoneyType moneyType, int value, int tip = 0)
     {
         ValuableBoxUI[] valuableBoxes = FindObjectsOfType<ValuableBoxUI>();
 
-        int addTemp = moneyType == Define.MoneyType.GOLD ? gold : starCandy;
+        int addTemp = moneyType == MoneyType.GOLD ? gold : starCandy;
 
         for (int i = 0; i < valuableBoxes.Length; i++)
         {
             if (valuableBoxes[i].moneyType == moneyType)
             {
-                valuableBoxes[i].SetText(addTemp, addTemp + value, 10);
+                if (tip > 0)
+                {
+                    valuableBoxes[i].SetText(addTemp, addTemp + value, tip);
+                }
+                else
+                {
+                    valuableBoxes[i].SetText(addTemp, addTemp + value);
+                }
             }
         }
 
         addTemp += value;
+        addTemp += tip;
 
-        if (moneyType == Define.MoneyType.GOLD)
+        if (moneyType == MoneyType.GOLD)
         {
             gold = addTemp;
         }
-        else if (moneyType == Define.MoneyType.STARCANDY)
+        else if (moneyType == MoneyType.STARCANDY)
         {
             starCandy = addTemp;
         }
