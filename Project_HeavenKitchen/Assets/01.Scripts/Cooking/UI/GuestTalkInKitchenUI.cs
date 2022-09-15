@@ -10,12 +10,15 @@ public class GuestTalkInKitchenUI : MonoBehaviour
     private CanvasGroup canvasGroup;
 
     [SerializeField] Image characterPortrait;
+    [SerializeField] Image characterEmotionImg;
+    [SerializeField] Sprite[] emotionSprs;
 
     [Header("SpeechBubbles")]
     [SerializeField] CanvasGroup[] speechBubbles;
     [SerializeField] TextMeshProUGUI[] speechBubbleTexts;
     [SerializeField] WordWobble[] wordWobbles;
     private int curIndex = 0;
+
 
     private bool isBubblePlaying = false;
     private Queue<CookingDialogInfo> bubbleQueue = new Queue<CookingDialogInfo>();
@@ -37,6 +40,7 @@ public class GuestTalkInKitchenUI : MonoBehaviour
     {
         canvasGroup.DOFade(0, 0.5f);
         HideSpeechBubbles();
+        HideEmotion();
     }
 
     public void SetPortrait(Sprite sprite)
@@ -61,6 +65,17 @@ public class GuestTalkInKitchenUI : MonoBehaviour
         {
             bubbleCoroutine = StartCoroutine(BubbleMessage());
         }
+    }
+
+    public void SetEmotion(Define.TimerInterval timerInterval)
+    {
+        characterEmotionImg.gameObject.SetActive(true);
+        characterEmotionImg.sprite = emotionSprs[(int)timerInterval];
+    }
+
+    public void HideEmotion()
+    {
+        characterEmotionImg.gameObject.SetActive(false);
     }
 
     public void AddBubbleMessageFromLastMessage()

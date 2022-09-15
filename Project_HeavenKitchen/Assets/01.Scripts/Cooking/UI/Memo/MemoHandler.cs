@@ -28,7 +28,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     int currentRecipeIndex = 0;
 
     private MinigameInfo currentTargetMinigame;
-    public IngredientSO currentTargetIngredient;
+    private IngredientSO currentTargetIngredient;
 
     private void Awake()
     {
@@ -246,6 +246,16 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
                 currentTargetIngredient = null;
             }
         }
+    }
+
+    public RecipeSO GetCurrentRecipe()
+    {
+        if (currentRecipeIndex < recipes.Length)
+        {
+            return recipes[currentRecipeIndex];
+        }
+
+        return null;
     }
 
     public void GetNavInfo(out MinigameInfo targetInfo, out IngredientSO targetIngredient)

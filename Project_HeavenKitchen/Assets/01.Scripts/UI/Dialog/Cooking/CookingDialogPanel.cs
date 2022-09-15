@@ -140,8 +140,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
 
         currentDialog = new CookingDialogInfo(translationId[random]);
 
-        dialogText.text = TranslationManager.Instance.GetLangDialog(currentDialog.tranlationId);
-        textSizeFitter.text = dialogText.text;
+        ShowText(TranslationManager.Instance.GetLangDialog(currentDialog.tranlationId), (TextAnimationType)currentDialog.text_animation_type);
     }
 
     private void ShowText(string text, TextAnimationType textAnimation)
@@ -153,6 +152,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
         dialogText.text = "";
         phoneDialogText.text = "";
         int textLength = TextLength(text);
+        UtilClass.ForceRefreshSize(speechBubble.transform);
 
         if (textAnimation == TextAnimationType.SHAKE)
         {
@@ -179,31 +179,31 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
 
                         textString = dialogText.text;
                     });
+    }
 
-        int TextLength(string richText)
+    private int TextLength(string richText)
+    {
+        int len = 0;
+        bool inTag = false;
+
+        foreach (var ch in richText)
         {
-            int len = 0;
-            bool inTag = false;
-
-            foreach (var ch in richText)
+            if (ch == '<')
             {
-                if (ch == '<')
-                {
-                    inTag = true;
-                    continue;
-                }
-                else if (ch == '>')
-                {
-                    inTag = false;
-                }
-                else if (!inTag)
-                {
-                    len++;
-                }
+                inTag = true;
+                continue;
             }
-
-            return len;
+            else if (ch == '>')
+            {
+                inTag = false;
+            }
+            else if (!inTag)
+            {
+                len++;
+            }
         }
+
+        return len;
     }
 
     public void ResetEvent()

@@ -65,7 +65,6 @@ public class DishUIHandler : MonoBehaviour
 
             if (tabIngredients.SequenceEqual(recipeDishRecipe))
             {
-                Debug.Log("True : " + recipes[i].foodIngredient);
                 if(AddDishFood(recipes[i].foodIngredient))
                 {
                     UIFade(false);

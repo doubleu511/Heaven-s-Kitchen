@@ -57,7 +57,7 @@ public class CounterTimeBarUI : MonoBehaviour
 
         if (!hurryUp)
         {
-            if (value < 0.25f)
+            if (value < CookingManager.Counter.TimerBarInterval.y)
             {
                 hurryUp = true;
                 StartCoroutine(HurryUp());
@@ -66,7 +66,7 @@ public class CounterTimeBarUI : MonoBehaviour
 
         if(hurryUp)
         {
-            if (value >= 0.25f)
+            if (value >= CookingManager.Counter.TimerBarInterval.y)
             {
                 hurryUp = false;
             }

@@ -162,6 +162,21 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
+    public bool IsItemExist(IngredientSO ingredient, out int slotIndex)
+    {
+        for (int i = 0; i < inventoryCount; i++)
+        {
+            if (inventoryTabs[i].ingredient == ingredient)
+            {
+                slotIndex = i;
+                return true;
+            }
+        }
+
+        slotIndex = -1;
+        return false;
+    }
+
     public IngredientSO GetIngredient(int index)
     {
         return inventoryTabs[index].ingredient;

@@ -62,6 +62,8 @@ public class Define
         COOKING_FRYINGPAN,
         COOKING_REFRIGERATOR,
         COOKING_KETTLE,
+        COOKING_OVEN,
+        COOKING_POT,
 
         COOKING_TRASHCAN = 99
     }

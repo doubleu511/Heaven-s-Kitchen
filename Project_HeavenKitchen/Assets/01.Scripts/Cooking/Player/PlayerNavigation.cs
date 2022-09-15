@@ -16,6 +16,7 @@ public class PlayerNavigation : MonoBehaviour
 
     [Header("Senders")]
     [SerializeField] InteractiveObject counter;
+    [SerializeField] InteractiveObject dish;
     [SerializeField] InteractiveObject riceCooker;
     [SerializeField] InteractiveObject waterPurifier;
     [SerializeField] InteractiveObject cupBoard;
@@ -30,6 +31,7 @@ public class PlayerNavigation : MonoBehaviour
         memoHandler = FindObjectOfType<MemoHandler>();
     }
 
+    // TO DO : 최적화를 위한 Update 쓰지 말도록 설계하기
     private void Update()
     {
         memoHandler.GetNavInfo(out MinigameInfo info, out IngredientSO ingredient);
@@ -42,8 +44,43 @@ public class PlayerNavigation : MonoBehaviour
         {
             if (ingredient == null)
             {
-                // 요리가 다 만들어졌으므로 네비게이션은 카운터로 향한다.
-                RotateToTarget(counter.transform);
+                RecipeSO currentRecipe = memoHandler.GetCurrentRecipe();
+
+                if (currentRecipe != null)
+                {
+                    if (currentRecipe.foodIngredient.isFood)
+                    {
+                        bool isHaveDish = false;
+
+                        for (int i = 0; i < CookingManager.Player.Inventory.inventoryTabs.Length; i++)
+                        {
+                            if (CookingManager.Player.Inventory.inventoryTabs[i].ingredient == currentRecipe.foodIngredient)
+                            {
+                                if (CookingManager.Player.Inventory.inventoryTabs[i].tabinfo.isDish)
+                                {
+                                    isHaveDish = true;
+                                }
+                            }
+                        }
+
+                        if (isHaveDish)
+                        {
+                            RotateToTarget(counter.transform);
+                        }
+                        else
+                        {
+                            RotateToTarget(dish.transform);
+                        }
+                    }
+                    else
+                    {
+                        RotateToTarget(counter.transform);
+                    }
+                }
+                else
+                {
+                    RotateToTarget(counter.transform);
+                }
             }
             else
             {

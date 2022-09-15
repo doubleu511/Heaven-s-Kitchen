@@ -72,6 +72,7 @@ public class TranslationManager : MonoBehaviour
         if (systemIndex == -1) systemIndex = 0; // 똑같은게 없다면 기본 한국어로 설정
         int index = langIndex == -1 ? systemIndex : langIndex; // 저장되지 않았다면 위에서 구한 시스템 인덱스로 설정
 
+        index = 0;
         SetLangIndex(index);
         yield return null;
     }

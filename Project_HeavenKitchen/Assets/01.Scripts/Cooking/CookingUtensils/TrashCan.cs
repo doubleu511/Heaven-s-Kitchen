@@ -55,9 +55,10 @@ public class TrashCan : MinigameStarter
         trashImage.sprite = ingredient.ingredientDefaulrSpr;
 
         float sizeScale = ingredient.ingredientDefaulrSpr.rect.width / 512;
+        float sizeProportion = ingredient.ingredientDefaulrSpr.rect.height / ingredient.ingredientDefaulrSpr.rect.width;
 
         trashImage.rectTransform.anchoredPosition = new Vector2(0, 230);
-        trashImage.rectTransform.sizeDelta = new Vector2(500 * sizeScale, 500 * sizeScale);
+        trashImage.rectTransform.sizeDelta = new Vector2(500 * sizeScale, 500 * sizeProportion * sizeScale);
 
 
         // Play Animation
@@ -67,7 +68,7 @@ public class TrashCan : MinigameStarter
         float randomRot = Random.Range(720f - 90f, 720f + 90f);
 
         trashImage.rectTransform.DOAnchorPos(new Vector2(randomX, randomY), 1.5f);
-        trashImage.rectTransform.DOSizeDelta(new Vector2(randomSize, randomSize), 1.5f);
+        trashImage.rectTransform.DOSizeDelta(new Vector2(randomSize, randomSize * sizeProportion), 1.5f);
         trashImage.rectTransform.DORotate(new Vector3(0, 0, randomRot), 1.5f);
         trashImage.DOColor(Color.gray, 1.5f);
     }
@@ -77,7 +78,7 @@ public class TrashCan : MinigameStarter
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             trashCap.DOKill();
-            trashCap.DORotate(Vector3.zero, 0.5f).OnUpdate(() =>
+            trashCap.DORotate(Vector3.zero, 0.5f).SetEase(Ease.OutBounce).OnUpdate(() =>
             {
                 outline.RefreshOutline();
             });

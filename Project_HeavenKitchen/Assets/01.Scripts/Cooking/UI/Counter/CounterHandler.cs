@@ -110,6 +110,7 @@ public class CounterHandler : MonoBehaviour
                     }
 
                     BarIntervalIndex = currentIntervalIndex;
+                    guestTalk.SetEmotion(BarIntervalIndex);
                 }
 
                 if (!isHurry)
@@ -136,9 +137,9 @@ public class CounterHandler : MonoBehaviour
         }
 
         minuteTimer += Time.deltaTime;
-        if(minuteTimer > 2)
+        if(minuteTimer > 10)
         {
-            minuteTimer -= 2;
+            minuteTimer -= 10;
             AddMinuteTime(20);
         }
     }
@@ -202,6 +203,7 @@ public class CounterHandler : MonoBehaviour
         int randomIdx = UnityEngine.Random.Range(0, personalityList.Count);
         GuestPersonality = personalityList[randomIdx];
         BarIntervalIndex = (GuestPersonality == GuestPersonality.PATIENT) ? TimerInterval.YELLOW : TimerInterval.GREEN;
+        guestTalk.SetEmotion(BarIntervalIndex);
     }
 
     private void AddMinuteTime(int value)
@@ -398,6 +400,7 @@ public class CounterHandler : MonoBehaviour
         guestAnimator.SetTrigger("Disappear");
         Dialog.SetQuitMessage(currentGuest.gameOverTranslationIds);
         guestTalk.AddBubbleMessageFromLastMessage();
+        CookingManager.Counter.guestTalk.HideEmotion();
     }
 
     public void AddDish(IngredientSO ingredient)

@@ -259,6 +259,23 @@ MonoBehaviour:
       value: "\uC18C\uC138\uC9C0\uC5D0\uB294 \uD6C4\uCD94\uB97C \uD6C4\uCDA7\uD6C4\uCDA7!"
     - id: 9047
       value: "\uBFCC\uB824\uC11C \uCD35\uCD35! \uCEAC...\uB9DB\uC788\uACA0\uB2E4."
+    - id: 509
+      value: "\uC624\uBE10"
+    - id: 510
+      value: "\uB0C4\uBE44"
+    - id: 210
+      value: "\uD1A0\uB9C8\uD1A0"
+    - id: 211
+      value: "\uC798\uB9B0 \uD1A0\uB9C8\uD1A0"
+    - id: 212
+      value: "\uB2E4\uC9C4 \uD1A0\uB9C8\uD1A0"
+    - id: 610
+      value: "\uC2F1\uC2F1\uD55C \uD1A0\uB9C8\uD1A0\uC785\uB2C8\uB2E4."
+    - id: 611
+      value: "\uCE7C\uB85C \uC815\uC131\uC2A4\uB7FD\uAC8C \uC790\uB978 \uD1A0\uB9C8\uD1A0\uC785\uB2C8\uB2E4."
+    - id: 612
+      value: "\uB2E4\uC9C4 \uD1A0\uB9C8\uD1A0\uC785\uB2C8\uB2E4. \uC637\uC5D0 \uBB3B\uC9C0\uC54A\uAC8C
+        \uC870\uC2EC\uD558\uC138\uC694!"
   - lang: en
     langList:
     - id: 101
@@ -464,6 +481,22 @@ MonoBehaviour:
     - id: 9046
       value: 
     - id: 9047
+      value: 
+    - id: 509
+      value: Oven
+    - id: 510
+      value: Pot
+    - id: 210
+      value: Tomato
+    - id: 211
+      value: Sliced tomato
+    - id: 212
+      value: Minced tomato
+    - id: 610
+      value: 
+    - id: 611
+      value: 
+    - id: 612
       value: 
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
@@ -711,7 +744,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 303
+      eventMethod: SETID 304
   - dialogid: 1006
     dialogInfos:
     - tranlationId: 9013
@@ -728,7 +761,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 302
+      eventMethod: SETID 304
   - dialogid: 1007
     dialogInfos:
     - tranlationId: 9016
@@ -774,7 +807,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 303
+      eventMethod: SETID 304
   - dialogid: 1010
     dialogInfos:
     - tranlationId: 9029
@@ -796,4 +829,4 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 302
+      eventMethod: SETID 304

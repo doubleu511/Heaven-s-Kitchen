@@ -114,7 +114,8 @@ public class MinigameFilling : Minigame
                     liquidImg.rectTransform.sizeDelta = new Vector2(liquidImg.rectTransform.sizeDelta.x, 350 + 1.62f * saveLiquid);
                     nextLiquidImg.rectTransform.sizeDelta = new Vector2(liquidImg.rectTransform.sizeDelta.x, 350 + 1.62f * saveLiquid);
                     nextLiquidImg.color = new Color(1, 1, 1, saveLiquid / 100f);
-                    CookingManager.Minigame.ShowProgress((int)saveLiquid);
+                    progressValue = (int)saveLiquid;
+                    CookingManager.Minigame.ShowProgress(progressValue);
                 }
             }
             else
