@@ -24,12 +24,11 @@ public class WordWobble : MonoBehaviour
     public void SetWobble(string text)
     {
         isWobble = true;
-        textMesh.text = text;
         wordIndexes.Clear();
         wordIndexes.Add(0);
         wordLengths.Clear();
 
-        string s = textMesh.text;
+        string s = text;
         for (int index = s.IndexOf(' '); index > -1; index = s.IndexOf(' ', index + 1))
         {
             wordLengths.Add(index - wordIndexes[wordIndexes.Count - 1]);
@@ -44,7 +43,7 @@ public class WordWobble : MonoBehaviour
         textMesh.ForceMeshUpdate();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (isWobble)
         {

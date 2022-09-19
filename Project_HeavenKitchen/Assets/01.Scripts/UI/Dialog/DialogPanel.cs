@@ -178,12 +178,12 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             {
                 if (currentWhereTalk == DialogType.TALKLEFT)
                 {
-                    chara.transform.localScale = new Vector2(-1, 1);
+                    chara.transform.localScale = new Vector2(-Mathf.Abs(chara.transform.localScale.x), chara.transform.localScale.y);
                     chara.transform.position = leftTrm.transform.position;
                 }
                 else if (currentWhereTalk == DialogType.TALKRIGHT)
                 {
-                    chara.transform.localScale = new Vector2(1, 1);
+                    chara.transform.localScale = new Vector2(Mathf.Abs(chara.transform.localScale.x), chara.transform.localScale.y);
                     chara.transform.position = rightTrm.transform.position;
                 }
 

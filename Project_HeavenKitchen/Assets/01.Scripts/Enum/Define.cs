@@ -64,6 +64,7 @@ public class Define
         COOKING_KETTLE,
         COOKING_OVEN,
         COOKING_POT,
+        COOKING_MICROWAVE,
 
         COOKING_TRASHCAN = 99
     }

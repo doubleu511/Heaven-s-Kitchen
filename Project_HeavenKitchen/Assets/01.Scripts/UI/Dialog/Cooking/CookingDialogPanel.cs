@@ -151,13 +151,11 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
         textSizeFitter.text = text;
         dialogText.text = "";
         phoneDialogText.text = "";
+
+        dialogText.ForceMeshUpdate(true, true);
+
         int textLength = TextLength(text);
         UtilClass.ForceRefreshSize(speechBubble.transform);
-
-        if (textAnimation == TextAnimationType.SHAKE)
-        {
-            dialogTextWobble.SetWobble(text);
-        }
 
         textTween = phoneDialogText.DOText(text, textLength * 0.1f)
                     .SetEase(Ease.Linear)
@@ -179,6 +177,18 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
 
                         textString = dialogText.text;
                     });
+
+        StartCoroutine(PlayTextAnimation(text, textAnimation));
+    }
+
+    private IEnumerator PlayTextAnimation(string text, TextAnimationType textAnimation)
+    {
+        yield return new WaitUntil(() => dialogText.text.Length != 0);
+
+        if (textAnimation == TextAnimationType.SHAKE)
+        {
+            dialogTextWobble.SetWobble(text);
+        }
     }
 
     private int TextLength(string richText)

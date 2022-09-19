@@ -276,6 +276,8 @@ MonoBehaviour:
     - id: 612
       value: "\uB2E4\uC9C4 \uD1A0\uB9C8\uD1A0\uC785\uB2C8\uB2E4. \uC637\uC5D0 \uBB3B\uC9C0\uC54A\uAC8C
         \uC870\uC2EC\uD558\uC138\uC694!"
+    - id: 511
+      value: "\uC804\uC790\uB808\uC778\uC9C0"
   - lang: en
     langList:
     - id: 101
@@ -498,6 +500,8 @@ MonoBehaviour:
       value: 
     - id: 612
       value: 
+    - id: 511
+      value: Microwave
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
 --- !u!1 &5062508780338717369
@@ -744,7 +748,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 303
   - dialogid: 1006
     dialogInfos:
     - tranlationId: 9013
@@ -807,7 +811,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 303
   - dialogid: 1010
     dialogInfos:
     - tranlationId: 9029
@@ -829,4 +833,4 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 304
+      eventMethod: SETID 302
