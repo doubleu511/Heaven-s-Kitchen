@@ -36,7 +36,7 @@ public class ValuableEffectUI : MonoBehaviour
         deltaText.text = $"{Mathf.Abs(delta)}";
         if(moneyType == Define.MoneyType.GOLD)
         {
-            deltaText.text += " $";
+            deltaText.text += " G";
         }
 
         deltaText.color = CookingManager.Counter.plusMinusColors[isPlus ? 0 : 1];

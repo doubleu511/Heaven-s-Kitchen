@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,11 +20,27 @@ public class PlayerController : MonoBehaviour
     private Vector3 lookDir;
     public bool isMove = false;
 
+    [Header("Joystick")]
+    [SerializeField] FixedJoystick joystick;
+    [SerializeField] Button interactiveButton;
+
     private void Awake()
     {
         playerRigid = GetComponent<Rigidbody2D>();
     }
-    void Update()
+
+    private void Start()
+    {
+        interactiveButton.onClick.AddListener(() =>
+        {
+            if (currentSelectedObject != null)
+            {
+                currentSelectedObject.OnInteract();
+            }
+        });
+    }
+
+    private void Update()
     {
         PlayerMove();
 
@@ -37,6 +54,8 @@ public class PlayerController : MonoBehaviour
         if (interactive != currentSelectedObject)
         {
             //Init
+            interactiveButton.interactable = interactive != null;
+
             OutlineController beforeOutline = currentSelectedObject?.GetComponent<OutlineController>();
             beforeOutline?.SetOutline(false);
 
@@ -63,8 +82,17 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMove()
     {
-        playerDir.x = Input.GetAxisRaw("Horizontal"); // TO DO : Joystick System
-        playerDir.y = Input.GetAxisRaw("Vertical");
+        playerDir.x = joystick.Direction.x;
+        playerDir.y = joystick.Direction.y;
+
+#if UNITY_EDITOR
+        if (playerDir.sqrMagnitude <= 0)
+        {
+            playerDir.x = Input.GetAxisRaw("Horizontal"); // TO DO : Joystick System
+            playerDir.y = Input.GetAxisRaw("Vertical");
+        }
+#endif
+
 
         playerDir = playerDir.normalized;
         isMove = playerDir.sqrMagnitude > 0.01f;

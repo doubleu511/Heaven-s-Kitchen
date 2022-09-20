@@ -13,9 +13,13 @@ public class TrashCan : MinigameStarter
 
     public DeleteDragableUI trashCanUI;
 
+    private AudioSource audioSource;
+    private bool isOpen = false;
+
     protected void Awake()
     {
         outline = GetComponent<OutlineController>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected override void Start()
@@ -28,13 +32,18 @@ public class TrashCan : MinigameStarter
 
     public override void OnInteract()
     {
-        base.OnInteract();
+        if (!isOpen)
+        {
+            isOpen = true;
+            base.OnInteract();
 
-        trashCap.DOKill();
-        trashCap.DORotate(new Vector3(0, 0, -70), 0.5f).OnUpdate(() =>
-          {
-              outline.RefreshOutline();
-          });
+            trashCap.DOKill();
+            trashCap.DORotate(new Vector3(0, 0, -70), 0.5f).OnUpdate(() =>
+              {
+                  outline.RefreshOutline();
+              });
+            Global.Sound.Play("SFX/Utensils/trashcan_01", audioSource);
+        }
     }
 
     private void ThrowTrash(IngredientSO ingredient)
@@ -60,6 +69,8 @@ public class TrashCan : MinigameStarter
         trashImage.rectTransform.anchoredPosition = new Vector2(0, 230);
         trashImage.rectTransform.sizeDelta = new Vector2(500 * sizeScale, 500 * sizeProportion * sizeScale);
 
+        Global.Sound.Play("SFX/object_falling", Define.Sound.Effect);
+
 
         // Play Animation
         float randomX = Random.Range(-118f, 107f);
@@ -77,11 +88,16 @@ public class TrashCan : MinigameStarter
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            trashCap.DOKill();
-            trashCap.DORotate(Vector3.zero, 0.5f).SetEase(Ease.OutBounce).OnUpdate(() =>
+            if (isOpen)
             {
-                outline.RefreshOutline();
-            });
+                isOpen = false;
+                trashCap.DOKill();
+                trashCap.DORotate(Vector3.zero, 0.5f).SetEase(Ease.OutBounce).OnUpdate(() =>
+                {
+                    outline.RefreshOutline();
+                });
+                Global.Sound.Play("SFX/Utensils/trashcan_00", audioSource);
+            }
         }
     }
 }

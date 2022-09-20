@@ -11,6 +11,7 @@ public class Refrigerator : MinigameStarter
     private readonly int REFRIGERATOR_SIZE = 800;
 
     private int curIndex = 0;
+    private bool isOpen = false;
 
     [SerializeField] RectTransform content;
 
@@ -30,11 +31,13 @@ public class Refrigerator : MinigameStarter
 
     private OutlineController outline;
     private SpriteRenderer refrigeratorBaseSR;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         outline = GetComponent<OutlineController>();
         refrigeratorBaseSR = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected override void Start()
@@ -42,30 +45,41 @@ public class Refrigerator : MinigameStarter
         base.Start();
         buttons = new Button[4] { leftBtn, rightBtn, topBtn, bottomBtn };
         RefreshButtonAppear();
+
+        audioSource.volume = 0.3f;
+        transform.DOScaleX(1.02f, 3f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+        transform.DOScaleY(1.1f, 5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
     }
 
     public override void OnInteract()
     {
-        base.OnInteract();
-        RefreshButtonAppear();
-
-        for (int i = 0; i < buttons.Length; i++)
+        if (!isOpen)
         {
-            buttons[i].onClick.RemoveAllListeners();
+            isOpen = true;
+            base.OnInteract();
+
+            RefreshButtonAppear();
+
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].onClick.RemoveAllListeners();
+            }
+
+            leftBtn.onClick.AddListener(() => MoveContent(curIndex - 1));
+            rightBtn.onClick.AddListener(() => MoveContent(curIndex + 1));
+            topBtn.onClick.AddListener(() => MoveContent(curIndex - REFRIGERATOR_WIDTH));
+            bottomBtn.onClick.AddListener(() => MoveContent(curIndex + REFRIGERATOR_WIDTH));
+
+            refrigeratorBaseSR.sprite = spr_refeigeratorOpen;
+
+            leftWing.gameObject.SetActive(true);
+            rightWing.gameObject.SetActive(true);
+            outline.RefreshOutline();
+
+            coldAirParticle.Play();
+            audioSource.volume = 0.9f;
+            Global.Sound.Play("SFX/Utensils/refrigerator_01", audioSource);
         }
-
-        leftBtn.onClick.AddListener(() => MoveContent(curIndex - 1));
-        rightBtn.onClick.AddListener(() => MoveContent(curIndex + 1));
-        topBtn.onClick.AddListener(() => MoveContent(curIndex - REFRIGERATOR_WIDTH));
-        bottomBtn.onClick.AddListener(() => MoveContent(curIndex + REFRIGERATOR_WIDTH));
-
-        refrigeratorBaseSR.sprite = spr_refeigeratorOpen;
-
-        leftWing.gameObject.SetActive(true);
-        rightWing.gameObject.SetActive(true);
-        outline.RefreshOutline();
-
-        coldAirParticle.Play();
     }
 
     private void MoveContent(int index)
@@ -104,12 +118,19 @@ public class Refrigerator : MinigameStarter
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            refrigeratorBaseSR.sprite = spr_refeigeratorClose;
-            leftWing.gameObject.SetActive(false);
-            rightWing.gameObject.SetActive(false);
-            outline.RefreshOutline();
+            if (isOpen)
+            {
+                isOpen = false;
 
-            coldAirParticle.Stop();
+                refrigeratorBaseSR.sprite = spr_refeigeratorClose;
+                leftWing.gameObject.SetActive(false);
+                rightWing.gameObject.SetActive(false);
+                outline.RefreshOutline();
+
+                coldAirParticle.Stop();
+                Global.Sound.Play("SFX/Utensils/refrigerator_01", audioSource);
+                audioSource.volume = 0.3f;
+            }
         }
     }
 }

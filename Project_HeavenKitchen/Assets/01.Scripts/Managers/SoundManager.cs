@@ -68,6 +68,16 @@ public class SoundManager
         Play(audioClip, type, pitch);
     }
 
+    public void Play(string path, AudioSource audioSource, float pitch = 1.0f)
+    {
+        AudioClip audioClip = GetOrAddAudioClip(path);
+        if (audioClip == null)
+            return;
+
+        audioSource.pitch = pitch;
+        audioSource.PlayOneShot(audioClip);
+    }
+
     AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)
     {
         if (path.Contains("Sounds/") == false)

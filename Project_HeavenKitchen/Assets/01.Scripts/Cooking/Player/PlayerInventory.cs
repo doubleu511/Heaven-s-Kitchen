@@ -11,6 +11,7 @@ public class PlayerInventoryTab
 
     [HideInInspector] public PlayerInventoryDragableUI ingredientInventoryUI;
     private ParticleSystem inventorySmokeParticle;
+    private GameObject inventoryDishObject;
 
     public IngredientSO ingredient;
     public TabInfo tabinfo;
@@ -40,6 +41,10 @@ public class PlayerInventoryTab
     {
         tabinfo = info;
         ingredientInventoryUI.SetTabInfo(info);
+
+        inventoryDishObject.gameObject.SetActive(info.isDish);
+
+        CookingManager.Player.Inventory.RefreshTransformDish();
     }
 
     public void InitInfo()
@@ -53,6 +58,7 @@ public class PlayerInventoryTab
     public void Init()
     {
         inventorySmokeParticle = basketItem.transform.Find("SmokeParticle").GetComponent<ParticleSystem>();
+        inventoryDishObject = basketItem.transform.Find("Dish_mini").gameObject;
         ingredientInventoryUI = ingredientImgTab.transform.Find("IngredientImg").GetComponent<PlayerInventoryDragableUI>();
 
         TabInfo info = new TabInfo();
@@ -64,6 +70,7 @@ public class PlayerInventoryTab
 public class PlayerInventory : MonoBehaviour
 {
     private MemoHandler memoHandler;
+    private PlayerAnimator playerAnim;
     public PlayerInventoryTab[] inventoryTabs;
 
     [SerializeField]
@@ -73,6 +80,7 @@ public class PlayerInventory : MonoBehaviour
     private void Awake()
     {
         memoHandler = FindObjectOfType<MemoHandler>();
+        playerAnim = FindObjectOfType<PlayerAnimator>();
     }
 
     private void Start()
@@ -192,5 +200,10 @@ public class PlayerInventory : MonoBehaviour
         }
 
         return playerInventoryTabs.ToArray();
+    }
+
+    public void RefreshTransformDish()
+    {
+        playerAnim.DishTransformEdit(inventoryTabs[0].tabinfo.isDish);
     }
 }

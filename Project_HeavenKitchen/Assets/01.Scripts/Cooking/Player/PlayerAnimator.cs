@@ -9,6 +9,7 @@ public class PlayerAnimator : MonoBehaviour
     private SpriteRenderer playerSpriteRenderer;
 
     public Animator basketAnimator;
+    public Transform itemParent;
 
     private void Awake()
     {
@@ -31,5 +32,13 @@ public class PlayerAnimator : MonoBehaviour
 
         basketAnimator.SetFloat("dirX", playerController.playerDir.x);
         basketAnimator.SetBool("isMove", playerController.isMove);
+    }
+
+    public void DishTransformEdit(bool value)
+    {
+        SpriteRenderer basketSR = basketAnimator.GetComponent<SpriteRenderer>();
+
+        basketSR.enabled = !value;
+        itemParent.transform.localPosition = value ? new Vector2(0, -0.25f) : Vector2.zero;
     }
 }
