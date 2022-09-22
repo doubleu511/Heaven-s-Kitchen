@@ -14,6 +14,7 @@ public class MinigameIngredientUI : MonoBehaviour, IPointerDownHandler
         if(!isClickAble)
         {
             isClickAble = true;
+            Global.Sound.Play("SFX/correct", Define.Sound.Effect);
         }
     }
 

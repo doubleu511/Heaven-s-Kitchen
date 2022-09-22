@@ -612,6 +612,15 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
+      eventName: FADE_BLACK
+    - tranlationId: 0
+      background: 0
+      type: 3
+      leftChracter: 0
+      rightChracter: 0
+      faceIndex: 0
+      leftClothes: 0
+      rightClothes: 0
       eventName: FADE_WHITE
     - tranlationId: 1007
       background: 1

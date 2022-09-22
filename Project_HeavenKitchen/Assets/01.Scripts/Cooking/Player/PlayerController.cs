@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
             if (currentSelectedObject != null)
             {
                 currentSelectedObject.OnInteract();
+                Global.Sound.Play("SFX/button_interactive00", Define.Sound.Effect);
             }
         });
     }

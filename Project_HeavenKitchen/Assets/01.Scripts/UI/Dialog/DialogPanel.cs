@@ -113,10 +113,14 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         {
             isFinished = false;
             // 이벤트가 걸리는지 확인
-            EventTest(dialog.dialogInfos[i]);
-            if (eventWaitFlag) i++;
-            if (i >= dialog.dialogInfos.Count) break;
-            yield return new WaitUntil(() => !eventWaitFlag);
+            if (EventTest(dialog.dialogInfos[i]))
+            {
+                yield return new WaitUntil(() => !eventWaitFlag);
+                if(dialog.dialogInfos[i].type == (int)DialogType.ACTIONEVENT)
+                {
+                    continue;
+                }
+            }
             ShowText(TranslationManager.Instance.GetLangDialog(dialog.dialogInfos[i].tranlationId));
             SetBackground(backgrounds[dialog.dialogInfos[i].background]);
             SettingCharacterTalk(dialog, i);
@@ -128,13 +132,16 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         Time.timeScale = 1;
     }
 
-    private void EventTest(FostDialogInfo info)
+    private bool EventTest(FostDialogInfo info)
     {
-        if(info.type == (int)DialogType.ACTIONEVENT)
+        if(false == string.IsNullOrEmpty(info.eventMethod))
         {
             eventWaitFlag = true;
-            dialogEvents.ThrowEvent(info.eventName);
+            dialogEvents.ThrowEvent(info.eventMethod);
+            return true;
         }
+
+        return false;
     }
 
     public void SetBackground(Sprite background)

@@ -46,6 +46,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     private void OnRecipeAdded()
     {
         recipes = CookingManager.GetRecipes();
+        currentRecipeIndex = 0;
 
         if (recipes.Length > 0)
         {
@@ -160,6 +161,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
             BackInit(nextRecipeIndex);
 
             RefreshMinigameRecipes();
+            Global.Sound.Play("SFX/CookingScene/paperflip", Define.Sound.Effect);
         }
     }
 

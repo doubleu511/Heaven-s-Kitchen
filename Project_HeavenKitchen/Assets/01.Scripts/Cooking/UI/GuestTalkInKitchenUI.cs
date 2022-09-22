@@ -114,6 +114,11 @@ public class GuestTalkInKitchenUI : MonoBehaviour
             yield return new WaitForSeconds(2.5f);
         }
 
+        if(CookingManager.Counter.GetCurrentGuest == null)
+        {
+            HideGuestTalk();
+        }
+
         bubbleCoroutine = null;
     }
 

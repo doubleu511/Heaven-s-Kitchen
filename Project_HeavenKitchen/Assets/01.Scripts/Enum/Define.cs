@@ -96,6 +96,26 @@ public class Define
     }
     #endregion
 
+    #region 육성 씬
+    public enum RankType
+    {
+        RANK_D,
+        RANK_C,
+        RANK_B,
+        RANK_A,
+        RANK_S
+    }
+
+    public enum StatType
+    {
+        KNOWLEDGE,
+        DILIGENCE,
+        SENSE,
+        SPEED,
+        HEALTH
+    }
+    #endregion
+
     #region 게임
     public enum MoneyType
     {

@@ -71,7 +71,7 @@ public class MinigameGrilling : Minigame
                     FryingPan frypan = minigameParent.GetComponent<FryingPan>();
                     if(frypan)
                     {
-                        frypan.SetSmokeState(2);
+                        frypan.SetState(2);
                     }
 
                     CookingManager.UtensilsUI.SetBackgroundImage(minigameParent, UtensilsCircleInventoryUI.BackgroundSpriteType.NORMAL);

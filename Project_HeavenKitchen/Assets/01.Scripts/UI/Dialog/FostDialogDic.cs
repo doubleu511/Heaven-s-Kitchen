@@ -22,7 +22,7 @@ public class FostDialogInfo
     public int faceIndex;
     public int leftClothes;
     public int rightClothes;
-    public string eventName;
+    public string eventMethod;
     // ...´õ Ãß°¡
 }
 
@@ -97,12 +97,12 @@ public class FostDialogDic : MonoBehaviour
 
             int _dialogId = TryParse(Sentence[j, 0], ref savedDialogId, false);
             int _type = int.Parse(Sentence[j, 3]);
-            string _eventName = Sentence[j, 9];
+            string _eventMethod = Sentence[j, 9];
 
             info.type = _type;
-            if (false == string.IsNullOrEmpty(_eventName))
+            if (false == string.IsNullOrEmpty(_eventMethod))
             {
-                info.eventName = _eventName;
+                info.eventMethod = _eventMethod;
             }
             else
             {

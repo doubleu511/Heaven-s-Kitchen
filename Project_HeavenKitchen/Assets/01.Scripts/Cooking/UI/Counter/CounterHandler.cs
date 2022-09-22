@@ -118,7 +118,7 @@ public class CounterHandler : MonoBehaviour
                     if (RemainTime / GivenTime < TimerBarInterval.y) // 주황색 구간이 되면 빨리하라고 재촉
                     {
                         isHurry = true;
-
+                        Global.Sound.Play("SFX/CookingScene/clock_hurry", Sound.Effect);
                         for (int i = 0; i < currentGuest.hurryUpTranlationIds.Length; i++)
                         {
                             CookingDialogInfo info = new CookingDialogInfo(currentGuest.hurryUpTranlationIds[i], 0, 0, (int)TextAnimationType.SHAKE, "");
@@ -173,6 +173,8 @@ public class CounterHandler : MonoBehaviour
 
                 guestAnimator.SetTrigger("Appear");
                 StartCoroutine(GuestDialogPlay());
+
+                Global.Sound.Play("SFX/CookingScene/counter_enter", Sound.Effect);
             }
             yield return new WaitForSeconds(10);
         }
@@ -264,6 +266,7 @@ public class CounterHandler : MonoBehaviour
 
         TimerBarInterval = GetTimerIntervalToPersonality();
         SetTimerInterval(TimerBarInterval);
+        AppearTimerBar();
     }
 
     public void StopTimer()
@@ -330,6 +333,14 @@ public class CounterHandler : MonoBehaviour
         }
     }
 
+    public void AppearTimerBar()
+    {
+        for (int i = 0; i < timeBarUis.Length; i++)
+        {
+            timeBarUis[i].PlayAppearSeq();
+        }
+    }
+
     public void SetScroll(bool value, bool IsImmediately)
     {
         IsInCounter = value;
@@ -390,6 +401,10 @@ public class CounterHandler : MonoBehaviour
         guestAnimator.SetTrigger("Disappear");
         Dialog.SetQuitMessage(currentGuest.quitTranslationIds);
         CookingManager.Counter.guestTalk.HideGuestTalk();
+        AppearTimerBar();
+
+        Global.Sound.Play("SFX/CookingScene/cashregister_open", Sound.Effect, UnityEngine.Random.Range(0.75f, 1.5f));
+        currentGuest = null;
     }
 
     public void OrderFail()
@@ -401,6 +416,9 @@ public class CounterHandler : MonoBehaviour
         Dialog.SetQuitMessage(currentGuest.gameOverTranslationIds);
         guestTalk.AddBubbleMessageFromLastMessage();
         CookingManager.Counter.guestTalk.HideEmotion();
+        AppearTimerBar();
+
+        currentGuest = null;
     }
 
     public void AddDish(IngredientSO ingredient)

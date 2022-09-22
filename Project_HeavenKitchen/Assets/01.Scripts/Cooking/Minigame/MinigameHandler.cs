@@ -79,7 +79,7 @@ public class MinigameHandler : MonoBehaviour
         Global.Pool.CreatePool<IngredientTabUI>(ingredientTabPrefab, minigameListContentTrm, 3);
         Global.Pool.CreatePool<IngredientInventoryUI>(ingredientInventoryPrefab, ingredientInventoryTrm, 10);
 
-        arrowButtons = arrowButtonTrm.GetComponentsInChildren<Button>();
+        arrowButtons = arrowButtonTrm.GetComponentsInChildren<Button>(true);
     }
 
     private void Update()

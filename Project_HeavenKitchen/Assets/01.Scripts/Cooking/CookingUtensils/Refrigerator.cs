@@ -53,22 +53,22 @@ public class Refrigerator : MinigameStarter
 
     public override void OnInteract()
     {
+        base.OnInteract();
+        RefreshButtonAppear();
+
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].onClick.RemoveAllListeners();
+        }
+
+        leftBtn.onClick.AddListener(() => MoveContent(curIndex - 1));
+        rightBtn.onClick.AddListener(() => MoveContent(curIndex + 1));
+        topBtn.onClick.AddListener(() => MoveContent(curIndex - REFRIGERATOR_WIDTH));
+        bottomBtn.onClick.AddListener(() => MoveContent(curIndex + REFRIGERATOR_WIDTH));
+
         if (!isOpen)
         {
             isOpen = true;
-            base.OnInteract();
-
-            RefreshButtonAppear();
-
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                buttons[i].onClick.RemoveAllListeners();
-            }
-
-            leftBtn.onClick.AddListener(() => MoveContent(curIndex - 1));
-            rightBtn.onClick.AddListener(() => MoveContent(curIndex + 1));
-            topBtn.onClick.AddListener(() => MoveContent(curIndex - REFRIGERATOR_WIDTH));
-            bottomBtn.onClick.AddListener(() => MoveContent(curIndex + REFRIGERATOR_WIDTH));
 
             refrigeratorBaseSR.sprite = spr_refeigeratorOpen;
 
@@ -78,7 +78,7 @@ public class Refrigerator : MinigameStarter
 
             coldAirParticle.Play();
             audioSource.volume = 0.9f;
-            Global.Sound.Play("SFX/Utensils/refrigerator_01", audioSource);
+            Global.Sound.Play("SFX/Utensils/refrigerator_01", Define.Sound.Effect);
         }
     }
 
@@ -128,7 +128,7 @@ public class Refrigerator : MinigameStarter
                 outline.RefreshOutline();
 
                 coldAirParticle.Stop();
-                Global.Sound.Play("SFX/Utensils/refrigerator_01", audioSource);
+                Global.Sound.Play("SFX/Utensils/refrigerator_01", Define.Sound.Effect);
                 audioSource.volume = 0.3f;
             }
         }

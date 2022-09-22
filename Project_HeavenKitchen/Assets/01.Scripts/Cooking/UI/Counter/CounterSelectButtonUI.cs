@@ -25,6 +25,7 @@ public class CounterSelectButtonUI : MonoBehaviour
             {
                 onClick.Invoke();
             }
+            Global.Sound.Play("SFX/button_interactive00", Define.Sound.Effect);
         });
     }
 

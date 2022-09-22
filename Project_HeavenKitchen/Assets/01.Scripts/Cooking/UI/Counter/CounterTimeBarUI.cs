@@ -6,6 +6,8 @@ using DG.Tweening;
 
 public class CounterTimeBarUI : MonoBehaviour
 {
+    private RectTransform timerTotalRect;
+    private CanvasGroup timerTotalCanvasGroup;
     [SerializeField] RectTransform barValue;
     [SerializeField] RectTransform[] barValueColors;
 
@@ -15,12 +17,24 @@ public class CounterTimeBarUI : MonoBehaviour
     [SerializeField] Transform clock;
     [SerializeField] Transform clockNeedle;
 
+    private float initTimerSize = 1100f;
     private float initBarValue = 1080f;
     private bool hurryUp = false;
 
+    private bool fade = false;
+
+    private void Awake()
+    {
+        timerTotalRect = GetComponent<RectTransform>();
+        timerTotalCanvasGroup = GetComponent<CanvasGroup>();
+    }
+
     private void Start()
     {
-        initBarValue = barValue.sizeDelta.x;
+        initTimerSize = timerTotalRect.rect.width;
+        initBarValue = barValue.rect.width;
+
+        timerTotalRect.sizeDelta = new Vector2(0, timerTotalRect.sizeDelta.y);
 
         clockIconImg.transform.DOScale(new Vector3(1.1f, 1.1f, 1), 2).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
         clockIconImg.transform.DOLocalRotate(new Vector3(0, 0, 15f), 5).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
@@ -44,6 +58,26 @@ public class CounterTimeBarUI : MonoBehaviour
         barValueColors[3].sizeDelta = new Vector2(GetSizeFromInitValue(1 - interval.z), barValueColors[3].sizeDelta.y);
     }
 
+    public void PlayAppearSeq()
+    {
+        if (fade)
+        {
+            timerTotalRect.DOSizeDelta(new Vector2(0, timerTotalRect.sizeDelta.y), 1).OnComplete(() =>
+            {
+                timerTotalCanvasGroup.DOFade(0, 1);
+            });
+        }
+        else
+        {
+            timerTotalCanvasGroup.DOFade(1, 1).OnComplete(() =>
+            {
+                timerTotalRect.DOSizeDelta(new Vector2(initTimerSize, timerTotalRect.sizeDelta.y), 1);
+            });
+        }
+
+        fade = !fade;
+    }
+
     private float GetSizeFromInitValue(float scale)
     {
         return initBarValue * scale;
@@ -51,7 +85,9 @@ public class CounterTimeBarUI : MonoBehaviour
 
     public void SetBarValue(float value)
     {
-        barValue.sizeDelta = new Vector3(initBarValue * value, barValue.sizeDelta.y);
+        float reverseValue = 1 - value;
+
+        barValue.offsetMax = new Vector2(-initBarValue * reverseValue, barValue.offsetMax.y);
         clockRedFill.fillAmount = 1 - value;
         clockNeedle.localRotation = Quaternion.Euler(new Vector3(0, 0, (1 - value) * -360));
 

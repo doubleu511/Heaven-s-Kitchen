@@ -114,6 +114,7 @@ public class UtensilsCircleInventoryUI : MonoBehaviour
         while(true)
         {
             statusImg.color = new Color(1, 1, 1, 1);
+            Global.Sound.Play("SFX/timertick", Define.Sound.Effect);
             yield return new WaitForSeconds(time);
             statusImg.color = new Color(1, 1, 1, 0.3f);
             yield return new WaitForSeconds(time);

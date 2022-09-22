@@ -78,7 +78,7 @@ public class SoundManager
         audioSource.PlayOneShot(audioClip);
     }
 
-    AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)
+    public AudioClip GetOrAddAudioClip(string path, Define.Sound type = Define.Sound.Effect)
     {
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";

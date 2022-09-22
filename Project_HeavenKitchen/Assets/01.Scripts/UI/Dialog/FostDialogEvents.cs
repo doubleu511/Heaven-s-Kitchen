@@ -8,10 +8,21 @@ public class FostDialogEvents : MonoBehaviour
     [SerializeField] CanvasGroup blackScreen;
     [SerializeField] CanvasGroup whiteScreen;
 
-    public void ThrowEvent(string _eventName)
+    public void ThrowEvent(string _eventMethod)
     {
-        // 이곳에 _eventName을 해석하는 코드 작성
-        Invoke(_eventName, 0);
+        // 이곳에 _eventMethod을 해석하는 코드 작성
+        string[] methods = _eventMethod.Split('\n');
+        if (methods.Length > 1)
+        {
+            for (int i = 0; i < methods.Length; i++)
+            {
+                ThrowEvent(methods[i]);
+            }
+
+            return;
+        }
+
+        Invoke(_eventMethod, 0);
     }
 
     private void FADE_BLACK()
