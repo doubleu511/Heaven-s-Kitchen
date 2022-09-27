@@ -35,4 +35,14 @@ public static class UtilClass
             LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)csfs[i].transform);
         }
     }
+
+    public static void ForceRefreshGrid(Transform transform)
+    {
+        // ContentSizeFitter를 강제 새로고침한다.
+        GridLayoutGroup[] glgs = transform.GetComponentsInChildren<GridLayoutGroup>();
+        for (int i = 0; i < glgs.Length; i++)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)glgs[i].transform);
+        }
+    }
 }

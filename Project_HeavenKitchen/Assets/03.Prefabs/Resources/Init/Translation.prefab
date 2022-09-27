@@ -278,6 +278,98 @@ MonoBehaviour:
         \uC870\uC2EC\uD558\uC138\uC694!"
     - id: 511
       value: "\uC804\uC790\uB808\uC778\uC9C0"
+    - id: 15001
+      value: "\uC9C0\uC2DD"
+    - id: 15002
+      value: "\uC131\uC2E4"
+    - id: 15003
+      value: "\uC13C\uC2A4"
+    - id: 15004
+      value: "\uC2A4\uD53C\uB4DC"
+    - id: 15005
+      value: "\uCCB4\uB825"
+    - id: 15006
+      value: "\uC2A4\uD2B8\uB808\uC2A4"
+    - id: 15007
+      value: "\uB3C5\uC11C\uD558\uAE30"
+    - id: 15008
+      value: "\uBC2D\uC77C\uD558\uAE30"
+    - id: 15009
+      value: "\uC5F0\uAD6C\uD558\uAE30"
+    - id: 15010
+      value: "\uB2E4\uB4EC\uAE30"
+    - id: 15011
+      value: "\uC6B4\uB3D9\uD558\uAE30"
+    - id: 15012
+      value: "\uC9C0\uC2DD\uC744 \uC62C\uB9BD\uB2C8\uB2E4."
+    - id: 15013
+      value: "\uC131\uC2E4\uC744 \uC62C\uB9BD\uB2C8\uB2E4."
+    - id: 15014
+      value: "\uC13C\uC2A4\uB97C \uC62C\uB9BD\uB2C8\uB2E4."
+    - id: 15015
+      value: "\uC2A4\uD53C\uB4DC\uB97C \uAE30\uB985\uB2C8\uB2E4."
+    - id: 15016
+      value: "\uCCB4\uB825\uC744 \uAE30\uB985\uB2C8\uB2E4."
+    - id: 15017
+      value: "\uC7A1\uC9C0 \uC77D\uAE30"
+    - id: 15018
+      value: "\uC7A1\uC9C0\uB97C \uC77D\uC2B5\uB2C8\uB2E4."
+    - id: 15019
+      value: "\uC2DC\uB9AC\uC988 \uCC45 \uC77D\uAE30"
+    - id: 15020
+      value: "\uC2DC\uB9AC\uC988 \uCC45\uC744 \uC77D\uC2B5\uB2C8\uB2E4."
+    - id: 15021
+      value: "\uB450\uAEBC\uC6B4 \uCC45 \uC77D\uAE30"
+    - id: 15022
+      value: "\uB450\uAEBC\uC6B4 \uCC45\uC744 \uC77D\uC2B5\uB2C8\uB2E4."
+    - id: 15023
+      value: "\uAC15\uB0AD\uCF69 \uBB3C\uC8FC\uAE30"
+    - id: 15024
+      value: "\uAC15\uB0AD\uCF69\uC5D0 \uBB3C\uC744 \uC90D\uB2C8\uB2E4."
+    - id: 15025
+      value: "\uACE0\uAD6C\uB9C8 \uCE90\uAE30"
+    - id: 15026
+      value: "\uACE0\uAD6C\uB9C8\uB97C \uCEA1\uB2C8\uB2E4."
+    - id: 15027
+      value: "\uBB34 \uBF51\uAE30"
+    - id: 15028
+      value: "\uBB34\uB97C \uBF51\uC2B5\uB2C8\uB2E4."
+    - id: 15029
+      value: "\uD63C\uC790\uC11C \uC2E4\uC2B5"
+    - id: 15030
+      value: "\uD63C\uC790\uC11C \uC2E4\uC2B5\uD569\uB2C8\uB2E4."
+    - id: 15031
+      value: "\uCE5C\uAD6C\uC640 \uC2E4\uC2B5"
+    - id: 15032
+      value: "\uCE5C\uAD6C\uC640 \uC2E4\uC2B5\uD569\uB2C8\uB2E4."
+    - id: 15033
+      value: "\uC120\uC0DD\uB2D8\uACFC \uC2E4\uC2B5"
+    - id: 15034
+      value: "\uC120\uC0DD\uB2D8\uACFC \uC2E4\uC2B5\uD569\uB2C8\uB2E4."
+    - id: 15035
+      value: "\uC591\uD30C \uC370\uAE30"
+    - id: 15036
+      value: "\uC591\uD30C\uB97C \uC379\uB2C8\uB2E4"
+    - id: 15037
+      value: "\uB2ED\uACE0\uAE30 \uD574\uCCB4"
+    - id: 15038
+      value: "\uB2ED\uACE0\uAE30\uB97C \uC190\uC9C8\uD569\uB2C8\uB2E4."
+    - id: 15039
+      value: "\uD68C \uB728\uAE30"
+    - id: 15040
+      value: "\uC0DD\uC120 \uD68C\uB97C \uB739\uB2C8\uB2E4."
+    - id: 15041
+      value: "\uC904\uB118\uAE30"
+    - id: 15042
+      value: "\uC904\uB118\uAE30\uB97C \uD569\uB2C8\uB2E4."
+    - id: 15043
+      value: "\uBC30\uB4DC\uBBFC\uD134"
+    - id: 15044
+      value: "\uBC30\uB4DC\uBBFC\uD134\uC744 \uD569\uB2C8\uB2E4."
+    - id: 15045
+      value: "\uB2EC\uB9AC\uAE30"
+    - id: 15046
+      value: "\uB2EC\uB9AC\uAE30\uB97C \uD569\uB2C8\uB2E4."
   - lang: en
     langList:
     - id: 101
@@ -502,6 +594,98 @@ MonoBehaviour:
       value: 
     - id: 511
       value: Microwave
+    - id: 15001
+      value: 
+    - id: 15002
+      value: 
+    - id: 15003
+      value: 
+    - id: 15004
+      value: 
+    - id: 15005
+      value: 
+    - id: 15006
+      value: 
+    - id: 15007
+      value: 
+    - id: 15008
+      value: 
+    - id: 15009
+      value: 
+    - id: 15010
+      value: 
+    - id: 15011
+      value: 
+    - id: 15012
+      value: 
+    - id: 15013
+      value: 
+    - id: 15014
+      value: 
+    - id: 15015
+      value: 
+    - id: 15016
+      value: 
+    - id: 15017
+      value: 
+    - id: 15018
+      value: 
+    - id: 15019
+      value: 
+    - id: 15020
+      value: 
+    - id: 15021
+      value: 
+    - id: 15022
+      value: 
+    - id: 15023
+      value: 
+    - id: 15024
+      value: 
+    - id: 15025
+      value: 
+    - id: 15026
+      value: 
+    - id: 15027
+      value: 
+    - id: 15028
+      value: 
+    - id: 15029
+      value: 
+    - id: 15030
+      value: 
+    - id: 15031
+      value: 
+    - id: 15032
+      value: 
+    - id: 15033
+      value: 
+    - id: 15034
+      value: 
+    - id: 15035
+      value: 
+    - id: 15036
+      value: 
+    - id: 15037
+      value: 
+    - id: 15038
+      value: 
+    - id: 15039
+      value: 
+    - id: 15040
+      value: 
+    - id: 15041
+      value: 
+    - id: 15042
+      value: 
+    - id: 15043
+      value: 
+    - id: 15044
+      value: 
+    - id: 15045
+      value: 
+    - id: 15046
+      value: 
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}
 --- !u!1 &5062508780338717369
@@ -558,7 +742,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 1001
       background: 0
       type: 1
@@ -567,7 +751,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 1002
       background: 0
       type: 1
@@ -576,7 +760,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 1003
       background: 0
       type: 2
@@ -585,7 +769,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 1004
       background: 0
       type: 2
@@ -594,7 +778,7 @@ MonoBehaviour:
       faceIndex: 1
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 1005
       background: 0
       type: 2
@@ -603,7 +787,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 0
       background: 0
       type: 3
@@ -612,7 +796,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: FADE_BLACK
+      eventMethod: 
     - tranlationId: 0
       background: 0
       type: 3
@@ -621,7 +805,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: FADE_WHITE
+      eventMethod: 
     - tranlationId: 1007
       background: 1
       type: 1
@@ -630,7 +814,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 1008
       background: 1
       type: 2
@@ -639,7 +823,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
     - tranlationId: 1009
       background: 1
       type: 1
@@ -648,7 +832,7 @@ MonoBehaviour:
       faceIndex: 0
       leftClothes: 0
       rightClothes: 0
-      eventName: 
+      eventMethod: 
 --- !u!1 &7980065952146571445
 GameObject:
   m_ObjectHideFlags: 0

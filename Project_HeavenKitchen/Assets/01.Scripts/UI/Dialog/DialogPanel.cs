@@ -98,7 +98,6 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
         if (!isPlayingDialog)
         {
             isPlayingDialog = true;
-            Time.timeScale = 0;
 
             Global.UI.UIFade(dialogPanel, UIFadeType.IN, 0.15f, true);
             Global.UI.UIFade(topUICanvasGroup, UIFadeType.IN, 0.5f, true);
@@ -129,7 +128,6 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
         Global.UI.UIFade(dialogPanel, UIFadeType.OUT, 0.5f, true);
         isPlayingDialog = false;
-        Time.timeScale = 1;
     }
 
     private bool EventTest(FostDialogInfo info)
@@ -327,7 +325,6 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             isPlayingDialog = false;
 
             Global.UI.UIFade(dialogPanel, UIFadeType.OUT, 0.5f, true);
-            Time.timeScale = 1;
         }
     }
 

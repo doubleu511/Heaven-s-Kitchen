@@ -166,6 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
+  maskRect: {fileID: 3465130804403739658}
+  maskedImage: {fileID: 8750262845127372283}
   numberText: {fileID: 3109362852841108627}
 --- !u!1 &3109362852841108625
 GameObject:
@@ -338,7 +340,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -62.5, y: 0}
-  m_SizeDelta: {x: 125, y: 112.5}
+  m_SizeDelta: {x: 0, y: 112.5}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &4526228241480774999
 CanvasRenderer:
