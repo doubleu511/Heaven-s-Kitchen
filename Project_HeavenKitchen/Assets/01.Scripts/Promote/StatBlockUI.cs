@@ -8,6 +8,7 @@ public class StatBlockUI : MonoBehaviour
     [SerializeField] Define.StatType statType;
     [SerializeField] TextMeshProUGUI rankText;
     [SerializeField] TextMeshProUGUI valueText;
+    [SerializeField] Transform arrowTrm;
 
     private int savedValue = 0;
 
@@ -24,6 +25,14 @@ public class StatBlockUI : MonoBehaviour
             if(animation)
             {
                 StartCoroutine(UtilClass.TextAnimationCoroutine(valueText, savedValue, StatHandler.statDic[statType]));
+
+                if (arrowTrm != null)
+                {
+                    PromoteStatArrowUI arrowUI = Global.Pool.GetItem<PromoteStatArrowUI>();
+                    arrowUI.transform.SetParent(arrowTrm, false);
+                    arrowUI.transform.position = arrowTrm.position;
+                    arrowUI.Init(StatHandler.statDic[statType] - savedValue, stat);
+                }
             }
             else
             {

@@ -15,7 +15,7 @@ public class StatHandler : MonoBehaviour
         {StatType.SENSE, 100 },
         {StatType.SPEED, 100 },
         {StatType.HEALTH, 100 },
-        {StatType.STRESS, 78 },
+        {StatType.STRESS, 0 },
     };
 
     public static Dictionary<RankType, Color32> rankColorDic = new Dictionary<RankType, Color32>()
@@ -44,7 +44,7 @@ public class StatHandler : MonoBehaviour
     {
         float percent = statDic[StatType.STRESS] / (float)stressMax;
 
-        if(percent <= 0.5f)
+        if (percent <= 0.5f)
         {
             return true;
         }
@@ -56,5 +56,44 @@ public class StatHandler : MonoBehaviour
         {
             return UtilClass.ProbabilityCalculate(50);
         }
+    }
+
+    // 현재 육성화면에서 알아서 스트레스 더해주고 빼준다.
+    public static void TryAddStat(bool isSuccess)
+    {
+        PromoteType promoteType = PromoteManager.PromoteScheduleList[PromoteManager.Promote.ScheduleIndex - 1];
+        StatType stat = promoteType.studySO.studyType;
+        int level = promoteType.level;
+
+        if (stat != StatType.STRESS && isSuccess)
+        {
+            statDic[stat] += promoteType.studySO.studys[level].gainStatValue;
+            statDic[stat] = Mathf.Clamp(statDic[stat], 0, 999);
+        }
+
+        if (promoteType.studySO.studys[level].stressValue != 0)
+        {
+            statDic[StatType.STRESS] += promoteType.studySO.studys[level].stressValue;
+            statDic[StatType.STRESS] = Mathf.Clamp(statDic[StatType.STRESS], 0, stressMax);
+            onStatChanged(StatType.STRESS, true);
+        }
+
+        onStatChanged(stat, true);
+    }
+
+    // 그냥 따로 스탯 추가해주는 함수
+    public static void AddStat(StatType statType, int value)
+    {
+        statDic[statType] += value;
+        if (statType != StatType.STRESS)
+        {
+            statDic[statType] = Mathf.Clamp(statDic[statType], 0, 999);
+        }
+        else
+        {
+            statDic[statType] = Mathf.Clamp(statDic[statType], 0, stressMax);
+        }
+
+        onStatChanged(statType, true);
     }
 }

@@ -9,6 +9,7 @@ public class StressBlockUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI valueText;
     [SerializeField] Image sizeImage;
+    [SerializeField] Transform arrowTrm;
 
     private int savedValue = 0;
     private float savedSize = 0f;
@@ -31,6 +32,14 @@ public class StressBlockUI : MonoBehaviour
             {
                 StartCoroutine(UtilClass.TextAnimationCoroutine(valueText, savedValue, StatHandler.statDic[Define.StatType.STRESS]));
                 sizeImage.rectTransform.DOSizeDelta(new Vector2(sizeImage.rectTransform.sizeDelta.x, savedSize * scale), 0.5f);
+
+                if (arrowTrm != null)
+                {
+                    PromoteStatArrowUI arrowUI = Global.Pool.GetItem<PromoteStatArrowUI>();
+                    arrowUI.transform.SetParent(arrowTrm, false);
+                    arrowUI.transform.position = arrowTrm.position;
+                    arrowUI.Init(StatHandler.statDic[Define.StatType.STRESS] - savedValue, stat);
+                }
             }
             else
             {
@@ -42,15 +51,15 @@ public class StressBlockUI : MonoBehaviour
 
             if (scale >= 0.76f)
             {
-                sizeImage.sprite = PromoteManager.Global.stressRedSpr;
+                sizeImage.sprite = PromoteManager.Promote.stressRedSpr;
             }
             else if (scale >= 0.51f)
             {
-                sizeImage.sprite = PromoteManager.Global.stressYellowSpr;
+                sizeImage.sprite = PromoteManager.Promote.stressYellowSpr;
             }
             else
             {
-                sizeImage.sprite = PromoteManager.Global.stressGreenSpr;
+                sizeImage.sprite = PromoteManager.Promote.stressGreenSpr;
             }
         }
     }

@@ -207,17 +207,17 @@ public class Calender : MonoBehaviour
         switch (daysInMonth)
         {
             case 28:
-                monthSegments = new int[3] { 9, 9, 10 };
+                monthSegments = new int[3] { 9, 9, 9 };
                 break;
             case 29:
-                monthSegments = new int[3] { 9, 10, 10 };
+                monthSegments = new int[3] { 9, 9, 10 };
                 break;
             case 30:
-                monthSegments = new int[3] { 10, 10, 10 };
+                monthSegments = new int[3] { 9, 10, 10 };
                 break;
             case 31:
             default:
-                monthSegments = new int[3] { 10, 10, 11 };
+                monthSegments = new int[3] { 10, 10, 10 };
                 break;
         }
     }

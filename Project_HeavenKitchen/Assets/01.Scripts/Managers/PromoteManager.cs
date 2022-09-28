@@ -5,39 +5,54 @@ using UnityEngine;
 
 public class PromoteManager : MonoBehaviour
 {
-    public static PromoteManager Global;
+    public static PromoteManager Promote;
     public static Calender Calender;
     public static PromoteResultText PromoteResult;
 
     public static List<PromoteType> PromoteScheduleList = new List<PromoteType>();
+    [HideInInspector] public int ScheduleIndex = 0;
 
     [HideInInspector] public int ScheduleRepeatCount;
     [HideInInspector] public int ScheduleCurrentRepeatCount;
 
     public Transform PromoteObjectsTrm;
+    public Transform promoteArrowBoxTrm;
 
+    [Header("StressSprite")]
     public Sprite stressRedSpr;
     public Sprite stressYellowSpr;
     public Sprite stressGreenSpr;
 
+    [Header("StatArrow")]
+    public Sprite statArrowRedUp;
+    public Sprite statArrowRedDown;
+    public Sprite statArrowBlueUp;
+    public Sprite statArrowBlueDown;
+
     private void Awake()
     {
-        if (!Global)
+        if (!Promote)
         {
-            Global = this;
+            Promote = this;
         }
 
         Calender = FindObjectOfType<Calender>();
         PromoteResult = FindObjectOfType<PromoteResultText>();
     }
 
+    private void Start()
+    {
+        GameObject promoteStatArrowUI = Global.Resource.Load<GameObject>("UI/Promote/PromoteStatArrowUI");
+        Global.Pool.CreatePool<PromoteStatArrowUI>(promoteStatArrowUI, promoteArrowBoxTrm, 5);
+    }
+
     public static void GoNextPromote()
     {
-        if(PromoteScheduleList.Count > 0)
+        if(Promote.ScheduleIndex < PromoteScheduleList.Count)
         {
             PromoteOff();
-            Transform statName = Global.PromoteObjectsTrm.Find(PromoteScheduleList[0].studySO.studyType.ToString());
-            Transform promoteName = statName.Find($"{PromoteScheduleList[0].studySO.studyType}{PromoteScheduleList[0].level}");
+            Transform statName = Promote.PromoteObjectsTrm.Find(PromoteScheduleList[Promote.ScheduleIndex].studySO.studyType.ToString());
+            Transform promoteName = statName.Find($"{PromoteScheduleList[Promote.ScheduleIndex].studySO.studyType}{PromoteScheduleList[0].level}");
 
             if (statName == null) print("스탯이 없음!");
             if (promoteName == null) print("육성 이름이 없음!");
@@ -48,9 +63,8 @@ public class PromoteManager : MonoBehaviour
             PromoteAct act = promoteName.GetComponent<PromoteAct>();
             act.StartPromote();
 
-            Global.ScheduleRepeatCount = PromoteScheduleList[0].repeatCount;
-
-            PromoteScheduleList.RemoveAt(0);
+            Promote.ScheduleRepeatCount = PromoteScheduleList[Promote.ScheduleIndex].repeatCount;
+            Promote.ScheduleIndex++;
         }
         else
         {
@@ -60,12 +74,12 @@ public class PromoteManager : MonoBehaviour
 
     private static void PromoteOff()
     {
-        for (int i = 0; i < Global.PromoteObjectsTrm.childCount; i++)
+        for (int i = 0; i < Promote.PromoteObjectsTrm.childCount; i++)
         {
-            Global.PromoteObjectsTrm.GetChild(i).gameObject.SetActive(false);
+            Promote.PromoteObjectsTrm.GetChild(i).gameObject.SetActive(false);
         }
 
-        PromoteAct[] allActs = Global.PromoteObjectsTrm.GetComponentsInChildren<PromoteAct>(true);
+        PromoteAct[] allActs = Promote.PromoteObjectsTrm.GetComponentsInChildren<PromoteAct>(true);
         for (int i = 0; i < allActs.Length; i++)
         {
             allActs[i].gameObject.SetActive(false);

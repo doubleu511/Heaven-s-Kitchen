@@ -17,7 +17,7 @@ public abstract class PromoteAct : MonoBehaviour
         StartCoroutine(StartDelay(2f));
         PromoteManager.PromoteResult.ShowStart();
 
-        PromoteManager.Global.ScheduleCurrentRepeatCount = 0;
+        PromoteManager.Promote.ScheduleCurrentRepeatCount = 0;
     }
 
     private IEnumerator StartDelay(float delay)
@@ -33,19 +33,21 @@ public abstract class PromoteAct : MonoBehaviour
 
         if(isSuccess)
         {
+            StatHandler.TryAddStat(true);
             PromoteManager.PromoteResult.ShowSuccess();
         }
         else
         {
+            StatHandler.TryAddStat(false);
             PromoteManager.PromoteResult.ShowFail();
         }
     }
 
     public virtual void OnFinishedResultAct()
     {
-        PromoteManager.Global.ScheduleCurrentRepeatCount++;
+        PromoteManager.Promote.ScheduleCurrentRepeatCount++;
 
-        if(PromoteManager.Global.ScheduleRepeatCount > PromoteManager.Global.ScheduleCurrentRepeatCount)
+        if(PromoteManager.Promote.ScheduleRepeatCount > PromoteManager.Promote.ScheduleCurrentRepeatCount)
         {
             myAnim.SetTrigger("Restart");
         }
