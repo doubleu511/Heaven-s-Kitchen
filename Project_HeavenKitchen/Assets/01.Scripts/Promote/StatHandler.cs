@@ -10,11 +10,12 @@ public class StatHandler : MonoBehaviour
     #region Dictionaries
     public static Dictionary<StatType, int> statDic = new Dictionary<StatType, int>()
     {
-        {StatType.KNOWLEDGE, 0 },
-        {StatType.DILIGENCE, 0 },
-        {StatType.SENSE, 0 },
-        {StatType.SPEED, 0 },
-        {StatType.HEALTH, 0 },
+        {StatType.KNOWLEDGE, 100 },
+        {StatType.DILIGENCE, 100 },
+        {StatType.SENSE, 100 },
+        {StatType.SPEED, 100 },
+        {StatType.HEALTH, 100 },
+        {StatType.STRESS, 78 },
     };
 
     public static Dictionary<RankType, Color32> rankColorDic = new Dictionary<RankType, Color32>()
@@ -36,5 +37,24 @@ public class StatHandler : MonoBehaviour
     };
     #endregion
 
-    public static event Action onStatChanged;
+    public static int stressMax = 100;
+    public static event Action<StatType, bool> onStatChanged;
+
+    public static bool TryResultFromStress()
+    {
+        float percent = statDic[StatType.STRESS] / (float)stressMax;
+
+        if(percent <= 0.5f)
+        {
+            return true;
+        }
+        else if (percent <= 0.75f)
+        {
+            return UtilClass.ProbabilityCalculate(75);
+        }
+        else
+        {
+            return UtilClass.ProbabilityCalculate(50);
+        }
+    }
 }

@@ -90,7 +90,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        StartDialog(TranslationManager.Instance.FostDialog.GetDialog(0));
+        //StartDialog(TranslationManager.Instance.FostDialog.GetDialog(0));
     }
 
     public void StartDialog(FostDialog dialog)

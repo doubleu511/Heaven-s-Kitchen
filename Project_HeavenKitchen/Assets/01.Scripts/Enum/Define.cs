@@ -112,7 +112,8 @@ public class Define
         DILIGENCE,
         SENSE,
         SPEED,
-        HEALTH
+        HEALTH,
+        STRESS
     }
     #endregion
 

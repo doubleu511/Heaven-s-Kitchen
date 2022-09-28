@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,46 @@ public static class UtilClass
         float degrees = radians * Mathf.Rad2Deg;
 
         return degrees;
+    }
+
+    public static IEnumerator TextAnimationCoroutine(TextMeshProUGUI text, int current, int target)
+    {
+        float fCurrent = current;
+        float fTarget = target;
+
+        text.text = $"{current}";
+
+        float duration = 0.5f; // 카운팅에 걸리는 시간 설정. 
+        float offset = (target - current) / duration;
+
+        if (current < target)
+        {
+            while (fCurrent < fTarget)
+            {
+                fCurrent += offset * Time.deltaTime;
+                text.text = ((int)fCurrent).ToString();
+                yield return null;
+            }
+        }
+        else if (current > target)
+        {
+            while (fCurrent > fTarget)
+            {
+                fCurrent += offset * Time.deltaTime;
+                text.text = ((int)fCurrent).ToString();
+                yield return null;
+            }
+        }
+
+        text.text = $"{target}";
+    }
+
+    public static bool ProbabilityCalculate(float percent)
+    {
+        float percentValue = percent / 100;
+        float randomvalue = Random.Range(0f, 1f);
+
+        return randomvalue <= percentValue;
     }
 
     public static void ForceRefreshSize(Transform transform)

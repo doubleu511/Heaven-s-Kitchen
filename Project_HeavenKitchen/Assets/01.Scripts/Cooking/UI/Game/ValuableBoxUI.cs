@@ -22,7 +22,7 @@ public class ValuableBoxUI : MonoBehaviour
                 textCoroutine = null;
             }
 
-            textCoroutine = StartCoroutine(TextCoroutine(current, target));
+            textCoroutine = StartCoroutine(UtilClass.TextAnimationCoroutine(valuableText, current, target));
 
             if (valuableTextBoxTrm != null)
             {
@@ -46,7 +46,7 @@ public class ValuableBoxUI : MonoBehaviour
                 textCoroutine = null;
             }
 
-            textCoroutine = StartCoroutine(TextCoroutine(current, target + tipValue));
+            textCoroutine = StartCoroutine(UtilClass.TextAnimationCoroutine(valuableText, current, target + tipValue));
 
             if (valuableTextBoxTrm != null)
             {
@@ -65,38 +65,6 @@ public class ValuableBoxUI : MonoBehaviour
 
     public void SetText(int target)
     {
-        valuableText.text = $"{target}";
-    }
-
-    private IEnumerator TextCoroutine(int current, int target)
-    {
-        float fCurrent = current;
-        float fTarget = target;
-
-        valuableText.text = $"{current}";
-
-        float duration = 0.5f; // 카운팅에 걸리는 시간 설정. 
-        float offset = (target - current) / duration;
-
-        if (current < target)
-        {
-            while (fCurrent < fTarget)
-            {
-                fCurrent += offset * Time.deltaTime;
-                valuableText.text = ((int)fCurrent).ToString();
-                yield return null;
-            }
-        }
-        else if (current > target)
-        {
-            while (fCurrent > fTarget)
-            {
-                fCurrent += offset * Time.deltaTime;
-                valuableText.text = ((int)fCurrent).ToString();
-                yield return null;
-            }
-        }
-
         valuableText.text = $"{target}";
     }
 }

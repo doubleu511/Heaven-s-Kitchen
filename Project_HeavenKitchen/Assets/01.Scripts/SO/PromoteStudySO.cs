@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PromoteStudy
+public class PromoteInfo
 {
     public int studyTranslationId;
     public int studyLoreTranslationId;
@@ -19,5 +19,5 @@ public class PromoteStudySO : ScriptableObject
 {
     public int statTranslationId;
     public Define.StatType studyType;
-    public PromoteStudy[] studys;
+    public PromoteInfo[] studys;
 }
