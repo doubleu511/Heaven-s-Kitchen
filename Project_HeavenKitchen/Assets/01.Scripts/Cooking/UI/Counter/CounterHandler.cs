@@ -30,6 +30,7 @@ public class CounterHandler : MonoBehaviour
 
     [SerializeField] Animator guestAnimator;
     [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
+    private int textIndex = 0; //realTemp;
 
     [Header("WindowUI")]
     [SerializeField] Image cuttonImg;
@@ -156,8 +157,11 @@ public class CounterHandler : MonoBehaviour
             if(guestAnimator.GetCurrentAnimatorStateInfo(0).IsName("Guest_None"))
             {
                 //Init ÇØ¾ßÇÔ
-                int random = UnityEngine.Random.Range(0, allGuests.Count);
-                currentGuest = allGuests[random];
+                //int random = UnityEngine.Random.Range(0, allGuests.Count);
+
+                //currentGuest = allGuests[random];
+                currentGuest = allGuests[textIndex];
+                textIndex++;
                 Dialog.GuestInit(currentGuest);
                 SetGuestPersonality();
 

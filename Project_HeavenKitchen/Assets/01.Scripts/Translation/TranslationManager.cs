@@ -160,5 +160,5 @@ public class TranslationManager : MonoBehaviour
             Langs.Add(lang);
         }
     }
-}
 #endif
+}
