@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25785a23501405f4e96b5b45c6496583, type: 3}
+  m_Name: Knowledge
+  m_EditorClassIdentifier: 
+  statTranslationId: 15001
+  studyType: 0
+  studys:
+  - studyTranslationId: 15017
+    studyLoreTranslationId: 15018
+    studySprite: {fileID: 21300000, guid: 727a4549149b6864a9d16e355f21105f, type: 3}
+    gainStatValue: 1
+    goldCost: 0
+    stressValue: 5
+  - studyTranslationId: 15019
+    studyLoreTranslationId: 15020
+    studySprite: {fileID: 21300000, guid: 3ec405116189d384ba1fcc1be658ec39, type: 3}
+    gainStatValue: 2
+    goldCost: 100
+    stressValue: 10
+  - studyTranslationId: 15021
+    studyLoreTranslationId: 15022
+    studySprite: {fileID: 21300000, guid: 80b0e322131430b47a8b8ac1af92f3c2, type: 3}
+    gainStatValue: 3
+    goldCost: 200
+    stressValue: 15

@@ -24,6 +24,7 @@ public class Calender : MonoBehaviour
     private bool isStarted = false;
 
     [Header("Schedule")]
+    [SerializeField] DateCalender dateCalender;
     [SerializeField] Button scheduleResetButton;
     [SerializeField] Button scheduleStartButton;
     [SerializeField] Button studyBookmark;
@@ -44,6 +45,15 @@ public class Calender : MonoBehaviour
     [SerializeField] Color sunColor;
     [SerializeField] Color satColor;
 
+    [Header("Marker")]
+    [SerializeField] Sprite cookingMarker;
+    private DateTime lastWeekendOfMonth;
+
+    private void Awake()
+    {
+        now = new DateTime(2023, 3, 1);
+    }
+
     private void Start()
     {
         for (int i = 0; i < 42; i++)
@@ -58,22 +68,21 @@ public class Calender : MonoBehaviour
         studyBookmark.onClick.AddListener(() => CallBookmarkBtnOnClicked(true));
         restBookmark.onClick.AddListener(() => CallBookmarkBtnOnClicked(false));
 
-        now = new DateTime(2023, 3, 1);
         Refresh();
     }
 
     private void Update()
     {
-/*        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             now = now.AddMonths(-1);
             Refresh();
         }
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             now = now.AddMonths(1);
             Refresh();
-        }*/
+        }
     }
 
     private void Refresh()
@@ -88,10 +97,22 @@ public class Calender : MonoBehaviour
         int daysInMonth = DateTime.DaysInMonth(now.Year, now.Month);
         SetMonthSegment(daysInMonth);
 
+        lastWeekendOfMonth = GetSundayOfLastWeek(now);
+        if (daysInMonth - lastWeekendOfMonth.Day >= 6)
+        {
+            lastWeekendOfMonth = lastWeekendOfMonth.AddDays(6); // 토요일로 바뀜
+        }
+
         for (int i = 0; i < numberUIs.Length; i++)
         {
             DayInit(numberUIs[i], firstOfMonth, i - firstDay);
         }
+    }
+
+    public void AddDay()
+    {
+        now = now.AddDays(1);
+        dateCalender.RefreshDateCalender();
     }
 
     private void DayInit(CalenderNumberUI numberUI, DateTime date, int index)
@@ -122,12 +143,28 @@ public class Calender : MonoBehaviour
             currentMonthNumberUIs.Add(numberUI);
             numberUI.image.sprite = onSpr;
         }
+
+        if (myDate == lastWeekendOfMonth)
+        {
+            numberUI.SetMarker(cookingMarker);
+        }
+        else
+        {
+            numberUI.SetMarker(null);
+        }
     }
 
     private int FirstOfMonthDay(DateTime _date)
     {
         DateTime firstOfMonth = new DateTime(_date.Year, _date.Month, 1);
         return (int)firstOfMonth.DayOfWeek;
+    }
+
+    private DateTime GetSundayOfLastWeek(DateTime _date)
+    {
+        DateTime lastOfMonth = new DateTime(_date.Year, _date.Month, DateTime.DaysInMonth(_date.Year, _date.Month));
+
+        return lastOfMonth.AddDays(0 - (int)(lastOfMonth.DayOfWeek)).Date;
     }
 
     public void AddSchedule(PromoteStudySO studySO, int level)

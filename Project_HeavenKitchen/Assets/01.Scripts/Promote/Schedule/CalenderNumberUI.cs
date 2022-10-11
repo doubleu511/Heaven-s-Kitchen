@@ -12,6 +12,9 @@ public class CalenderNumberUI : MonoBehaviour
 
     [SerializeField] RectTransform maskRect;
     [SerializeField] Image maskedImage;
+    [SerializeField] Image dateMarker;
+
+    private bool isMarked = false;
     
     public TextMeshProUGUI numberText;
 
@@ -25,7 +28,7 @@ public class CalenderNumberUI : MonoBehaviour
         maskedImage.DOComplete();
 
         maskedImage.sprite = sprite;
-        maskedImage.color = Color.white;
+        maskedImage.color = isMarked ? new Color(1, 1, 1, 0.3f) : Color.white;
 
         return maskRect.DOSizeDelta(new Vector2(image.rectTransform.sizeDelta.x, maskRect.sizeDelta.y), duration).SetEase(Ease.Linear);
     }
@@ -37,5 +40,16 @@ public class CalenderNumberUI : MonoBehaviour
             maskRect.sizeDelta = new Vector2(0, maskRect.sizeDelta.y);
             maskedImage.sprite = null;
         });
+    }
+
+    public void SetMarker(Sprite markerSpr)
+    {
+        if(markerSpr)
+        {
+            dateMarker.sprite = markerSpr;
+        }
+
+        isMarked = markerSpr != null;
+        dateMarker.gameObject.SetActive(isMarked);
     }
 }

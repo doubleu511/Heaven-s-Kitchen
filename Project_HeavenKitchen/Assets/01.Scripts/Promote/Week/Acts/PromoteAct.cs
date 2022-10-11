@@ -46,6 +46,7 @@ public abstract class PromoteAct : MonoBehaviour
     public virtual void OnFinishedResultAct()
     {
         PromoteManager.Promote.ScheduleCurrentRepeatCount++;
+        PromoteManager.Calender.AddDay();
 
         if(PromoteManager.Promote.ScheduleRepeatCount > PromoteManager.Promote.ScheduleCurrentRepeatCount)
         {
