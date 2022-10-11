@@ -64,7 +64,7 @@ public class Calender : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+/*        if(Input.GetKeyDown(KeyCode.LeftArrow))
         {
             now = now.AddMonths(-1);
             Refresh();
@@ -73,7 +73,7 @@ public class Calender : MonoBehaviour
         {
             now = now.AddMonths(1);
             Refresh();
-        }
+        }*/
     }
 
     private void Refresh()
@@ -207,17 +207,17 @@ public class Calender : MonoBehaviour
         switch (daysInMonth)
         {
             case 28:
-                monthSegments = new int[3] { 9, 9, 9 };
-                break;
-            case 29:
                 monthSegments = new int[3] { 9, 9, 10 };
                 break;
-            case 30:
+            case 29:
                 monthSegments = new int[3] { 9, 10, 10 };
+                break;
+            case 30:
+                monthSegments = new int[3] { 10, 10, 10 };
                 break;
             case 31:
             default:
-                monthSegments = new int[3] { 10, 10, 10 };
+                monthSegments = new int[3] { 10, 10, 11 };
                 break;
         }
     }

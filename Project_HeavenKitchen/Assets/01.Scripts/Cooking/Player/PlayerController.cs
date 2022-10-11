@@ -86,13 +86,13 @@ public class PlayerController : MonoBehaviour
         playerDir.x = joystick.Direction.x;
         playerDir.y = joystick.Direction.y;
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if (playerDir.sqrMagnitude <= 0)
         {
             playerDir.x = Input.GetAxisRaw("Horizontal"); // TO DO : Joystick System
             playerDir.y = Input.GetAxisRaw("Vertical");
         }
-#endif
+//#endif
 
 
         playerDir = playerDir.normalized;
