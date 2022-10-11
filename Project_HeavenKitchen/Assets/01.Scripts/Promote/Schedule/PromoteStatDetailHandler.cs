@@ -48,15 +48,7 @@ public class PromoteStatDetailHandler : MonoBehaviour
 
         goldValueText.text = $"{studyInfo.goldCost}G";
 
-        if (studyInfo.stressValue > 0)
-        {
-            stressCost.SetActive(true);
-            stressValueText.text = studyInfo.stressValue.ToString();
-        }
-        else
-        {
-            stressCost.SetActive(false);
-        }
+        stressValueText.text = studyInfo.stressValue.ToString();
 
         UtilClass.ForceRefreshSize(transform);
     }

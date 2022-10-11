@@ -186,9 +186,9 @@ MonoBehaviour:
     - id: 9013
       value: "\uC548\uB155\uD558\uC138\uC694"
     - id: 9014
-      value: "\uB728\uB048\uD55C"
+      value: "\uC774\uCF00\uC544\uC5D0\uC11C \uD30C\uB294 \uB9DB\uC788\uB294"
     - id: 9015
-      value: "\uBCF5\uC22D\uC544 \uCC28 \uC8FC\uC138\uC694"
+      value: "\uC18C\uC138\uC9C0 \uC8FC\uC138\uC694"
     - id: 9016
       value: "\uC548\uB155\uD558\u3154\u3145\uC694"
     - id: 9017
@@ -311,25 +311,25 @@ MonoBehaviour:
     - id: 15016
       value: "\uCCB4\uB825\uC744 \uAE30\uB985\uB2C8\uB2E4."
     - id: 15017
-      value: "\uC7A1\uC9C0 \uC77D\uAE30"
+      value: "\uC694\uB9AC \uC7A1\uC9C0 \uC77D\uAE30"
     - id: 15018
-      value: "\uC7A1\uC9C0\uB97C \uC77D\uC2B5\uB2C8\uB2E4."
+      value: "\uC694\uB9AC \uC7A1\uC9C0\uB97C \uC77D\uC2B5\uB2C8\uB2E4."
     - id: 15019
-      value: "\uC2DC\uB9AC\uC988 \uCC45 \uC77D\uAE30"
+      value: "\uAD50\uACFC\uC11C \uC77D\uAE30"
     - id: 15020
-      value: "\uC2DC\uB9AC\uC988 \uCC45\uC744 \uC77D\uC2B5\uB2C8\uB2E4."
+      value: "\uAD50\uACFC\uC11C\uB97C \uC77D\uC2B5\uB2C8\uB2E4."
     - id: 15021
-      value: "\uB450\uAEBC\uC6B4 \uCC45 \uC77D\uAE30"
+      value: "\uC694\uC810\uC815\uB9AC \uD504\uB9B0\uD2B8 \uC815\uB3C5"
     - id: 15022
-      value: "\uB450\uAEBC\uC6B4 \uCC45\uC744 \uC77D\uC2B5\uB2C8\uB2E4."
+      value: "\uC694\uC810\uC815\uB9AC \uD504\uB9B0\uD2B8\uB97C \uC815\uB3C5\uD569\uB2C8\uB2E4.."
     - id: 15023
-      value: "\uAC15\uB0AD\uCF69 \uBB3C\uC8FC\uAE30"
+      value: "\uD1A0\uB9C8\uD1A0 \uBB3C\uC8FC\uAE30"
     - id: 15024
-      value: "\uAC15\uB0AD\uCF69\uC5D0 \uBB3C\uC744 \uC90D\uB2C8\uB2E4."
+      value: "\uD1A0\uB9C8\uD1A0\uC5D0 \uBB3C\uC744 \uC90D\uB2C8\uB2E4."
     - id: 15025
-      value: "\uACE0\uAD6C\uB9C8 \uCE90\uAE30"
+      value: "\uB2F9\uADFC \uBF51\uAE30"
     - id: 15026
-      value: "\uACE0\uAD6C\uB9C8\uB97C \uCEA1\uB2C8\uB2E4."
+      value: "\uB2F9\uADFC\uC744 \uBF51\uC2B5\uB2C8\uB2E4."
     - id: 15027
       value: "\uBB34 \uBF51\uAE30"
     - id: 15028
@@ -370,6 +370,25 @@ MonoBehaviour:
       value: "\uB2EC\uB9AC\uAE30"
     - id: 15046
       value: "\uB2EC\uB9AC\uAE30\uB97C \uD569\uB2C8\uB2E4."
+    - id: 15047
+      value: "\uD734\uC2DD"
+    - id: 15048
+      value: "\uC2A4\uD2B8\uB808\uC2A4\uB97C \uB0AE\uCDA5\uB2C8\uB2E4."
+    - id: 15049
+      value: "\uB514\uC800\uD2B8\uACFC \uACAC\uD559"
+    - id: 15050
+      value: "\uB514\uC800\uD2B8\uACFC\uC5D0 \uACAC\uD559\uD558\uC5EC \uC2A4\uD2B8\uB808\uC2A4\uB97C
+        \uB0AE\uCDA5\uB2C8\uB2E4."
+    - id: 15051
+      value: "\uB9DB\uC9D1 \uD0D0\uBC29"
+    - id: 15052
+      value: "\uB9DB\uC9D1\uC744 \uD0D0\uBC29\uD558\uC5EC \uC2A4\uD2B8\uB808\uC2A4\uB97C
+        \uB0AE\uCDA5\uB2C8\uB2E4."
+    - id: 15053
+      value: "\uD604\uC7A5\uCCB4\uD5D8\uD559\uC2B5"
+    - id: 15054
+      value: "\uD604\uC7A5\uCCB4\uD5D8\uD559\uC2B5\uC744 \uB2E4\uB140\uC640 \uC2A4\uD2B8\uB808\uC2A4\uB97C
+        \uB0AE\uCDA5\uB2C8\uB2E4."
   - lang: en
     langList:
     - id: 101
@@ -685,6 +704,22 @@ MonoBehaviour:
     - id: 15045
       value: 
     - id: 15046
+      value: 
+    - id: 15047
+      value: 
+    - id: 15048
+      value: 
+    - id: 15049
+      value: 
+    - id: 15050
+      value: 
+    - id: 15051
+      value: 
+    - id: 15052
+      value: 
+    - id: 15053
+      value: 
+    - id: 15054
       value: 
   FostDialog: {fileID: 0}
   CookingDialog: {fileID: 0}

@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class ScheduleBlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    [SerializeField] bool debug_interactive = false;
+
     private bool isHold = false;
     private float holdTime = 0.0f;
 
@@ -39,13 +41,17 @@ public class ScheduleBlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (!debug_interactive) return;
+
         isHold = true;
         myImage.color = new Color32(200, 200, 200, 255);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if(holdTime < 0.8f)
+        if (!debug_interactive) return;
+
+        if (holdTime < 0.8f)
         {
             CallScheduleAddBtnOnClicked();
         }

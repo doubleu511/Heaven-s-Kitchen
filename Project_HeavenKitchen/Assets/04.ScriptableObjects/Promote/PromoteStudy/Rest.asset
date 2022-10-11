@@ -15,21 +15,21 @@ MonoBehaviour:
   statTranslationId: 15047
   studyType: 5
   studys:
-  - studyTranslationId: 15048
-    studyLoreTranslationId: 15049
+  - studyTranslationId: 15049
+    studyLoreTranslationId: 15050
     studySprite: {fileID: 21300000, guid: 073ebb13e7232264b88eba112ed56a1b, type: 3}
-    gainStatValue: 1
-    goldCost: 0
-    stressValue: 5
-  - studyTranslationId: 15050
-    studyLoreTranslationId: 15051
+    gainStatValue: 0
+    goldCost: 50
+    stressValue: -5
+  - studyTranslationId: 15051
+    studyLoreTranslationId: 15052
     studySprite: {fileID: 21300000, guid: a80393e5cb66c2d498794fed6bddddb1, type: 3}
-    gainStatValue: 2
+    gainStatValue: 0
     goldCost: 100
-    stressValue: 10
-  - studyTranslationId: 15052
-    studyLoreTranslationId: 15053
+    stressValue: -10
+  - studyTranslationId: 15053
+    studyLoreTranslationId: 15054
     studySprite: {fileID: 21300000, guid: 42c36fc8cb28e8f4ca0fb1fe49789cda, type: 3}
-    gainStatValue: 3
+    gainStatValue: 0
     goldCost: 200
-    stressValue: 15
+    stressValue: -15
