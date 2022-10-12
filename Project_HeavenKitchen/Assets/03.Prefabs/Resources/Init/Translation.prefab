@@ -177,11 +177,11 @@ MonoBehaviour:
     - id: 9006
       value: "\uADF8\uB7FC \uADF8\uAC78\uB85C \uC8FC\uC138\uC694."
     - id: 9007
-      value: "\uC548\uB155\uD2F0\uB77C\uB178"
+      value: "\uC548\uB155\uD558\uC138\uC694"
     - id: 9008
-      value: "\uADF8 \uBB50\uB0D0"
+      value: "\uAC13\uB098\uC628 \uB728\uB048\uD55C"
     - id: 9009
-      value: "\uBB49\uCCD0\uC9C4 \uBC25 \uC8FC\uC138\uC694"
+      value: "\uBCF5\uC22D\uC544 \uCC28 \uC8FC\uC138\uC694"
     - id: 9010
       value: "\uC800\uAE30 \uADF8"
     - id: 9011
@@ -455,7 +455,7 @@ MonoBehaviour:
       value: "\uC55E\uC73C\uB85C \uB108\uB3C4 \uC5EC\uAE30\uC11C \uAF64 \uC2DC\uAC04\uC744
         \uBCF4\uB0BC\uAC70\uB2C8\uAE4C!"
     - id: 1035
-      value: "\uC5B4\uB560\uC5B4? \uC694\uB9AC\uCC9C\uAD6D\uC5D0\uC11C\uC758 \uD55C\uB2EC\uC740?"
+      value: "\uC5B4\uB560\uC5B4? \uC694\uB9AC\uCC9C\uAD6D\uC5D0\uC11C\uC758 \uD558\uB8E8\uB294?"
     - id: 1036
       value: "\uD798\uB4E4\uC5C8\uC5B4\uC694"
     - id: 1037
@@ -490,7 +490,7 @@ MonoBehaviour:
       value: "\uADF8\uAC70 \uAE30\uC05C\uB370!!"
     - id: 1049
       value: "\uB0B4 \uC694\uB9AC\uB97C \uB9CE\uC740 \uC0AC\uB78C\uB4E4\uC774 \uBA39\uC5B4\uC900\uB2E4\uB294
-        \uAC74\r \uC0DD\uAC01 \uC774\uC0C1\uC73C\uB85C \uAE30\uBD84\uC88B\uC9C0 \uC54A\uB2C8?"
+        \uAC74 \uC0DD\uAC01 \uC774\uC0C1\uC73C\uB85C \uAE30\uBD84\uC88B\uC9C0 \uC54A\uB2C8?"
     - id: 1050
       value: "\uD798\uB4E4\uAE30\uB3C4 \uD798\uB4E4\uC5C8\uC744\uD150\uB370 \uC7AC\uBC0C\uC5C8\uB2E4\uB2C8
         \uB2E4\uD589\uC774\uAD70!"
@@ -1176,7 +1176,7 @@ MonoBehaviour:
       faceIndex: 0
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: SETID 301
+      eventMethod: SETID 304
   - dialogid: 1005
     dialogInfos:
     - tranlationId: 9010
@@ -1417,7 +1417,7 @@ MonoBehaviour:
       faceIndex: 2
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: 
+      eventMethod: TUTORIAL2
   - dialogid: 108
     dialogInfos:
     - tranlationId: 1043
@@ -1444,7 +1444,7 @@ MonoBehaviour:
       faceIndex: 2
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: 
+      eventMethod: TUTORIAL2
   - dialogid: 109
     dialogInfos:
     - tranlationId: 1048
@@ -1471,4 +1471,4 @@ MonoBehaviour:
       faceIndex: 2
       speechbubble_type: 0
       text_animation_type: 0
-      eventMethod: 
+      eventMethod: TUTORIAL2

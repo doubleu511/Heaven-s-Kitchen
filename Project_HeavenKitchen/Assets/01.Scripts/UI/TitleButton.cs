@@ -23,6 +23,8 @@ public class TitleButton : MonoBehaviour
     {
         Global.UI.UIFade(blackScreen, Define.UIFadeType.IN, 1, false, () =>
         {
+            StatHandler.StatReset();
+            Global.Pool.Clear();
             SceneManager.LoadScene("Promote");
         });
     }

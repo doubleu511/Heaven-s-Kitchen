@@ -155,9 +155,9 @@ public class CounterHandler : MonoBehaviour
         }
 
         minuteTimer += Time.deltaTime;
-        if(minuteTimer > 2)
+        if(minuteTimer > 10)
         {
-            minuteTimer -= 2;
+            minuteTimer -= 10;
             AddMinuteTime(20);
         }
     }

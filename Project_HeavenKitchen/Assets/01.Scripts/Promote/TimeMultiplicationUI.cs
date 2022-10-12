@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimeMultiplicationUI : MonoBehaviour
 {
     private Button button;
-    [SerializeField] Image buttonImage;
+    private Image buttonImage;
 
     [SerializeField] Sprite scaleOne;
     [SerializeField] Sprite scaleTwo;
@@ -15,6 +15,7 @@ public class TimeMultiplicationUI : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
+        buttonImage = GetComponent<Image>();
     }
 
     private void Start()

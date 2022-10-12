@@ -19,7 +19,7 @@ MonoBehaviour:
   personalitys: 31
   talkativeTalk: {fileID: 11400000, guid: 063ba4b25e4efcd4992650d2fc8300ef, type: 2}
   heyTranslationId: 9035
-  canPlayDialogIds: ee030000
+  canPlayDialogIds: ec030000
   hurryUpTranlationIds: 49230000
   quitTranslationIds: 3f230000
   gameOverTranslationIds: 4a230000

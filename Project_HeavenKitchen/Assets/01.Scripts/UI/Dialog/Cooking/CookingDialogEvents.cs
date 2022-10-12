@@ -17,7 +17,7 @@ public class CookingDialogEvents : MonoBehaviour
     [SerializeField] CanvasGroup timerGroup;
 
     [Header("Tutorial")]
-    [SerializeField] GameObject tuto1;
+    [SerializeField] TutorialPanel tutoPanel;
 
     private List<CounterIngredientInventoryUI> counterIngredientInventories = new List<CounterIngredientInventoryUI>();
     private Action onTextEndAction;
@@ -62,6 +62,9 @@ public class CookingDialogEvents : MonoBehaviour
                     break;
                 case "TUTORIAL": // tEMP
                     TUTORIAL();
+                    break;
+                case "TUTORIAL2": // tEMP
+                    TUTORIAL2();
                     break;
             }
         }
@@ -219,7 +222,16 @@ public class CookingDialogEvents : MonoBehaviour
     private void TUTORIAL()
     {
         CookingDialogPanel.useWaitFlag = true;
-        tuto1.SetActive(true);
+        tutoPanel.ShowTutorial(0);
+        CookingDialogPanel.eventWaitFlag = false;
+    }
+
+    private void TUTORIAL2()
+    {
+        CookingDialogPanel.useWaitFlag = true;
+        tutoPanel.ShowTutorial(1);
+        Application.OpenURL("https://forms.gle/HJYxJEFTh516rG8J6");
+
         CookingDialogPanel.eventWaitFlag = false;
     }
 

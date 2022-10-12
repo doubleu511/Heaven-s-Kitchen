@@ -96,4 +96,17 @@ public class StatHandler : MonoBehaviour
 
         onStatChanged(statType, true);
     }
+
+    public static void StatReset()
+    {
+        statDic = new Dictionary<StatType, int>()
+    {
+        {StatType.KNOWLEDGE, 100 },
+        {StatType.DILIGENCE, 100 },
+        {StatType.SENSE, 100 },
+        {StatType.SPEED, 100 },
+        {StatType.HEALTH, 100 },
+        {StatType.STRESS, 0 },
+    };
+    }
 }
