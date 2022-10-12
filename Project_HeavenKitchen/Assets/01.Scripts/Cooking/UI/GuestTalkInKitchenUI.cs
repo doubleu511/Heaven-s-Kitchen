@@ -10,6 +10,7 @@ public class GuestTalkInKitchenUI : MonoBehaviour
     private CanvasGroup canvasGroup;
 
     [SerializeField] Image characterPortrait;
+    [SerializeField] Image characterFace;
     [SerializeField] Image characterEmotionImg;
     [SerializeField] Sprite[] emotionSprs;
 
@@ -29,10 +30,17 @@ public class GuestTalkInKitchenUI : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void ShowGuestTalk(Sprite sprite)
+    public void ShowGuestTalk(GuestSO guest)
     {
         HideSpeechBubbles();
-        SetPortrait(sprite);
+        SetPortrait(guest.guestPortrait);
+
+        if (guest.faceBox.Length > 0)
+        {
+            SetFace(guest.faceRectPos, guest.faceBox[0]);
+        }
+        characterFace.gameObject.SetActive(guest.faceBox.Length > 0);
+
         canvasGroup.DOFade(1, 0.5f);
     }
 
@@ -46,6 +54,12 @@ public class GuestTalkInKitchenUI : MonoBehaviour
     public void SetPortrait(Sprite sprite)
     {
         characterPortrait.sprite = sprite;
+    }
+
+    public void SetFace(Vector2 rectPos, Sprite sprite)
+    {
+        characterFace.rectTransform.anchoredPosition = rectPos;
+        characterFace.sprite = sprite;
     }
 
     public void HideSpeechBubbles()

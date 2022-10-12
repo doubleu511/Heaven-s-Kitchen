@@ -29,14 +29,18 @@ public class CounterHandler : MonoBehaviour
     [SerializeField] CounterTimeBarUI[] timeBarUis;
 
     [SerializeField] Animator guestAnimator;
+    [SerializeField] GuestSO uncle; // Temp
+    [SerializeField] GuestSO uncle_end; // Temp
     [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
-    private int textIndex = 0; //realTemp;
+    private int textIndex = -1; //realTemp;
+    private Queue<GuestSO> guestQueue = new Queue<GuestSO>();
 
     [Header("WindowUI")]
     [SerializeField] Image cuttonImg;
     [SerializeField] Image[] windowBGs;
     private int bgIndex = 0;
     [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] GameObject timeOverText;
     [SerializeField] Sprite morningBG;
     [SerializeField] Sprite daytimeBG;
     [SerializeField] Sprite sunsetBG;
@@ -47,7 +51,11 @@ public class CounterHandler : MonoBehaviour
     [SerializeField] Transform counterDishTrm;
     public GuestTalkInKitchenUI guestTalk;
 
+    [Header("Tuto")] // tEMP
+    [SerializeField] GameObject tuto1;
+
     private DateTime todayDate;
+    private bool isDayTimeOver = false;
     private float minuteTimer = 0f;
 
     // 여기 밑은 일단 여기 두는데 나중에 데이터관리할때 참고할것
@@ -66,6 +74,12 @@ public class CounterHandler : MonoBehaviour
         goToCookingBtn.onClick.AddListener(() =>
         {
             SetScroll(false, false);
+
+            if (tuto1.activeSelf)
+            {
+                tuto1.SetActive(false);
+                JustDisappear();
+            }
         });
     }
 
@@ -90,8 +104,11 @@ public class CounterHandler : MonoBehaviour
         {
             if(RemainTime > 0)
             {
-                RemainTime -= Time.deltaTime;
-                RefreshTimeBarValue();
+                if (GuestPersonality != GuestPersonality.VERYGENEROUS)
+                {
+                    RemainTime -= Time.deltaTime;
+                    RefreshTimeBarValue();
+                }
 
                 TimerInterval currentIntervalIndex = GetTimerIntervalIndex();
                 if(currentIntervalIndex != BarIntervalIndex)
@@ -138,9 +155,9 @@ public class CounterHandler : MonoBehaviour
         }
 
         minuteTimer += Time.deltaTime;
-        if(minuteTimer > 10)
+        if(minuteTimer > 2)
         {
-            minuteTimer -= 10;
+            minuteTimer -= 2;
             AddMinuteTime(20);
         }
     }
@@ -154,31 +171,53 @@ public class CounterHandler : MonoBehaviour
     {
         while(true)
         {
-            if(guestAnimator.GetCurrentAnimatorStateInfo(0).IsName("Guest_None"))
+            if (guestAnimator.GetCurrentAnimatorStateInfo(0).IsName("Guest_None"))
             {
-                //Init 해야함
-                //int random = UnityEngine.Random.Range(0, allGuests.Count);
-
-                //currentGuest = allGuests[random];
-                currentGuest = allGuests[textIndex];
-                textIndex++;
-                Dialog.GuestInit(currentGuest);
-                SetGuestPersonality();
-
-                Dialog.ShowSpeechBubble(false);
-                CookingManager.Counter.guestTalk.ShowGuestTalk(currentGuest.guestPortrait);
-                if(!IsInCounter)
+                if (!isDayTimeOver)
                 {
-                    CookingDialogInfo info = new CookingDialogInfo(currentGuest.heyTranslationId);
-                    info.text_animation_type = (int)TextAnimationType.SHAKE;
-
-                    CookingManager.Counter.guestTalk.AddBubbleMessage(info);
+                    if (textIndex == -1) // 완전 전시회를 위한 코드.
+                    {
+                        guestQueue.Enqueue(uncle);
+                        textIndex = 0;
+                    }
+                    else if (textIndex < allGuests.Count)
+                    {
+                        guestQueue.Enqueue(allGuests[textIndex]);
+                        textIndex++;
+                    }
+                    else
+                    {
+                        int random = UnityEngine.Random.Range(0, allGuests.Count);
+                        guestQueue.Enqueue(allGuests[random]);
+                    }
                 }
 
-                guestAnimator.SetTrigger("Appear");
-                StartCoroutine(GuestDialogPlay());
+                if (guestQueue.Count > 0)
+                {
+                    currentGuest = guestQueue.Dequeue();
 
-                Global.Sound.Play("SFX/CookingScene/counter_enter", Sound.Effect);
+                    Dialog.GuestInit(currentGuest);
+                    SetGuestPersonality();
+
+                    Dialog.ShowSpeechBubble(false);
+                    CookingManager.Counter.guestTalk.ShowGuestTalk(currentGuest);
+                    if (!IsInCounter)
+                    {
+                        CookingDialogInfo info = new CookingDialogInfo(currentGuest.heyTranslationId);
+                        info.text_animation_type = (int)TextAnimationType.SHAKE;
+
+                        CookingManager.Counter.guestTalk.AddBubbleMessage(info);
+                    }
+
+                    guestAnimator.SetTrigger("Appear");
+                    StartCoroutine(GuestDialogPlay());
+
+                    Global.Sound.Play("SFX/CookingScene/counter_enter", Sound.Effect);
+                }
+                else
+                {
+                    // 끗
+                }
             }
             yield return new WaitForSeconds(10);
         }
@@ -214,8 +253,18 @@ public class CounterHandler : MonoBehaviour
 
     private void AddMinuteTime(int value)
     {
+        if (isDayTimeOver) return;
+
         todayDate = todayDate.AddMinutes(value);
         RefreshWindow();
+        
+        if(todayDate.Hour >= 21)
+        {
+            // 영업 종료!
+            isDayTimeOver = true;
+            timeOverText.gameObject.SetActive(true);
+            guestQueue.Enqueue(uncle_end);
+        }
     }
 
     private void RefreshWindow(bool immediately = false)
@@ -422,6 +471,13 @@ public class CounterHandler : MonoBehaviour
         CookingManager.Counter.guestTalk.HideEmotion();
         AppearTimerBar();
 
+        currentGuest = null;
+    }
+
+    public void JustDisappear()
+    {
+        guestAnimator.SetTrigger("Disappear");
+        CookingManager.Counter.guestTalk.HideGuestTalk();
         currentGuest = null;
     }
 

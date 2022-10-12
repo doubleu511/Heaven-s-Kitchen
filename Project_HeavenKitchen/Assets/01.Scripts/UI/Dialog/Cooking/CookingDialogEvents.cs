@@ -16,6 +16,9 @@ public class CookingDialogEvents : MonoBehaviour
     [Header("Timer")]
     [SerializeField] CanvasGroup timerGroup;
 
+    [Header("Tutorial")]
+    [SerializeField] GameObject tuto1;
+
     private List<CounterIngredientInventoryUI> counterIngredientInventories = new List<CounterIngredientInventoryUI>();
     private Action onTextEndAction;
 
@@ -54,6 +57,12 @@ public class CookingDialogEvents : MonoBehaviour
                 case "SETID":
                     ExtractSETIDParameters(methodParameters[1]);
                     break;
+                case "GOTO":
+                    ExtractGOTOParameters(methodParameters[1]);
+                    break;
+                case "TUTORIAL": // tEMP
+                    TUTORIAL();
+                    break;
             }
         }
     }
@@ -89,6 +98,12 @@ public class CookingDialogEvents : MonoBehaviour
 
         SETID(ids);
     }
+
+    private void ExtractGOTOParameters(string param1)
+    {
+        int dialogId = int.Parse(param1);
+        GOTO(dialogId);
+    }
     /// <summary>
     /// translation_id 중에 선택하여 선택한 순서에 따른 dialog_id로 이동
     /// </summary>
@@ -97,6 +112,8 @@ public class CookingDialogEvents : MonoBehaviour
     /// <returns></returns>
     private void CHOOSE(int[] choices, int[] affectResults)
     {
+        CookingDialogPanel.useWaitFlag = true;
+
         if (choices.Length != affectResults.Length)
         {
             Debug.LogError("에러 : CHOOSE의 파라미터 길이가 각각 다릅니다.");
@@ -131,6 +148,8 @@ public class CookingDialogEvents : MonoBehaviour
 
     private void SETRANDOM(int count)
     {
+        CookingDialogPanel.useWaitFlag = true;
+
         RecipeSO[] allRecipes = CookingManager.Global.canAppearRecipes;
         List<int> randomIndexList = new List<int>();
         List<int> chosenIndexs = new List<int>();
@@ -152,6 +171,7 @@ public class CookingDialogEvents : MonoBehaviour
 
     private void SETID(int[] id)
     {
+        CookingDialogPanel.useWaitFlag = true;
         counterIngredientInventories.Clear();
 
         for (int i = 0; i < ingredientPanelTrm.transform.childCount; i++)
@@ -187,6 +207,20 @@ public class CookingDialogEvents : MonoBehaviour
 
             CookingManager.Counter.guestTalk.AddBubbleMessageFromLastMessage();
         };
+    }
+
+    private void GOTO(int dialogId)
+    {
+        CookingDialogPanel.useWaitFlag = false;
+        CookingManager.Counter.AddDialog(dialogId);
+        CookingDialogPanel.eventWaitFlag = false;
+    }
+
+    private void TUTORIAL()
+    {
+        CookingDialogPanel.useWaitFlag = true;
+        tuto1.SetActive(true);
+        CookingDialogPanel.eventWaitFlag = false;
     }
 
     public void ResetEvent()

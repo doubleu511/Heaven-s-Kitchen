@@ -41,19 +41,18 @@ public class ScheduleBlockUI : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!debug_interactive) return;
-
         isHold = true;
         myImage.color = new Color32(200, 200, 200, 255);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (!debug_interactive) return;
-
         if (holdTime < 0.8f)
         {
-            CallScheduleAddBtnOnClicked();
+            if (debug_interactive)
+            {
+                CallScheduleAddBtnOnClicked();
+            }
         }
         else
         {

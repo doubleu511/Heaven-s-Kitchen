@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WooYeoup_2
   m_EditorClassIdentifier: 
   guestNameTranslationIds: 98000000
-  guestPortrait: {fileID: 21300000, guid: ebb8d075f60f0f54197624a6fd469e3c, type: 3}
+  guestPortrait: {fileID: 21300000, guid: 4d6fd1e8cf48abd479335259f4ccb172, type: 3}
   faceRectPos: {x: 0, y: 0}
   faceBox: []
-  personalitys: -1
+  personalitys: 31
   talkativeTalk: {fileID: 11400000, guid: 063ba4b25e4efcd4992650d2fc8300ef, type: 2}
   heyTranslationId: 9035
   canPlayDialogIds: ee030000

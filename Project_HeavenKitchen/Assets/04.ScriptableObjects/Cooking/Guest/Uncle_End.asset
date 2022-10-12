@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f5b3a9ade34884bab7b3e609aa62c8, type: 3}
+  m_Name: Uncle_End
+  m_EditorClassIdentifier: 
+  guestNameTranslationIds: 67000000
+  guestPortrait: {fileID: 21300000, guid: fe2692240c7ba374f82a26ca2a6f88b5, type: 3}
+  faceRectPos: {x: -2.2, y: 452.8}
+  faceBox:
+  - {fileID: 21300000, guid: 315ee361dbb6add4f8dc118a3bc8b8bb, type: 3}
+  - {fileID: 21300000, guid: 1fc7f5b5924de1644a62912eaec40e1b, type: 3}
+  - {fileID: 21300000, guid: ecf928d31c1cc28479d3a0aa0ddd8b79, type: 3}
+  - {fileID: 21300000, guid: 8299ff1fe90fe5a4f8db4bceb4023c95, type: 3}
+  personalitys: 32
+  talkativeTalk: {fileID: 11400000, guid: 063ba4b25e4efcd4992650d2fc8300ef, type: 2}
+  heyTranslationId: 1012
+  canPlayDialogIds: 6a000000
+  hurryUpTranlationIds: 
+  quitTranslationIds: 
+  gameOverTranslationIds: 

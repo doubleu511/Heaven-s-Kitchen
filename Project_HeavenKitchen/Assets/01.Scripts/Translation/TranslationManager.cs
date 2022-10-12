@@ -17,6 +17,8 @@ public class TranslationManager : MonoBehaviour
     public class LangInfo
     {
         public int id;
+
+        [TextArea()]
         public string value;
 
         public LangInfo(int id, string value)

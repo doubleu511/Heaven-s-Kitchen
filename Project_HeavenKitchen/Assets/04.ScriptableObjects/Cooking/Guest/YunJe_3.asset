@@ -16,7 +16,7 @@ MonoBehaviour:
   guestPortrait: {fileID: 21300000, guid: a7be5d81f1b00dc4088f96b5a098e629, type: 3}
   faceRectPos: {x: 0, y: 0}
   faceBox: []
-  personalitys: -1
+  personalitys: 31
   talkativeTalk: {fileID: 11400000, guid: 063ba4b25e4efcd4992650d2fc8300ef, type: 2}
   heyTranslationId: 9035
   canPlayDialogIds: f1030000

@@ -9,6 +9,7 @@ using DG.Tweening;
 public class Calender : MonoBehaviour
 {
     public static DateTime now;
+    public static DateTime lastWeekendOfMonth;
 
     [SerializeField] TextMeshProUGUI yearMonthText;
 
@@ -47,7 +48,6 @@ public class Calender : MonoBehaviour
 
     [Header("Marker")]
     [SerializeField] Sprite cookingMarker;
-    private DateTime lastWeekendOfMonth;
 
     private void Awake()
     {
@@ -73,16 +73,16 @@ public class Calender : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            now = now.AddMonths(-1);
-            Refresh();
-        }
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            now = now.AddMonths(1);
-            Refresh();
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    now = now.AddMonths(-1);
+        //    Refresh();
+        //}
+        //if (Input.GetKeyDown(KeyCode.RightArrow))
+        //{
+        //    now = now.AddMonths(1);
+        //    Refresh();
+        //}
     }
 
     private void Refresh()

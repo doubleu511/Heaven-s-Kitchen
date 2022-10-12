@@ -8,6 +8,14 @@ using TMPro;
 
 using static Define;
 
+[System.Serializable]
+public class CharacterStyle
+{
+    public CharacterSO characterData;
+    public Image characterImage;
+    public TextMeshProUGUI characterTextStyle;
+}
+
 public class DialogPanel : MonoBehaviour, IPointerClickHandler
 {
     private CanvasGroup dialogPanel;
@@ -32,17 +40,16 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     [Space(10)]
     [SerializeField] Sprite[] backgrounds;
-    [SerializeField] CharacterSO[] characterDatas;
-    [SerializeField] Image[] characterImages;
-    [SerializeField] TextMeshProUGUI[] characterTextStyles;
+    [SerializeField] CharacterStyle defaultStyle;
+    [SerializeField] CharacterStyle oliveStyle;
+    [SerializeField] TextMeshProUGUI hiddenTextStyle;
 
     [Header("Log")]
     [SerializeField] CanvasGroup logCanvasGroup;
     [SerializeField] Button logCancelBtn;
     [SerializeField] Transform scrollRectContentTrm;
 
-    private Dictionary<CharacterSpeaker, CharacterSO> charaDataDic = new Dictionary<CharacterSpeaker, CharacterSO>();
-    private Dictionary<CharacterSpeaker, Image> charaImageDic = new Dictionary<CharacterSpeaker, Image>();
+    private Dictionary<CharacterSpeaker, CharacterStyle> charaStyleDic = new Dictionary<CharacterSpeaker, CharacterStyle>();
     private Dictionary<CharacterTextStyle, TextMeshProUGUI> charaTextStyleDic = new Dictionary<CharacterTextStyle, TextMeshProUGUI>();
 
     Image leftChara;
@@ -73,16 +80,12 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
         logCancelBtn.onClick.AddListener(() => Global.UI.UIFade(logCanvasGroup, false));
 
-        for (int i = 0; i < characterImages.Length; i++)
-        {
-            charaDataDic[(CharacterSpeaker)i] = characterDatas[i];
-            charaImageDic[(CharacterSpeaker)i] = characterImages[i];
-        }
+        charaStyleDic.Add(CharacterSpeaker.NONE, defaultStyle);
+        charaStyleDic.Add(CharacterSpeaker.OLIVE, oliveStyle);
 
-        for (int i = 0; i < characterTextStyles.Length; i++)
-        {
-            charaTextStyleDic[(CharacterTextStyle)i] = characterTextStyles[i];
-        }
+        charaTextStyleDic.Add(CharacterTextStyle.DEFAULT, defaultStyle.characterTextStyle);
+        charaTextStyleDic.Add(CharacterTextStyle.HIDDEN, hiddenTextStyle);
+        charaTextStyleDic.Add(CharacterTextStyle.OLIVE, oliveStyle.characterTextStyle);
 
         GameObject speechBubblePrefab = Global.Resource.Load<GameObject>("UI/DialogSpeechBubble");
         Global.Pool.CreatePool<UI_DialogSpeechBubble>(speechBubblePrefab, scrollRectContentTrm, 10);
@@ -90,7 +93,7 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
-        //StartDialog(TranslationManager.Instance.FostDialog.GetDialog(0));
+        StartDialog(TranslationManager.Instance.FostDialog.GetDialog(0));
     }
 
     public void StartDialog(FostDialog dialog)
@@ -160,15 +163,40 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
             rightChara.gameObject.SetActive(false);
         }
 
-        leftChara = charaImageDic[(CharacterSpeaker)dialog.dialogInfos[index].leftChracter];
-        rightChara = charaImageDic[(CharacterSpeaker)dialog.dialogInfos[index].rightChracter];
+        leftChara = charaStyleDic[(CharacterSpeaker)dialog.dialogInfos[index].leftChracter].characterImage;
+        rightChara = charaStyleDic[(CharacterSpeaker)dialog.dialogInfos[index].rightChracter].characterImage;
 
-        CharacterSO currentCharaData =
-            dialog.dialogInfos[index].type == (int)DialogType.TALKLEFT ?
-            charaDataDic[(CharacterSpeaker)dialog.dialogInfos[index].leftChracter] :
-            charaDataDic[(CharacterSpeaker)dialog.dialogInfos[index].rightChracter];
+        CharacterSO currentCharaData = null;
+        speechBubbleArrow.SetActive(dialog.dialogInfos[index].type != (int)DialogType.NARRATION);
+        if (dialog.dialogInfos[index].type == (int)DialogType.TALKLEFT)
+        {
+            currentCharaData = charaStyleDic[(CharacterSpeaker)dialog.dialogInfos[index].leftChracter].characterData;
+            speechBubbleArrow.transform.position = new Vector3(leftTrm.transform.position.x, speechBubbleArrow.transform.position.y);
+        }
+        else if (dialog.dialogInfos[index].type == (int)DialogType.TALKRIGHT)
+        {
+            currentCharaData = charaStyleDic[(CharacterSpeaker)dialog.dialogInfos[index].rightChracter].characterData;
+            speechBubbleArrow.transform.position = new Vector3(rightTrm.transform.position.x, speechBubbleArrow.transform.position.y);
+        }
+        else if (dialog.dialogInfos[index].type == (int)DialogType.NARRATION)
+        {
+            if (currentNameTextStyles != null)
+            {
+                currentNameTextStyles.gameObject.SetActive(false);
+            }
 
-        dialogText.font = currentCharaData.characterFont;
+            switch (dialog.dialogInfos[index].faceIndex)
+            {
+                case 1:
+                    SetTextStyle(CharacterTextStyle.HIDDEN);
+                    break;
+            }
+        }
+
+        if (currentCharaData != null)
+        {
+            dialogText.font = currentCharaData.characterFont;
+        }
 
         UI_DialogSpeechBubble speechBubble = Global.Pool.GetItem<UI_DialogSpeechBubble>();
         speechBubble.InitBubble(currentCharaData, (DialogType)dialog.dialogInfos[index].type,
@@ -191,11 +219,6 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
                     chara.transform.localScale = new Vector2(Mathf.Abs(chara.transform.localScale.x), chara.transform.localScale.y);
                     chara.transform.position = rightTrm.transform.position;
                 }
-
-                Vector3 arrowPos = dialog.dialogInfos[index].type == (int)DialogType.TALKLEFT ?
-                    leftTrm.transform.position :
-                    rightTrm.transform.position;
-                speechBubbleArrow.transform.position = new Vector3(arrowPos.x, speechBubbleArrow.transform.position.y);
 
                 chara.gameObject.SetActive(true);
 
@@ -221,13 +244,14 @@ public class DialogPanel : MonoBehaviour, IPointerClickHandler
 
     public void SetTextStyle(CharacterTextStyle textStyle)
     {
-        for (int i = 0; i < characterTextStyles.Length; i++)
+        if(currentNameTextStyles != null)
         {
-            characterTextStyles[i].gameObject.SetActive(false);
+            currentNameTextStyles.gameObject.SetActive(false);
         }
 
         charaTextStyleDic[textStyle].gameObject.SetActive(true);
         currentNameTextStyles = charaTextStyleDic[textStyle];
+        currentNameTextStyles.gameObject.SetActive(true);
     }
 
     public void SetCharacterColor(Image chara, Color color)

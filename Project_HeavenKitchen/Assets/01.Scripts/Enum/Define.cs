@@ -15,6 +15,7 @@ public class Define
     #region 다이얼로그
     public enum DialogType
     {
+        NARRATION = 0,
         TALKLEFT = 1,
         TALKRIGHT = 2,
         ACTIONEVENT = 3,
@@ -30,7 +31,8 @@ public class Define
     public enum CharacterTextStyle
     {
         DEFAULT = 0,
-        OLIVE = 1
+        HIDDEN = 1,
+        OLIVE = 2
     }
     #endregion
 
@@ -84,7 +86,8 @@ public class Define
         URGENT = 2,
         FEISTY = 4,
         PATIENT = 8,
-        TALKATIVE = 16
+        TALKATIVE = 16,
+        VERYGENEROUS = 32,
     }
 
     public enum TimerInterval

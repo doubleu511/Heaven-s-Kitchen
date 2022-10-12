@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PromoteManager : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class PromoteManager : MonoBehaviour
     public Sprite statArrowRedDown;
     public Sprite statArrowBlueUp;
     public Sprite statArrowBlueDown;
+
+    [Header("Test")]
+    public CanvasGroup blackFadeScreen;
 
     private void Awake()
     {
@@ -69,7 +73,18 @@ public class PromoteManager : MonoBehaviour
         else
         {
             print("한달이 끝남!");
+            Time.timeScale = 1;
+            Global.UI.UIFade(Promote.blackFadeScreen, Define.UIFadeType.IN, 1, false, () =>
+             {
+                 Promote.StartCoroutine(GoToKitchen());
+             });
         }
+    }
+
+    private static IEnumerator GoToKitchen()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("Cooking");
     }
 
     private static void PromoteOff()

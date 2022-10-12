@@ -12,6 +12,7 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
 {
     private CanvasGroup dialogPanel;
     private CookingDialogEvents dialogEvents;
+    public static bool useWaitFlag = false;
     public static bool eventWaitFlag = false;
 
     [Header("Dialog")]
@@ -81,21 +82,31 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
             currentDialog = dialog;
             dialogTextWobble.StopWobble();
             ShowText(TranslationManager.Instance.GetLangDialog(dialog.tranlationId), (TextAnimationType)dialog.text_animation_type);
+            SetCharacterFace(currentGuest, dialog.faceIndex);
 
-            textEndArrow.gameObject.SetActive(string.IsNullOrEmpty(dialog.eventMethod));
             textEndArrow.color = new Color(1, 1, 1, 0);
             Global.UI.UIFade(dialogPanel, true);
 
             // 이벤트가 걸리는지 확인
             if (EventTest(dialog))
             {
+                textEndArrow.gameObject.SetActive(string.IsNullOrEmpty(dialog.eventMethod) || !useWaitFlag);
                 yield return new WaitUntil(() => isTextEnd);
-                dialogEvents.OnTextEnd();
-                Global.UI.UIFade(dialogPanel, false);
-                yield return new WaitUntil(() => !eventWaitFlag);
+                if (useWaitFlag)
+                {
+                    dialogEvents.OnTextEnd();
+                    Global.UI.UIFade(dialogPanel, false);
+                    yield return new WaitUntil(() => !eventWaitFlag);
+                }
+                else
+                {
+                    textEndArrow.color = Color.white;
+                    yield return new WaitUntil(() => isClicked);
+                }
             }
             else
             {
+                textEndArrow.gameObject.SetActive(string.IsNullOrEmpty(dialog.eventMethod) || !useWaitFlag);
                 yield return new WaitUntil(() => isTextEnd);
                 textEndArrow.color = Color.white;
                 yield return new WaitUntil(() => isClicked);
@@ -123,15 +134,26 @@ public class CookingDialogPanel : MonoBehaviour, IPointerClickHandler
         currentGuest = guest;
         guestPortrait.sprite = currentGuest.guestPortrait;
 
+        SetCharacterFace(currentGuest, 0);
+
         int randomName = Random.Range(0, currentGuest.guestNameTranslationIds.Length);
         guestNameText.text = TranslationManager.Instance.GetLangDialog(currentGuest.guestNameTranslationIds[randomName]);
     }
 
-    public void SetCharacterFace(Image chara, CharacterSO charaData, int faceIndex)
+    public void SetCharacterFace(GuestSO guestData, int faceIndex)
     {
-        Image faceTrm = chara.transform.Find("FaceImg").GetComponent<Image>();
+        Image faceTrm = guestPortrait.transform.Find("FaceImg").GetComponent<Image>();
 
-        faceTrm.sprite = charaData.faceBox[faceIndex];
+        if (guestData.faceBox.Length > 0)
+        {
+            faceTrm.gameObject.SetActive(true);
+            faceTrm.rectTransform.anchoredPosition = guestData.faceRectPos;
+            faceTrm.sprite = guestData.faceBox[faceIndex];
+        }
+        else
+        {
+            faceTrm.gameObject.SetActive(false);
+        }
     }
 
     public void SetQuitMessage(int[] translationId)
