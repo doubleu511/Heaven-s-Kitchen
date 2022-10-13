@@ -38,7 +38,7 @@ public class StatHandler : MonoBehaviour
     #endregion
 
     public static int stressMax = 100;
-    public static event Action<StatType, bool> onStatChanged;
+    public static Action<StatType, bool> onStatChanged;
 
     public static bool TryResultFromStress()
     {

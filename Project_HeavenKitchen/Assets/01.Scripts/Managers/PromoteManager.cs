@@ -74,6 +74,7 @@ public class PromoteManager : MonoBehaviour
         {
             print("한달이 끝남!");
             Time.timeScale = 1;
+            PromoteManager.PromoteScheduleList.Clear();
             Global.UI.UIFade(Promote.blackFadeScreen, Define.UIFadeType.IN, 1, false, () =>
              {
                  Promote.StartCoroutine(GoToKitchen());

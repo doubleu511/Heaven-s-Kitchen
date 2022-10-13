@@ -53,22 +53,7 @@ public class MinigameHandler : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
         memoHandler = FindObjectOfType<MemoHandler>();
 
-        minigameExitButton.onClick.AddListener(() =>
-        {
-            Global.UI.UIFade(canvasGroup, false);
-
-            for (int i = 0; i < curPlayingMinigames.Count; i++)
-            {
-                curPlayingMinigames[i].OnWindowClose();
-            }
-            CookingManager.Global.CurrentUtensils = null;
-            curUtensilsCanvasTrm = null;
-            for (int i = 0; i < minigameListContentTrm.childCount; i++)
-            {
-                minigameListContentTrm.GetChild(i).gameObject.SetActive(false);
-            }
-            InventorySync();
-        });
+        minigameExitButton.onClick.AddListener(CloseWindow);
     }
 
     private void Start()
@@ -90,6 +75,14 @@ public class MinigameHandler : MonoBehaviour
         for(int i =0; i<curPlayingMinigames.Count;i++)
         {
             curPlayingMinigames[i].minigameParent.SetProcessBar(curPlayingMinigames[i].GetProcressValue());
+        }
+
+        if(CookingManager.Global.CurrentUtensils != null)
+        {
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                CloseWindow();
+            }
         }
     }
 
@@ -218,6 +211,23 @@ public class MinigameHandler : MonoBehaviour
         game.minigameParent.HideProcessBar();
         curPlayingMinigames.Remove(game);
         LoadInventory();
+    }
+
+    public void CloseWindow()
+    {
+        Global.UI.UIFade(canvasGroup, false);
+
+        for (int i = 0; i < curPlayingMinigames.Count; i++)
+        {
+            curPlayingMinigames[i].OnWindowClose();
+        }
+        CookingManager.Global.CurrentUtensils = null;
+        curUtensilsCanvasTrm = null;
+        for (int i = 0; i < minigameListContentTrm.childCount; i++)
+        {
+            minigameListContentTrm.GetChild(i).gameObject.SetActive(false);
+        }
+        InventorySync();
     }
 
     private void UtensilsSort()

@@ -13,6 +13,7 @@ public class TutorialPanel : MonoBehaviour
     {
         restartButton.onClick.AddListener(() =>
         {
+            DG.Tweening.DOTween.KillAll();
             SceneManager.LoadScene("Title");
         });
     }

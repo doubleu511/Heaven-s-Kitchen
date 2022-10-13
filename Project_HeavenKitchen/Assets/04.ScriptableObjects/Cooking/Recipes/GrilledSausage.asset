@@ -15,7 +15,7 @@ MonoBehaviour:
   recipeNameTranslationId: 302
   foodIngredient: {fileID: 11400000, guid: 7148ceec7afccbc45a27d050de1dc3df, type: 2}
   foodPrice: 400
-  averageCookingTime: 100
+  averageCookingTime: 200
   recipe:
   - minigameNameTranslationId: 403
     minigameType: 2
