@@ -29,8 +29,7 @@ public class CounterHandler : MonoBehaviour
     [SerializeField] CounterTimeBarUI[] timeBarUis;
 
     [SerializeField] Animator guestAnimator;
-    [SerializeField] GuestSO uncle; // Temp
-    [SerializeField] GuestSO uncle_end; // Temp
+
     [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
     private int textIndex = -1; //realTemp;
     private Queue<GuestSO> guestQueue = new Queue<GuestSO>();
@@ -175,12 +174,7 @@ public class CounterHandler : MonoBehaviour
             {
                 if (!isDayTimeOver)
                 {
-                    if (textIndex == -1) // 완전 전시회를 위한 코드.
-                    {
-                        guestQueue.Enqueue(uncle);
-                        textIndex = 0;
-                    }
-                    else if (textIndex < allGuests.Count)
+                    if (textIndex < allGuests.Count)
                     {
                         guestQueue.Enqueue(allGuests[textIndex]);
                         textIndex++;
@@ -263,7 +257,6 @@ public class CounterHandler : MonoBehaviour
             // 영업 종료!
             isDayTimeOver = true;
             timeOverText.gameObject.SetActive(true);
-            guestQueue.Enqueue(uncle_end);
         }
     }
 
