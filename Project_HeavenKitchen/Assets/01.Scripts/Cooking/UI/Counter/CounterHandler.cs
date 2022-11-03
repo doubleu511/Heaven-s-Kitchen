@@ -31,7 +31,7 @@ public class CounterHandler : MonoBehaviour
     [SerializeField] Animator guestAnimator;
 
     [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
-    private int textIndex = -1; //realTemp;
+    private int textIndex = 0; //realTemp;
     private Queue<GuestSO> guestQueue = new Queue<GuestSO>();
 
     [Header("WindowUI")]

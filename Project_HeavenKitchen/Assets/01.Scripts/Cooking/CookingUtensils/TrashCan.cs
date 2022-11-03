@@ -11,7 +11,7 @@ public class TrashCan : MinigameStarter
     [SerializeField] Transform trashCap;
     [SerializeField] Transform trashPanel;
 
-    public DeleteDragableUI trashCanUI;
+    public RequestUI trashCanUI;
 
     private AudioSource audioSource;
     private bool isOpen = false;
@@ -24,10 +24,11 @@ public class TrashCan : MinigameStarter
 
     protected override void Start()
     {
-        trashCanUI.onDelete += (ingredient) =>
+        trashCanUI.onRequested += (ingredient) =>
         {
             ThrowTrash(ingredient);
         };
+        trashCanUI.cleanIngredientOnRequested = true;
     }
 
     public override void OnInteract()
