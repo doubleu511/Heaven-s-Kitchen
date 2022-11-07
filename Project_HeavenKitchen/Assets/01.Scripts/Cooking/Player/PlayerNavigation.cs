@@ -65,21 +65,21 @@ public class PlayerNavigation : MonoBehaviour
 
                         if (isHaveDish)
                         {
-                            RotateToTarget(counter.transform);
+                            RotateToTarget(counter.transform); // 모든 준비 끝! 카운터로
                         }
                         else
                         {
-                            RotateToTarget(dish.transform);
+                            RotateToTarget(dish.transform); // 접시가 없으면 접시로
                         }
                     }
                     else
                     {
-                        RotateToTarget(counter.transform);
+                        RotateToTarget(counter.transform); // 음식이 아니라면 카운터로
                     }
                 }
                 else
                 {
-                    RotateToTarget(counter.transform);
+                    RotateToTarget(counter.transform); // 레시피가 없으면 카운터로
                 }
             }
             else

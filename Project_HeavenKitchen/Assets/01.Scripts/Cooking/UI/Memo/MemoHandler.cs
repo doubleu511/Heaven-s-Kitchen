@@ -27,8 +27,9 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
     RecipeSO[] recipes = new RecipeSO[0];
     int currentRecipeIndex = 0;
 
-    private MinigameInfo currentTargetMinigame;
-    private IngredientSO currentTargetIngredient;
+    // 네비게이션용 변수들!
+    private MinigameInfo currentTargetMinigame;    // 현재 가야하는 미니게임 (NULL이면 카운터)
+    private IngredientSO currentTargetIngredient;  // 현재 가져가야하는 재료 (NULL이면 현재 주방기구)
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        // 처음 시작할땐 레시피가 없지.
         CookingManager.Global.OnRecipeAdded += OnRecipeAdded;
         memoRecipeNameText.text = "레시피 없음";
         memoPostIt.gameObject.SetActive(false);
@@ -45,6 +47,8 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
 
     private void OnRecipeAdded()
     {
+        // 레시피가 추가되었을 때
+
         recipes = CookingManager.GetRecipes();
         currentRecipeIndex = 0;
 
@@ -55,6 +59,7 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
 
             if (recipes.Length > 1)
             {
+                // 만약 레시피가 두개 이상이면, 뒷쪽 사이즈도 표시해준다.
                 int nextRecipeIndex = (currentRecipeIndex + 1) % recipes.Length;
                 BackInit(nextRecipeIndex);
             }
@@ -64,6 +69,8 @@ public class MemoHandler : MonoBehaviour, IPointerClickHandler
         }
         else
         {
+            // 레시피가 추가된게 아니고 사라진거라면... 메모지를 초기화한다.
+
             for (int i = 1; i < frontRecipePrefabBoxTrm.childCount; i++)
             {
                 frontRecipePrefabBoxTrm.GetChild(i).gameObject.SetActive(false);

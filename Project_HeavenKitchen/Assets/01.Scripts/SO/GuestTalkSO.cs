@@ -13,13 +13,14 @@ public class GuestTalkSO : ScriptableObject
         return filteredConditions.ToArray();
     }
 
+    //
     public void FilteringConditions()
     {
         filteredConditions.Clear();
 
         for(int i =0; i<conditions.Count;i++)
         {
-            if(conditions[i].specialTalkId == -1)
+            if(conditions[i].specialTalkId == -1) // -1이면 모든 상황에서 추가된다.
             {
                 filteredConditions.Add(conditions[i]);
             }
@@ -35,6 +36,7 @@ public class GuestTalkSO : ScriptableObject
         }
     }
 
+    // 만약 아이디가 특정 음식 아이디와 똑같다면, 꺼내온다.
     public bool IsHaveSpecialId(int id, out GuestTalkCondition specialTalk)
     {
         specialTalk = null;

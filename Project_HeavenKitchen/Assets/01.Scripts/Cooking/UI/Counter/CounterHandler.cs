@@ -14,10 +14,14 @@ public class CounterHandler : MonoBehaviour
     public float RemainTime { get; set; } = 0;
     public bool IsInCounter { get; set; } = false;
 
+    // 주문 타이머의 간격 (x,y,z로 자른다)
     public Vector3 TimerBarInterval { get; set; }
+    // 손님의 성격
     public GuestPersonality GuestPersonality { get; set; }
+    // 현재 타이머의 상태
     public TimerInterval BarIntervalIndex { get; set; } = TimerInterval.GREEN;
 
+    // 지금 타이머가 흐르는가, 시간이 얼마 없는가
     private bool isTimer = false;
     private bool isHurry = false;
 
@@ -30,10 +34,12 @@ public class CounterHandler : MonoBehaviour
 
     [SerializeField] Animator guestAnimator;
 
+    // 모든 손님의 풀
     [SerializeField] List<GuestSO> allGuests = new List<GuestSO>(); // Temp
     private int textIndex = 0; //realTemp;
     private Queue<GuestSO> guestQueue = new Queue<GuestSO>();
 
+    // 가게의 현재 시간(창문)UI -> 따로빼야할까??
     [Header("WindowUI")]
     [SerializeField] Image cuttonImg;
     [SerializeField] Image[] windowBGs;
@@ -45,14 +51,13 @@ public class CounterHandler : MonoBehaviour
     [SerializeField] Sprite sunsetBG;
     [SerializeField] Sprite duskBG;
 
+    // 카운터에서 음식을 낼때 접시 데코
     [Header("Deco")]
     [SerializeField] CounterDishUI counterDishPrefab;
     [SerializeField] Transform counterDishTrm;
     public GuestTalkInKitchenUI guestTalk;
-
-    [Header("Tuto")] // tEMP
-    [SerializeField] GameObject tuto1;
-
+    
+    // 오늘 날짜, 영업 종료 여부
     private DateTime todayDate;
     private bool isDayTimeOver = false;
     private float minuteTimer = 0f;
@@ -73,12 +78,6 @@ public class CounterHandler : MonoBehaviour
         goToCookingBtn.onClick.AddListener(() =>
         {
             SetScroll(false, false);
-
-            if (tuto1.activeSelf)
-            {
-                tuto1.SetActive(false);
-                JustDisappear();
-            }
         });
     }
 
@@ -112,7 +111,7 @@ public class CounterHandler : MonoBehaviour
                 TimerInterval currentIntervalIndex = GetTimerIntervalIndex();
                 if(currentIntervalIndex != BarIntervalIndex)
                 {
-                    // 수다
+                    // 수다스럽다면 구간을 지날때마다 일정 대화 출력
                     if (GuestPersonality == GuestPersonality.TALKATIVE)
                     {
                         GuestTalkCondition[] talkCondition = currentGuest.talkativeTalk.GetFilteredConditions();

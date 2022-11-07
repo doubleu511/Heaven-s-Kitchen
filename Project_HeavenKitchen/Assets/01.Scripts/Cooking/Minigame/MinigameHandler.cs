@@ -69,14 +69,17 @@ public class MinigameHandler : MonoBehaviour
 
     private void Update()
     {
+        // 프로그래스 값을 계속 러프한다.
         processValue = Mathf.Lerp(progressValue.transform.localScale.x, targetProcessValue, Time.deltaTime * 5);
         progressValue.transform.localScale = new Vector2(processValue, 1);
 
+        // 현재 진행중인 미니게임의 프로그래스 값을 계속 정해준다.
         for(int i =0; i<curPlayingMinigames.Count;i++)
         {
             curPlayingMinigames[i].minigameParent.SetProcessBar(curPlayingMinigames[i].GetProcressValue());
         }
 
+        // 만약 현재 요리 기구 UI가 켜저있다면, Esc를 눌렀을때 창을 닫는다.(PC전용)
         if(CookingManager.Global.CurrentUtensils != null)
         {
             if(Input.GetKeyDown(KeyCode.Escape))
@@ -88,6 +91,8 @@ public class MinigameHandler : MonoBehaviour
 
     public void ReceiveInfo(CookingUtensilsSO utensilsInfo, MinigameInfo[] info)
     {
+        // 현재 조리기구 정보와 그 조리기구의 모든 미니게임 정보를 받아온 후
+
         Global.UI.UIFade(canvasGroup, true);
         minigameNotExistTab.SetActive(info.Length == 0);
         minigameAlreadyPlayingTab.SetActive(false);
@@ -164,11 +169,15 @@ public class MinigameHandler : MonoBehaviour
 
     private void CallMinigameStartBtnOnClicked(CookingUtensilsSO utensilsInfo, MinigameInfo minigame, int minigameIndex)
     {
+        // 만약 미니게임 시작 버튼이 눌렸다면
+
+        // 먼저 길이가 다르면 리턴
         if (minigame.ingredients.Length != CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients.Length)
             return;
 
         bool isStartable = true;
 
+        // 재료가 다 같은지 확인후 시작한다.
         for (int i = 0; i < minigame.ingredients.Length; i++)
         {
             if(minigame.ingredients[i] != CookingManager.Global.CurrentUtensils.utensilsInventories[minigameIndex].ingredients[i])
@@ -215,6 +224,7 @@ public class MinigameHandler : MonoBehaviour
 
     public void CloseWindow()
     {
+        // 조리기구 창을 닫았을 때
         Global.UI.UIFade(canvasGroup, false);
 
         for (int i = 0; i < curPlayingMinigames.Count; i++)
@@ -232,6 +242,7 @@ public class MinigameHandler : MonoBehaviour
 
     private void UtensilsSort()
     {
+        // FRONT인 이름을 가진 오브젝트를 찾아 미니게임보다 위로오게 한다.
         Transform front = curUtensilsCanvasTrm.Find("FRONT");
         if(front)
         {
@@ -241,6 +252,7 @@ public class MinigameHandler : MonoBehaviour
 
     public void LoadInventory()
     {
+        // 현재 인벤토리를 조리기구 UI 인벤토리로 불러온다.
         PlayerInventoryTab[] playerInventoryTabs = CookingManager.Player.Inventory.GetInventory();
         for (int i = 0; i < inventoryTabs.Length; i++)
         {
@@ -298,6 +310,7 @@ public class MinigameHandler : MonoBehaviour
 
     public void ShowStartText(string text)
     {
+        // 미니게임 시작 텍스트 출력 (예: 섞어라! 뭉쳐라! 등)
         minigameStartText.text = text;
         minigameStartText.transform.DOKill();
         minigameStartText.transform.localScale = Vector2.zero;
