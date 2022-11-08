@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,8 @@ public class DragAndDropContainer : MonoBehaviour
     [SerializeField] Image dishImg;
     public IngredientSO savedIngredient;
     public TabInfo savedInfo;
+
+    public Action<bool> onDrag;
 
     private void Awake()
     {
@@ -46,11 +49,13 @@ public class DragAndDropContainer : MonoBehaviour
         if (value)
         {
             canvasGroup.alpha = 1;
+            onDrag?.Invoke(true);
         }
         else
         {
             canvasGroup.alpha = 0;
             CookingManager.Global.IngredientLore.HideLore();
+            onDrag?.Invoke(false);
         }
     }
 
